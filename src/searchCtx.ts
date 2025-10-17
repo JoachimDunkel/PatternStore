@@ -33,14 +33,22 @@ export async function getCurrentSearchState(): Promise<Partial<RegexPattern> | n
 }
 
 /**
- * Resolve placeholders like ${prompt:varname} in a string
+ * Resolve placeholders like ${prompt:varname} in multiple strings
+ * Prompts once per unique placeholder name and reuses the value
  */
-async function resolvePlaceholders(text: string): Promise<string | undefined> {
+async function resolvePlaceholdersMultiple(texts: string[]): Promise<string[] | undefined> {
   const RE = /\$\{prompt:([^}]+)\}/g;
-  const names = [...new Set(Array.from(text.matchAll(RE), m => m[1]))];
+  
+  // Collect all unique placeholder names across all texts
+  const allNames = new Set<string>();
+  for (const text of texts) {
+    Array.from(text.matchAll(RE), m => m[1]).forEach(name => allNames.add(name));
+  }
+  
   const vals: Record<string, string> = {};
   
-  for (const name of names) {
+  // Prompt once for each unique placeholder
+  for (const name of allNames) {
     const value = await vscode.window.showInputBox({ 
       prompt: `Value for ${name}`,
       placeHolder: name
@@ -51,7 +59,16 @@ async function resolvePlaceholders(text: string): Promise<string | undefined> {
     vals[name] = value;
   }
   
-  return text.replace(RE, (_, name) => vals[name] ?? "");
+  // Replace placeholders in all texts using the collected values
+  return texts.map(text => text.replace(RE, (_, name) => vals[name] ?? ""));
+}
+
+/**
+ * Resolve placeholders like ${prompt:varname} in a string (single text version)
+ */
+async function resolvePlaceholders(text: string): Promise<string | undefined> {
+  const result = await resolvePlaceholdersMultiple([text]);
+  return result ? result[0] : undefined;
 }
 
 /**
@@ -59,27 +76,37 @@ async function resolvePlaceholders(text: string): Promise<string | undefined> {
  */
 export async function loadPatternIntoSearch(pattern: RegexPattern): Promise<void> {
   try {
-    // Resolve placeholders
-    const find = await resolvePlaceholders(pattern.find);
-    if (find === undefined) {
+    // Check if we have replace text
+    const hasReplace = pattern.replace && pattern.replace.trim().length > 0;
+    
+    // Resolve placeholders in both find and replace at once (to prompt only once per placeholder)
+    const textsToResolve = hasReplace ? [pattern.find, pattern.replace!] : [pattern.find];
+    const resolved = await resolvePlaceholdersMultiple(textsToResolve);
+    
+    if (!resolved) {
       return; // User cancelled
     }
     
-    const replace = await resolvePlaceholders(pattern.replace);
-    if (replace === undefined) {
-      return; // User cancelled
-    }
+    const find = resolved[0];
+    const replace = hasReplace ? resolved[1] : '';
     
-    // Use VS Code's built-in command to open search with parameters
-    await vscode.commands.executeCommand("workbench.action.findInFiles", {
+    // Prepare command arguments
+    const commandArgs: any = {
       query: find,
-      replace: replace,
       triggerSearch: false, // Don't auto-trigger search
       isRegex: pattern.flags.isRegex,
       isCaseSensitive: pattern.flags.isCaseSensitive,
       matchWholeWord: pattern.flags.matchWholeWord,
       preserveCase: false,
-    });
+    };
+    
+    // Only include replace if it's not empty
+    if (hasReplace) {
+      commandArgs.replace = replace;
+    }
+    
+    // Use VS Code's built-in command to open search with parameters
+    await vscode.commands.executeCommand("workbench.action.findInFiles", commandArgs);
     
     vscode.window.showInformationMessage(`✅ Loaded pattern: "${pattern.label}"`);
     

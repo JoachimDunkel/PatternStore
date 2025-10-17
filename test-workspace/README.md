@@ -11,7 +11,7 @@ This workspace contains example files for testing the PatternStore extension.
 - Replace: `<$1>`
 - Result: Converts `#include "iostream"` to `#include <iostream>`
 
-### 2. TODO to FIXME
+### 2. TODO
 **Pattern:** `TODO` → `FIXME`
 - Open any file
 - Search: `TODO` (whole word match)
@@ -44,7 +44,7 @@ This workspace contains example files for testing the PatternStore extension.
 
 1. **Open this workspace** in the Extension Development Host
 2. **Press `Ctrl+Alt+R`** to load a pattern
-3. **Select "TODO to FIXME"**
+3. **Select "TODO"**
 4. **Press `Ctrl+H`** to see the replacements
 5. **Click "Replace All"** to apply changes
 

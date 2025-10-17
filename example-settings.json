@@ -13,9 +13,8 @@
       "scope": "global"
     },
     {
-      "label": "TODO to FIXME",
+      "label": "TODO",
       "find": "TODO",
-      "replace": "FIXME",
       "flags": {
         "isRegex": false,
         "isCaseSensitive": true,
@@ -26,12 +25,23 @@
     },
     {
       "label": "Dynamic module import",
-      "find": "\"${prompt:module}([^\"]*)\"",
+      "find": "${prompt:module}([^\"]*)",
       "replace": "<${prompt:module}$1>",
       "flags": {
         "isRegex": true,
         "isCaseSensitive": true,
         "matchWholeWord": false,
+        "isMultiline": false
+      },
+      "scope": "global"
+    },
+    {
+      "label": "Find all TODOs (no replace)",
+      "find": "TODO",
+      "flags": {
+        "isRegex": false,
+        "isCaseSensitive": true,
+        "matchWholeWord": true,
         "isMultiline": false
       },
       "scope": "global"

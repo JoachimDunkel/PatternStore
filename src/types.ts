@@ -6,8 +6,8 @@ export interface RegexPattern {
   label: string;
   /** Raw regex source or plain text find string */
   find: string;
-  /** Replacement string (may contain placeholders like ${prompt:name}) */
-  replace: string;
+  /** Replacement string (may contain placeholders like ${prompt:name}). Optional - if omitted, only find is performed. */
+  replace?: string;
   /** Search flags */
   flags: {
     isRegex: boolean;

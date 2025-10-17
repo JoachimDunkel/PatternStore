@@ -5,7 +5,7 @@ import { Component } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
-// Test Pattern: "TODO to FIXME"
+// Test Pattern: "TODO"
 // TODO: Add TypeScript types
 // TODO: Implement error boundaries
 // TODO: Add unit tests

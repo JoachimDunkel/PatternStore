@@ -46,7 +46,7 @@ Copy patterns from `example-settings.json` to your settings:
 ## 📋 Testing Checklist
 
 Test these scenarios:
-- [ ] Load a simple pattern (TODO to FIXME)
+- [ ] Load a simple pattern (TODO)
 - [ ] Load a regex pattern (Import quotes to angles)
 - [ ] Load a pattern with placeholders (Dynamic module import)
 - [ ] Rename a pattern via Manage

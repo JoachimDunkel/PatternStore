@@ -8,9 +8,7 @@
 #include "algorithm"
 #include "map"
 
-#include "geometry/nested_namespace/header.h"
-
-// Test Pattern: "TODO to FIXME"
+// Test Pattern: "TODO"
 // This pattern converts TODO comments to FIXME
 // TODO: Implement error handling
 // TODO: Add unit tests

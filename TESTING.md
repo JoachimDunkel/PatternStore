@@ -56,7 +56,7 @@ Copy the patterns from `example-settings.json` and add them to your VS Code sett
 The `example-settings.json` includes:
 
 1. **Import quotes to angles** - Converts "header.h" to <header.h> using regex
-2. **TODO to FIXME** - Simple text replacement
+2. **TODO** - Simple text replacement
 3. **Dynamic module import** - Uses `${prompt:module}` placeholder
 4. **Workspace specific pattern** - Example workspace pattern
 

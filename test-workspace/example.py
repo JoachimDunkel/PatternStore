@@ -2,7 +2,7 @@
 Example Python file for testing PatternStore patterns
 """
 
-# Test Pattern: "TODO to FIXME"
+# Test Pattern: "TODO"
 # TODO: Add type hints
 # TODO: Implement error handling
 # TODO: Add logging
