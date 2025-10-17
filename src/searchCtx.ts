@@ -4,24 +4,32 @@ import { RegexPattern } from './types';
 /**
  * Get the current search state from the Search panel
  * Returns null if unable to get the state
+ * 
+ * NOTE: VS Code doesn't expose search panel state via API.
+ * This function tries to use editor selection as fallback.
  */
 export async function getCurrentSearchState(): Promise<Partial<RegexPattern> | null> {
-  // TODO: Implement getting current search state
-  // This is tricky - VS Code doesn't expose search panel state directly
-  console.log('[SearchCtx] getCurrentSearchState called');
+  // Try to get selected text from active editor
+  const editor = vscode.window.activeTextEditor;
+  const selection = editor?.document.getText(editor.selection);
   
-  // For now, return dummy data
-  vscode.window.showInformationMessage('Getting current search state (not implemented yet)');
-  return {
-    find: 'example-find',
-    replace: 'example-replace',
-    flags: {
-      isRegex: true,
-      isCaseSensitive: false,
-      matchWholeWord: false,
-      isMultiline: false
-    }
-  };
+  if (selection && selection.length > 0) {
+    // Use selection as find text
+    return {
+      find: selection,
+      replace: '',
+      flags: {
+        isRegex: false,
+        isCaseSensitive: false,
+        matchWholeWord: false,
+        isMultiline: false
+      }
+    };
+  }
+  
+  // No selection available - return null
+  // User will need to enter manually
+  return null;
 }
 
 /**
@@ -47,35 +55,36 @@ async function resolvePlaceholders(text: string): Promise<string | undefined> {
 }
 
 /**
- * Load a pattern into the Search panel
+ * Load a pattern into the Search panel using VS Code's findInFiles command
  */
 export async function loadPatternIntoSearch(pattern: RegexPattern): Promise<void> {
-  console.log('[SearchCtx] loadPatternIntoSearch called:', pattern.label);
-  
-  // Resolve placeholders
-  const find = await resolvePlaceholders(pattern.find);
-  if (find === undefined) {
-    return; // User cancelled
+  try {
+    // Resolve placeholders
+    const find = await resolvePlaceholders(pattern.find);
+    if (find === undefined) {
+      return; // User cancelled
+    }
+    
+    const replace = await resolvePlaceholders(pattern.replace);
+    if (replace === undefined) {
+      return; // User cancelled
+    }
+    
+    // Use VS Code's built-in command to open search with parameters
+    await vscode.commands.executeCommand("workbench.action.findInFiles", {
+      query: find,
+      replace: replace,
+      triggerSearch: false, // Don't auto-trigger search
+      isRegex: pattern.flags.isRegex,
+      isCaseSensitive: pattern.flags.isCaseSensitive,
+      matchWholeWord: pattern.flags.matchWholeWord,
+      preserveCase: false,
+    });
+    
+    vscode.window.showInformationMessage(`✅ Loaded pattern: "${pattern.label}"`);
+    
+  } catch (error) {
+    vscode.window.showErrorMessage(`Failed to load pattern: ${error}`);
+    throw error;
   }
-  
-  const replace = await resolvePlaceholders(pattern.replace);
-  if (replace === undefined) {
-    return; // User cancelled
-  }
-  
-  // TODO: Use the actual VS Code command to open search with parameters
-  vscode.window.showInformationMessage(
-    `Would load pattern "${pattern.label}" into search (not implemented yet)\nFind: ${find}\nReplace: ${replace}`
-  );
-  
-  // This is the command we'll use when implementing:
-  // await vscode.commands.executeCommand("workbench.action.findInFiles", {
-  //   query: find,
-  //   replace: replace,
-  //   triggerSearch: false,
-  //   isRegex: pattern.flags.isRegex,
-  //   isCaseSensitive: pattern.flags.isCaseSensitive,
-  //   matchWholeWord: pattern.flags.matchWholeWord,
-  //   preserveCase: false,
-  // });
 }

@@ -15,15 +15,18 @@
     "commands": [
       {
         "command": "patternStore.save",
-        "title": "PatternStore: Save Pattern"
+        "title": "PatternStore: Save Pattern",
+        "icon": "$(save)"
       },
       {
         "command": "patternStore.load",
-        "title": "PatternStore: Load Pattern"
+        "title": "PatternStore: Load Pattern",
+        "icon": "$(folder-opened)"
       },
       {
         "command": "patternStore.manage",
-        "title": "PatternStore: Manage Patterns"
+        "title": "PatternStore: Manage Patterns",
+        "icon": "$(settings-gear)"
       }
     ],
     "configuration": {
@@ -88,7 +91,21 @@
         "key": "ctrl+alt+r",
         "mac": "cmd+alt+r"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "patternStore.load",
+          "when": "view == workbench.view.search",
+          "group": "navigation"
+        },
+        {
+          "command": "patternStore.save",
+          "when": "view == workbench.view.search",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

@@ -1,0 +1,54 @@
+{
+  "patternStore.savedPatterns": [
+    {
+      "label": "Import quotes to angles",
+      "find": "\"([^\"]+)\"",
+      "replace": "<$1>",
+      "flags": {
+        "isRegex": true,
+        "isCaseSensitive": false,
+        "matchWholeWord": false,
+        "isMultiline": false
+      },
+      "scope": "global"
+    },
+    {
+      "label": "TODO to FIXME",
+      "find": "TODO",
+      "replace": "FIXME",
+      "flags": {
+        "isRegex": false,
+        "isCaseSensitive": true,
+        "matchWholeWord": true,
+        "isMultiline": false
+      },
+      "scope": "global"
+    },
+    {
+      "label": "Dynamic module import",
+      "find": "\"${prompt:module}([^\"]*)\"",
+      "replace": "<${prompt:module}$1>",
+      "flags": {
+        "isRegex": true,
+        "isCaseSensitive": true,
+        "matchWholeWord": false,
+        "isMultiline": false
+      },
+      "scope": "global"
+    }
+  ],
+  "patternStore.workspacePatterns": [
+    {
+      "label": "Workspace specific pattern",
+      "find": "oldClass",
+      "replace": "newClass",
+      "flags": {
+        "isRegex": false,
+        "isCaseSensitive": true,
+        "matchWholeWord": true,
+        "isMultiline": false
+      },
+      "scope": "workspace"
+    }
+  ]
+}

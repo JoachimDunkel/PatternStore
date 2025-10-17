@@ -116,8 +116,6 @@ async function savePatternCommand(): Promise<void> {
  */
 async function loadPatternCommand(): Promise<void> {
   try {
-    vscode.window.showInformationMessage('PatternStore: Load Pattern command executed!');
-    
     // Get all patterns
     const patterns = storage.getAllPatterns();
     
@@ -156,8 +154,6 @@ async function loadPatternCommand(): Promise<void> {
  */
 async function managePatternsCommand(): Promise<void> {
   try {
-    vscode.window.showInformationMessage('PatternStore: Manage Patterns command executed!');
-    
     // Get all patterns
     const patterns = storage.getAllPatterns();
     
