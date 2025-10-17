@@ -29,7 +29,9 @@ Welcome to PatternStore! Use this index to find what you need.
 | File | Purpose | When to Read |
 |------|---------|--------------|
 | **[ROADMAP.md](ROADMAP.md)** | Future features, implementation plan | Next coding session |
+| **[NEXT_SESSION.md](NEXT_SESSION.md)** | **START HERE for next session!** Step-by-step guide | Before next session |
 | **[SESSION_SUMMARY.md](SESSION_SUMMARY.md)** | What we built today | Review session results |
+| **[ARCHITECTURE.md](ARCHITECTURE.md)** | System design, data flow diagrams | Understanding architecture |
 | **[IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md)** | Current status, what works | Understanding current state |
 | **[TESTING.md](TESTING.md)** | How to test the extension | Testing & debugging |
 | **[project-specs.md](project-specs.md)** | Original specifications | Understanding requirements |
@@ -100,13 +102,17 @@ src/
 
 Before starting next session:
 
-- [ ] Read `ROADMAP.md` completely
-- [ ] Review `SESSION_SUMMARY.md` → "What We Built"
-- [ ] Check `src/searchCtx.ts` for current implementation
-- [ ] Review VS Code Webview API documentation
-- [ ] Prepare development environment (`npm install`)
+- [ ] **Read `NEXT_SESSION.md` FIRST** - Complete step-by-step guide
+- [ ] Read `ROADMAP.md` for feature overview
+- [ ] Review `ARCHITECTURE.md` for system design
+- [ ] Check `SESSION_SUMMARY.md` for what we built
+- [ ] Prepare development environment (`npm install`, `npm run compile`)
 
 **Primary Goal:** Implement Save Pattern webview dialog
+
+**Time Estimate:** 90 minutes
+
+**Start Here:** `NEXT_SESSION.md` → "Before You Start"
 
 ---
 
