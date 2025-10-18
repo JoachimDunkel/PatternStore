@@ -119,6 +119,7 @@ export class WebviewManager {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manage Patterns</title>
+  <link href="https://unpkg.com/@vscode/codicons/dist/codicon.css" rel="stylesheet" />
   <style>
     body {
       padding: 0;
@@ -173,10 +174,38 @@ export class WebviewManager {
       opacity: 0.6;
       letter-spacing: 0.5px;
       margin-top: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+    
+    .section-header:hover {
+      opacity: 0.8;
     }
     
     .section-header:first-child {
       margin-top: 0;
+    }
+    
+    .section-header .codicon {
+      font-size: 14px;
+      transition: transform 0.2s ease;
+    }
+    
+    .section-header.collapsed .codicon {
+      transform: rotate(-90deg);
+    }
+    
+    .section-content {
+      max-height: 10000px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .section-content.collapsed {
+      max-height: 0;
     }
     
     .pattern-item {
@@ -373,6 +402,19 @@ export class WebviewManager {
     let workspacePatterns = [];
     let userPatterns = [];
     
+    // Get collapse state from localStorage
+    const getCollapseState = (section) => {
+      const state = vscode.getState() || {};
+      return state[section + '_collapsed'] === true;
+    };
+    
+    // Save collapse state to localStorage
+    const setCollapseState = (section, collapsed) => {
+      const state = vscode.getState() || {};
+      state[section + '_collapsed'] = collapsed;
+      vscode.setState(state);
+    };
+    
     // Listen for messages from extension
     window.addEventListener('message', event => {
       const message = event.data;
@@ -399,21 +441,74 @@ export class WebviewManager {
       
       // Workspace section
       if (workspacePatterns.length > 0) {
-        html += '<div class="section-header">Workspace (' + workspacePatterns.length + ')</div>';
-        workspacePatterns.forEach(pattern => {
-          html += renderPatternItem(pattern);
-        });
+        const collapsed = getCollapseState('workspace');
+        html += renderSection('workspace', 'Workspace', workspacePatterns, collapsed);
       }
       
       // User section
       if (userPatterns.length > 0) {
-        html += '<div class="section-header">User (' + userPatterns.length + ')</div>';
-        userPatterns.forEach(pattern => {
-          html += renderPatternItem(pattern);
-        });
+        const collapsed = getCollapseState('user');
+        html += renderSection('user', 'User', userPatterns, collapsed);
       }
       
       listContainer.innerHTML = html;
+      
+      // Attach click handlers to section headers
+      document.querySelectorAll('.section-header').forEach(header => {
+        header.addEventListener('click', toggleSection);
+      });
+    }
+    
+    /**
+     * Render a collapsible section
+     */
+    function renderSection(id, title, patterns, collapsed) {
+      const chevron = collapsed ? 'codicon-chevron-right' : 'codicon-chevron-down';
+      const contentClass = collapsed ? 'section-content collapsed' : 'section-content';
+      
+      let html = \`
+        <div class="section-header \${collapsed ? 'collapsed' : ''}" data-section="\${id}">
+          <i class="codicon \${chevron}"></i>
+          <span>\${title} (\${patterns.length})</span>
+        </div>
+        <div class="\${contentClass}" data-section-content="\${id}">
+      \`;
+      
+      patterns.forEach(pattern => {
+        html += renderPatternItem(pattern);
+      });
+      
+      html += '</div>';
+      return html;
+    }
+    
+    /**
+     * Toggle section collapsed state
+     */
+    function toggleSection(event) {
+      const header = event.currentTarget;
+      const sectionId = header.dataset.section;
+      const content = document.querySelector('[data-section-content="' + sectionId + '"]');
+      const chevron = header.querySelector('.codicon');
+      
+      // Toggle collapsed state
+      const isCollapsed = header.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        // Expand
+        header.classList.remove('collapsed');
+        content.classList.remove('collapsed');
+        chevron.classList.remove('codicon-chevron-right');
+        chevron.classList.add('codicon-chevron-down');
+        setCollapseState(sectionId, false);
+      } else {
+        // Collapse
+        header.classList.add('collapsed');
+        content.classList.add('collapsed');
+        chevron.classList.remove('codicon-chevron-down');
+        chevron.classList.add('codicon-chevron-right');
+        setCollapseState(sectionId, true);
+      }
     }
     
     /**
