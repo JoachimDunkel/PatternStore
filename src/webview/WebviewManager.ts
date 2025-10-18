@@ -191,7 +191,7 @@ export class WebviewManager {
     
     .section-header .codicon {
       font-size: 14px;
-      transition: transform 0.2s ease;
+      transition: transform 0.1s ease;
     }
     
     .section-header.collapsed .codicon {
@@ -201,7 +201,7 @@ export class WebviewManager {
     .section-content {
       max-height: 10000px;
       overflow: hidden;
-      transition: max-height 0.3s ease;
+      transition: max-height 0.15s ease;
     }
     
     .section-content.collapsed {
