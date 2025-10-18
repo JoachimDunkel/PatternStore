@@ -40,358 +40,159 @@
 ---
 
 ## 🎯 Implementation Plan
-cd /home/dunkel3/git/privat/PatternStore
-mkdir -p src/webview
-```
 
-#### 1.2 Create `src/webview/editPattern.html`
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* VS Code theme colors */
-        body { font-family: var(--vscode-font-family); padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, textarea { width: 100%; padding: 5px; }
-        textarea { min-height: 60px; }
-        .checkbox-group { display: flex; gap: 15px; }
-        .button-group { margin-top: 20px; display: flex; gap: 10px; }
-        button { padding: 8px 16px; }
-    </style>
-</head>
-<body>
-    <form id="patternForm">
-        <div class="form-group">
-            <label>Pattern Name *</label>
-            <input type="text" id="label" required>
-        </div>
-        
-        <div class="form-group">
-            <label>Find *</label>
-            <textarea id="find" required></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label>Replace (optional)</label>
-            <textarea id="replace"></textarea>
-        </div>
-        
-        <div class="form-group">
-            <div class="checkbox-group">
-                <label><input type="checkbox" id="isRegex"> Regex</label>
-                <label><input type="checkbox" id="isCaseSensitive"> Case Sensitive</label>
-                <label><input type="checkbox" id="matchWholeWord"> Whole Word</label>
-                <label><input type="checkbox" id="isMultiline"> Multiline</label>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label>Scope</label>
-            <label><input type="radio" name="scope" value="global" checked> Global</label>
-            <label><input type="radio" name="scope" value="workspace"> Workspace</label>
-        </div>
-        
-        <div class="form-group">
-            <label>Files to Include (optional)</label>
-            <input type="text" id="filesToInclude" placeholder="e.g., *.ts, *.js">
-        </div>
-        
-        <div class="form-group">
-            <label>Files to Exclude (optional)</label>
-            <input type="text" id="filesToExclude" placeholder="e.g., *.test.ts, node_modules">
-        </div>
-        
-        <div class="button-group">
-            <button type="submit">Save</button>
-            <button type="button" id="saveAndLoad">Save & Load</button>
-            <button type="button" id="cancel">Cancel</button>
-        </div>
-    </form>
-    
-    <script>
-        const vscode = acquireVsCodeApi();
-        
-        document.getElementById('patternForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            savePattern(false);
-        });
-        
-        document.getElementById('saveAndLoad').addEventListener('click', () => {
-            savePattern(true);
-        });
-        
-        document.getElementById('cancel').addEventListener('click', () => {
-            vscode.postMessage({ command: 'cancel' });
-        });
-        
-        function savePattern(andLoad) {
-            const pattern = {
-                label: document.getElementById('label').value,
-                find: document.getElementById('find').value,
-                replace: document.getElementById('replace').value,
-                flags: {
-                    isRegex: document.getElementById('isRegex').checked,
-                    isCaseSensitive: document.getElementById('isCaseSensitive').checked,
-                    matchWholeWord: document.getElementById('matchWholeWord').checked,
-                    isMultiline: document.getElementById('isMultiline').checked
-                },
-                scope: document.querySelector('input[name="scope"]:checked').value,
-                filesToInclude: document.getElementById('filesToInclude').value,
-                filesToExclude: document.getElementById('filesToExclude').value
-            };
-            
-            vscode.postMessage({ 
-                command: andLoad ? 'saveAndLoad' : 'save', 
-                pattern 
-            });
-        }
-    </script>
-</body>
-</html>
-```
+See full detailed implementation steps in `ROADMAP.md` section:
+- Phase 1: Update Data Model (15 min)
+- Phase 2: Create Webview Structure (30 min)
+- Phase 3: Create JavaScript Logic (45 min)
+- Phase 4: Create WebviewManager (30 min)
+- Phase 5: Update Commands (15 min)
+- Phase 6: Testing (30 min)
 
-#### 1.3 Create `src/webview/WebviewManager.ts`
-```typescript
-import * as vscode from 'vscode';
-import * as storage from '../storage';
-import * as searchCtx from '../searchCtx';
-import { RegexPattern } from '../types';
-import * as path from 'path';
-import * as fs from 'fs';
-
-export class WebviewManager {
-    private panel: vscode.WebviewPanel | undefined;
-    
-    public async showEditDialog(context: vscode.ExtensionContext) {
-        // Create or show existing panel
-        if (this.panel) {
-            this.panel.reveal();
-            return;
-        }
-        
-        this.panel = vscode.window.createWebviewPanel(
-            'patternStoreEdit',
-            'Create Pattern',
-            vscode.ViewColumn.One,
-            {
-                enableScripts: true,
-                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src', 'webview'))]
-            }
-        );
-        
-        // Load HTML
-        const htmlPath = path.join(context.extensionPath, 'src', 'webview', 'editPattern.html');
-        this.panel.webview.html = fs.readFileSync(htmlPath, 'utf8');
-        
-        // Handle messages from webview
-        this.panel.webview.onDidReceiveMessage(async (message) => {
-            switch (message.command) {
-                case 'save':
-                    await this.savePattern(message.pattern, false);
-                    break;
-                case 'saveAndLoad':
-                    await this.savePattern(message.pattern, true);
-                    break;
-                case 'cancel':
-                    this.panel?.dispose();
-                    break;
-            }
-        });
-        
-        // Cleanup
-        this.panel.onDidDispose(() => {
-            this.panel = undefined;
-        });
-    }
-    
-    private async savePattern(pattern: any, andLoad: boolean) {
-        try {
-            // Clean up pattern
-            const cleanPattern: RegexPattern = {
-                label: pattern.label,
-                find: pattern.find,
-                replace: pattern.replace || undefined,
-                flags: pattern.flags,
-                scope: pattern.scope,
-                filesToInclude: pattern.filesToInclude || undefined,
-                filesToExclude: pattern.filesToExclude || undefined
-            };
-            
-            // Save to storage
-            await storage.savePattern(cleanPattern);
-            
-            // Optionally load into search
-            if (andLoad) {
-                await searchCtx.loadPatternIntoSearch(cleanPattern);
-            }
-            
-            // Close dialog
-            this.panel?.dispose();
-            
-        } catch (error) {
-            vscode.window.showErrorMessage(`Failed to save pattern: ${error}`);
-        }
-    }
-}
-```
-
-#### 1.4 Update `src/extension.ts`
-```typescript
-// Add at top
-import { WebviewManager } from './webview/WebviewManager';
-
-// In activate()
-const webviewManager = new WebviewManager();
-
-// Update savePatternCommand()
-async function savePatternCommand(): Promise<void> {
-    await webviewManager.showEditDialog(context);
-}
-
-// Pass context to activate
-export function activate(context: vscode.ExtensionContext) {
-    // ... existing code ...
-    
-    const saveCommand = vscode.commands.registerCommand('patternStore.save', async () => {
-        await webviewManager.showEditDialog(context);
-    });
-    
-    // ... rest of code ...
-}
-```
+**Total: ~2.5 hours**
 
 ---
 
-### Phase 2: File Scope
+## 🚦 Quick Start Steps
 
-#### 2.1 Update `src/types.ts`
-```typescript
-export interface RegexPattern {
-    // ... existing fields ...
-    filesToInclude?: string;
-    filesToExclude?: string;
-}
-```
+### Step 1: Add File Filters (15 min)
 
-#### 2.2 Update `src/searchCtx.ts`
-```typescript
-// In loadPatternIntoSearch()
-const commandArgs: any = {
-    query: find,
-    triggerSearch: false,
-    // ... existing flags ...
-};
+1. Update `src/types.ts`:
+   ```typescript
+   export interface RegexPattern {
+     // ... existing fields ...
+     filesToInclude?: string;
+     filesToExclude?: string;
+   }
+   ```
 
-// Add file scope if specified
-if (pattern.filesToInclude) {
-    commandArgs.filesToInclude = pattern.filesToInclude;
-}
-if (pattern.filesToExclude) {
-    commandArgs.filesToExclude = pattern.filesToExclude;
-}
+2. Update `src/searchCtx.ts` in `loadPatternIntoSearch()`:
+   ```typescript
+   await vscode.commands.executeCommand('workbench.action.findInFiles', {
+     // ... existing params ...
+     filesToInclude: pattern.filesToInclude,
+     filesToExclude: pattern.filesToExclude,
+   });
+   ```
 
-// Only include replace if not empty
-if (hasReplace) {
-    commandArgs.replace = replace;
-}
-```
+3. Update `package.json` schema (add to items.properties)
+
+4. Test: `npm run compile` → `F5` → Add test pattern with filters
 
 ---
 
-## Testing Checklist
+### Step 2: Create Webview Files (1 hour)
 
-### Webview Dialog Testing
-- [ ] Dialog opens when Save Pattern command is run
-- [ ] All form fields are functional
-- [ ] Validation works (required fields)
-- [ ] Save button creates pattern in settings.json
-- [ ] Save & Load button creates pattern AND loads it
-- [ ] Cancel button closes dialog without saving
-- [ ] Global scope saves to user settings
-- [ ] Workspace scope saves to workspace settings
+1. Create directory structure:
+   ```bash
+   mkdir -p src/webview/styles/components
+   mkdir -p src/webview/components  
+   mkdir -p src/webview/views
+   ```
 
-### File Scope Testing
-- [ ] Pattern with filesToInclude works
-- [ ] Pattern with filesToExclude works
-- [ ] Pattern with both filters works
-- [ ] Pattern without filters works (backward compatible)
-- [ ] Filters are passed to search panel correctly
+2. Create these files (full code in ROADMAP.md):
+   - `src/webview/views/managePatterns.html`
+   - `src/webview/styles/base.css`
+   - `src/webview/styles/layout.css`
+   - `src/webview/views/managePatterns.js`
+   - `src/webview/WebviewManager.ts`
 
----
-
-## Success Criteria
-
-✅ **Phase 1 Complete When:**
-- User can create patterns via webview dialog
-- Patterns save correctly to settings.json
-- "Save & Load" immediately loads the pattern
-- No manual JSON editing required
-
-✅ **Phase 2 Complete When:**
-- Patterns can specify file filters
-- Filters work correctly in search
-- Backward compatibility maintained
+3. Include Codicons in HTML:
+   ```html
+   <link href="https://unpkg.com/@vscode/codicons/dist/codicon.css" rel="stylesheet">
+   ```
 
 ---
 
-## Time Budget
+### Step 3: Update Extension Commands (15 min)
 
-| Task | Time | Running Total |
-|------|------|---------------|
-| Environment setup | 5 min | 5 min |
-| Documentation review | 10 min | 15 min |
-| Technical research | 10 min | 25 min |
-| Webview structure | 10 min | 35 min |
-| Webview form | 15 min | 50 min |
-| Message passing | 10 min | 60 min |
-| Webview testing | 10 min | 70 min |
-| File scope model | 5 min | 75 min |
-| File scope logic | 5 min | 80 min |
-| File scope examples | 5 min | 85 min |
-| File scope testing | 5 min | 90 min |
+1. Update `src/extension.ts`:
+   - Import `WebviewManager`
+   - Add two new commands: `manageUser` and `manageWorkspace`
+   - Remove or stub old `manage` command
 
-**Total Estimated Time:** 90 minutes (1.5 hours)
+2. Update `package.json`:
+   - Add `patternStore.manageUser` command
+   - Add `patternStore.manageWorkspace` command
+   - Update toolbar integration if needed
+
+3. Compile and test: `npm run compile` → `F5`
 
 ---
 
-## Resources
+## ✅ Testing Checklist
 
-**Key Files to Edit:**
-- `src/webview/editPattern.html` (new)
-- `src/webview/WebviewManager.ts` (new)
-- `src/extension.ts` (modify savePatternCommand)
-- `src/types.ts` (add file scope fields)
-- `src/searchCtx.ts` (add file scope parameters)
+### File Filters:
+- [ ] Pattern with `filesToInclude` only
+- [ ] Pattern with `filesToExclude` only
+- [ ] Pattern with both filters
+- [ ] Pattern with no filters (backward compat)
+- [ ] Complex patterns like `*.ts, *.tsx`
+- [ ] Glob patterns like `src/**`
 
-**Documentation to Reference:**
-- VS Code Webview API: https://code.visualstudio.com/api/extension-guides/webview
-- VS Code Configuration API: https://code.visualstudio.com/api/references/vscode-api#workspace
+### Webview Functionality:
+- [ ] Open Manage (User) command
+- [ ] Open Manage (Workspace) command
+- [ ] Search patterns in real-time
+- [ ] Clear search button works
+- [ ] Add new pattern via form
+- [ ] Edit existing pattern
+- [ ] Delete pattern with confirmation
+- [ ] Save button saves correctly
+- [ ] Save & Load button works
+- [ ] Cancel button closes editor
+- [ ] Icon buttons toggle on/off
+- [ ] Theme changes update colors
 
-**Example Code:**
-- Current `savePatternCommand()` in `src/extension.ts`
-- Current `loadPatternIntoSearch()` in `src/searchCtx.ts`
-
----
-
-## Quick Commands
-
-```bash
-# Compile
-npm run compile
-
-# Test (Press F5 in VS Code)
-
-# Check for errors
-npm run lint
-
-# Clean rebuild
-rm -rf out/ && npm run compile
-```
+### Integration:
+- [ ] New patterns appear in Load Pattern list
+- [ ] File filters apply when loading pattern
+- [ ] Placeholders still work correctly
+- [ ] Global/workspace scopes work
+- [ ] No TypeScript compilation errors
 
 ---
 
-**You're Ready! Let's Build This! 🚀**
+## 🐛 Common Issues & Solutions
+
+### Issue: Webview not showing
+**Solution:** Check CSP (Content Security Policy) in HTML head
+
+### Issue: Icons not showing
+**Solution:** Verify Codicons CSS link is correct
+
+### Issue: CSS not applying
+**Solution:** Check webview.asWebviewUri() paths are correct
+
+### Issue: Messages not received
+**Solution:** Verify acquireVsCodeApi() is called exactly once
+
+### Issue: Theme not updating
+**Solution:** Ensure using `var(--vscode-*)` CSS variables
+
+---
+
+## 📚 Key Resources
+
+- Full HTML/CSS/JS code: See `ROADMAP.md`
+- Webview API: [VS Code Docs](https://code.visualstudio.com/api/extension-guides/webview)
+- Codicons: [Icon Gallery](https://microsoft.github.io/vscode-codicons/dist/codicon.html)
+- CSS Variables: [Theme Colors](https://code.visualstudio.com/api/references/theme-color)
+
+---
+
+## 🎉 Success Criteria
+
+MVP is complete when:
+1. ✅ Users can add patterns via UI (no JSON editing needed)
+2. ✅ Users can edit existing patterns
+3. ✅ Users can delete patterns
+4. ✅ Users can search/filter pattern list
+5. ✅ Patterns support file filters (include/exclude)
+6. ✅ UI matches VS Code design language
+7. ✅ UI auto-updates with theme changes
+8. ✅ All existing features still work
+9. ✅ Documentation is updated
+10. ✅ All tests pass
+
+**Good luck! 🚀**
