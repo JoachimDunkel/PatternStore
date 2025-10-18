@@ -12,7 +12,6 @@
 1. 🚧 Pattern List UI - Collapsible sections, inline actions
 2. ❌ Pattern Details Form - Auto-save editing
 3. ❌ Search/Filter - Fuzzy pattern matching
-4. ❌ Multi-Select - Bulk delete functionality
 
 **Before you continue:**
 1. Read `PROJECT_STATUS.md` - Current implementation state
@@ -32,7 +31,6 @@
 - Collapsible sections by scope (not filter toggles)
 - Auto-save on change (no explicit save button)
 - Inline action buttons on each pattern
-- Multi-select mode with bulk delete
 - Fuzzy search filtering
 
 **❌ Rejected:**
@@ -80,10 +78,10 @@
 
 ### Pattern List States:
 
-**Normal Mode (Checkboxes Hidden):**
+**Normal Mode:**
 ```
 ┌──────────────────────────────────┐
-│ [ ] | 🔍 Search patterns...     │ ← Click [ ] to show checkboxes
+│ 🔍 Search patterns...           │
 ├──────────────────────────────────┤
 │ ▼ Workspace (3)                  │ ← Collapsible section
 │   Pattern 1          [🗑️][📋]   │ ← Inline actions
@@ -96,23 +94,6 @@
 └──────────────────────────────────┘
 ```
 
-**Multi-Select Mode (Checkboxes Visible):**
-```
-┌──────────────────────────────────┐
-│ [✓] | 🔍 Search patterns...     │ ← Checkbox checked = multi-select ON
-│ [Delete Selected (2)]            │ ← Bulk action bar
-├──────────────────────────────────┤
-│ ▼ Workspace (3)                  │
-│   [ ] Pattern 1                  │ ← Individual checkboxes
-│   [✓] Pattern 2                  │
-│   [ ] Pattern 3                  │
-│                                  │
-│ ▼ User (2)                       │
-│   [✓] Pattern 4                  │
-│   [ ] Pattern 5                  │
-└──────────────────────────────────┘
-```
-
 ### UI Behavior:
 
 **Pattern List:**
@@ -120,7 +101,6 @@
 - Click [🗑️] → Confirm and delete individual pattern
 - Click [📋] → Load pattern to search and close webview
 - Click ▶/▼ → Expand/collapse section
-- Click [ ] in search box → Toggle multi-select mode
 - Type in search → Filter patterns (fuzzy match), auto-expand matching sections
 
 **Pattern Details:**
@@ -264,14 +244,7 @@ WHEN EDITING/ADDING:
 - Hide empty sections
 - Show "No patterns found" if no matches
 
-**Chunk 3.5: Multi-Select Mode** (20 min)
-- Add checkbox to search box ([ ])
-- Click → Toggle multi-select mode
-- Show/hide individual checkboxes on patterns
-- Show "Delete Selected (N)" button when items checked
-- Bulk delete functionality with confirmation
-
-**Total Phase 3:** ~80 minutes
+**Total Phase 3:** ~60 minutes
 
 ---
 

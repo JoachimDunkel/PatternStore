@@ -42,7 +42,6 @@
 - 🚧 Edit form not yet functional
 - ❌ Collapsible sections not yet implemented
 - ❌ Inline action buttons not yet functional
-- ❌ Multi-select mode not yet implemented
 - ❌ Search/filter not yet implemented
 
 ### Known Limitations:
