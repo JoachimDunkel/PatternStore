@@ -1,103 +1,45 @@
-# 🚀 Next Coding Session - Preparation Checklist
+# 🚀 Next Coding Session - Complete Implementation Guide
 
-## Before You Start
+## 📋 Session Overview
 
-### ☑️ Review Documentation (10 minutes)
-- [ ] Read `ROADMAP.md` completely
-- [ ] Review `SESSION_SUMMARY.md` → "What We Built Today"
-- [ ] Scan `ARCHITECTURE.md` → "Future Architecture"
-- [ ] Check `QUICK_REFERENCE.md` → Current features
+**Goal:** Implement Manage Patterns webview with file filter support  
+**Time Estimate:** 2.5 - 3 hours  
+**Difficulty:** Medium  
 
-### ☑️ Environment Setup (5 minutes)
+**What We're Building:**
+- Native HTML webview (no deprecated toolkit)
+- Pattern management UI (add/edit/delete)
+- Search/filter functionality
+- File scope filters (include/exclude)
+- Two commands: Manage (User) and Manage (Workspace)
+
+---
+
+## ☑️ Pre-Session Checklist (10 minutes)
+
+### Review Documentation:
+- [ ] Read `ROADMAP.md` completely - NEW architecture decisions
+- [ ] Scan `SESSION_SUMMARY.md` → "What We Built" section
+- [ ] Review `ARCHITECTURE.md` → Current working features
+- [ ] Check `project-specs.md` → Original requirements
+
+### Environment Setup:
 - [ ] Open project: `cd /home/dunkel3/git/privat/PatternStore`
 - [ ] Install dependencies: `npm install` (if needed)
 - [ ] Compile: `npm run compile`
 - [ ] Test current functionality: Press `F5`
-- [ ] Verify patterns load correctly: `Ctrl+Alt+R`
+- [ ] Verify Load Pattern works: `Ctrl+Alt+R`
 
-### ☑️ Technical Research (10 minutes)
-- [ ] VS Code Webview API documentation
-- [ ] Check `workbench.action.findInFiles` available parameters
-- [ ] Review existing `savePatternCommand()` in `src/extension.ts`
-
----
-
-## Session Goals
-
-### 🎯 Primary Goal: Save Pattern Webview
-
-**Create a standalone dialog for creating patterns without JSON editing.**
-
-**Time Estimate:** 30-45 minutes
-
-#### Tasks Breakdown:
-
-**1. Setup Webview Structure (10 min)**
-- [ ] Create `src/webview/` directory
-- [ ] Create `editPattern.html` with form
-- [ ] Create `editPattern.css` for styling
-- [ ] Create `WebviewManager.ts` for handling
-
-**2. Implement Form (15 min)**
-- [ ] Add input fields (name, find, replace)
-- [ ] Add checkboxes (regex, case, whole word, multiline)
-- [ ] Add radio buttons (global/workspace scope)
-- [ ] Add optional fields (files to include/exclude)
-- [ ] Add action buttons (Save, Save & Load, Cancel)
-
-**3. Wire Up Communication (10 min)**
-- [ ] Implement message passing (webview → extension)
-- [ ] Handle save button click
-- [ ] Call `storage.savePattern()`
-- [ ] Optionally call `searchCtx.loadPatternIntoSearch()`
-- [ ] Close webview on success
-
-**4. Testing (10 min)**
-- [ ] Test creating new pattern via webview
-- [ ] Test saving to global settings
-- [ ] Test saving to workspace settings
-- [ ] Test "Save & Load" functionality
-- [ ] Verify settings.json is updated correctly
+### Key Decisions Made:
+- [x] **NO Webview UI Toolkit** - Deprecated Jan 2025
+- [x] **YES File Filters** - Include in MVP (15 min implementation)
+- [x] **Native HTML + CSS Variables** - Future-proof approach
+- [x] **Codicons for Icons** - Match VS Code exactly
+- [x] **Two Manage Commands** - Separate User/Workspace
 
 ---
 
-### 🎯 Secondary Goal: File Scope Integration
-
-**Add include/exclude file filters to patterns.**
-
-**Time Estimate:** 15-20 minutes
-
-#### Tasks Breakdown:
-
-**1. Update Data Model (5 min)**
-- [ ] Add `filesToInclude?: string` to `RegexPattern` interface
-- [ ] Add `filesToExclude?: string` to `RegexPattern` interface
-- [ ] Update `package.json` JSON schema
-
-**2. Update Search Logic (5 min)**
-- [ ] Modify `loadPatternIntoSearch()` in `src/searchCtx.ts`
-- [ ] Add file scope parameters to `findInFiles` command
-- [ ] Test with conditional inclusion
-
-**3. Update Examples (5 min)**
-- [ ] Add example patterns with file scope
-- [ ] Update `example-settings.json`
-- [ ] Update user settings for testing
-
-**4. Testing (5 min)**
-- [ ] Test pattern with `filesToInclude` only
-- [ ] Test pattern with `filesToExclude` only
-- [ ] Test pattern with both filters
-- [ ] Test pattern with no filters (backward compatibility)
-
----
-
-## Step-by-Step Implementation Guide
-
-### Phase 1: Webview Dialog
-
-#### 1.1 Create Directory Structure
-```bash
+## 🎯 Implementation Plan
 cd /home/dunkel3/git/privat/PatternStore
 mkdir -p src/webview
 ```
