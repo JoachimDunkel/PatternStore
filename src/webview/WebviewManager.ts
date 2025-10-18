@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { RegexPattern } from '../types';
 import * as storage from '../storage';
+import * as searchCtx from '../searchCtx';
 
 /**
  * Manages the webview panel for pattern management
@@ -86,7 +87,7 @@ export class WebviewManager {
   /**
    * Handle messages from the webview
    */
-  private handleMessage(message: any): void {
+  private async handleMessage(message: any): Promise<void> {
     console.log('Received message from webview:', message);
     
     switch (message.type) {
@@ -96,17 +97,55 @@ export class WebviewManager {
         break;
       
       case 'delete':
-        // TODO: Delete pattern
+        await this.handleDelete(message.label, message.scope);
         break;
       
       case 'load':
-        // TODO: Load pattern to search
+        await this.handleLoad(message.label, message.scope);
         break;
       
       case 'save':
         // TODO: Save pattern changes
         break;
     }
+  }
+
+  /**
+   * Handle delete pattern request from webview
+   */
+  private async handleDelete(label: string, scope: 'global' | 'workspace'): Promise<void> {
+    // Confirm deletion
+    const confirm = await vscode.window.showWarningMessage(
+      `Delete pattern "${label}"?`,
+      { modal: true },
+      'Delete'
+    );
+    
+    if (confirm === 'Delete') {
+      await storage.deletePattern(label, scope);
+      // Refresh pattern list
+      this.sendPatterns();
+    }
+  }
+
+  /**
+   * Handle load pattern request from webview
+   */
+  private async handleLoad(label: string, scope: 'global' | 'workspace'): Promise<void> {
+    // Find the pattern
+    const allPatterns = storage.getAllPatterns();
+    const pattern = allPatterns.find(p => p.label === label && p.scope === scope);
+    
+    if (!pattern) {
+      vscode.window.showErrorMessage(`Pattern "${label}" not found`);
+      return;
+    }
+    
+    // Load into search
+    await searchCtx.loadPatternIntoSearch(pattern);
+    
+    // Close the webview
+    this.panel.dispose();
   }
 
   /**
@@ -213,10 +252,18 @@ export class WebviewManager {
       cursor: pointer;
       border-radius: 3px;
       margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
     }
     
     .pattern-item:hover {
       background: var(--vscode-list-hoverBackground);
+    }
+    
+    .pattern-item:hover .pattern-actions {
+      opacity: 1;
     }
     
     .pattern-item.selected {
@@ -224,9 +271,62 @@ export class WebviewManager {
       color: var(--vscode-list-activeSelectionForeground);
     }
     
+    .pattern-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
     .pattern-name {
       font-weight: 500;
       margin-bottom: 2px;
+    }
+    
+    .pattern-preview {
+      font-size: 12px;
+      opacity: 0.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    /* Action buttons */
+    .pattern-actions {
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    
+    .action-btn {
+      padding: 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--vscode-foreground);
+      opacity: 0.7;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }
+    
+    .action-btn:hover {
+      background: var(--vscode-toolbar-hoverBackground);
+      opacity: 1;
+    }
+    
+    .action-btn .codicon {
+      font-size: 16px;
+    }
+    
+    .action-btn.delete:hover {
+      color: var(--vscode-errorForeground);
+    }
+    
+    .action-btn.load:hover {
+      color: var(--vscode-textLink-foreground);
     }
     
     .pattern-preview {
@@ -457,6 +557,9 @@ export class WebviewManager {
       document.querySelectorAll('.section-header').forEach(header => {
         header.addEventListener('click', toggleSection);
       });
+      
+      // Attach event listeners to pattern items and action buttons
+      attachEventListeners();
     }
     
     /**
@@ -520,10 +623,106 @@ export class WebviewManager {
       
       return \`
         <div class="pattern-item" data-label="\${pattern.label}" data-scope="\${pattern.scope}">
-          <div class="pattern-name">\${pattern.label}</div>
-          <div class="pattern-preview">\${preview}\${truncated}</div>
+          <div class="pattern-info">
+            <div class="pattern-name">\${pattern.label}</div>
+            <div class="pattern-preview">\${preview}\${truncated}</div>
+          </div>
+          <div class="pattern-actions">
+            \${renderActionButton('trash', 'delete', 'Delete pattern')}
+            \${renderActionButton('arrow-right', 'load', 'Load to search')}
+          </div>
         </div>
       \`;
+    }
+    
+    /**
+     * Reusable action button component
+     */
+    function renderActionButton(icon, action, title) {
+      return \`
+        <button class="action-btn \${action}" 
+                data-action="\${action}" 
+                title="\${title}"
+                onclick="event.stopPropagation()">
+          <i class="codicon codicon-\${icon}"></i>
+        </button>
+      \`;
+    }
+    
+    // Attach event listeners after initial render
+    function attachEventListeners() {
+      // Pattern item clicks (for selection/viewing)
+      document.querySelectorAll('.pattern-item').forEach(item => {
+        item.addEventListener('click', handlePatternClick);
+      });
+      
+      // Action button clicks
+      document.querySelectorAll('.action-btn').forEach(btn => {
+        btn.addEventListener('click', handleActionClick);
+      });
+    }
+    
+    /**
+     * Handle pattern item click (for future: show in details panel)
+     */
+    function handlePatternClick(event) {
+      const item = event.currentTarget;
+      const label = item.dataset.label;
+      const scope = item.dataset.scope;
+      
+      // Remove previous selection
+      document.querySelectorAll('.pattern-item').forEach(i => {
+        i.classList.remove('selected');
+      });
+      
+      // Select this item
+      item.classList.add('selected');
+      
+      // TODO: Load pattern details into right panel
+      console.log('Selected pattern:', label, scope);
+    }
+    
+    /**
+     * Handle action button clicks (delete, load)
+     */
+    function handleActionClick(event) {
+      event.stopPropagation();
+      
+      const button = event.currentTarget;
+      const action = button.dataset.action;
+      const item = button.closest('.pattern-item');
+      const label = item.dataset.label;
+      const scope = item.dataset.scope;
+      
+      if (action === 'delete') {
+        handleDelete(label, scope);
+      } else if (action === 'load') {
+        handleLoad(label, scope);
+      }
+    }
+    
+    /**
+     * Handle delete action
+     */
+    function handleDelete(label, scope) {
+      // Send delete request to extension
+      vscode.postMessage({
+        type: 'delete',
+        label: label,
+        scope: scope
+      });
+    }
+    
+    /**
+     * Handle load action
+     */
+    function handleLoad(label, scope) {
+      // Send load request to extension
+      vscode.postMessage({
+        type: 'load',
+        label: label,
+        scope: scope
+      });
     }
     
     // Send ready message to extension
