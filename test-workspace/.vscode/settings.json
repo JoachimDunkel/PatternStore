@@ -1,40 +1,6 @@
 {
 	"patternStore.workspacePatterns": [
 		{
-			"label": "Rename function 0",
-			"find": "old_function_0",
-			"replace": "new_function_0",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			}
-		},
-		{
-			"label": "Add types to class 1",
-			"find": "function class1(param) {",
-			"replace": "function class1(param: any): void {",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": true,
-				"matchWholeWord": false,
-				"isMultiline": false
-			}
-		},
-		{
-			"label": "Refactor assignment for variable 2",
-			"find": "(variable_2)s*=s*(.+);",
-			"replace": "const variable_2 = rename($2);",
-			"flags": {
-				"isRegex": true,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{cpp}"
-		},
-		{
 			"label": "Update import path for method 3",
 			"find": "import { method3 } from './old-path';",
 			"replace": "import { method3 } from './new-path';",
@@ -44,31 +10,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
-		},
-		{
-			"label": "Transform property class 4",
-			"find": "this.class_4 = value;",
-			"replace": "this.class_4 = standardize(value);",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{rs}"
-		},
-		{
-			"label": "Transform property constant 5",
-			"find": "this.constant_5 = value;",
-			"replace": "this.constant_5 = convert(value);",
-			"flags": {
-				"isRegex": true,
-				"isCaseSensitive": true,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 6",
@@ -79,7 +22,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 7",
@@ -91,7 +35,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 8",
@@ -104,7 +49,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 9",
@@ -116,7 +62,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 10",
@@ -127,7 +74,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 11",
@@ -139,7 +87,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 12",
@@ -151,7 +100,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 13",
@@ -162,7 +112,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 14",
@@ -174,7 +125,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 15",
@@ -186,7 +138,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 16",
@@ -197,7 +150,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 17",
@@ -208,7 +162,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 18",
@@ -219,7 +174,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 19",
@@ -230,7 +186,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property variable 20",
@@ -241,7 +198,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to class 21",
@@ -254,7 +212,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for property 22",
@@ -265,7 +224,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 23",
@@ -278,7 +238,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{go}",
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 24",
@@ -290,7 +251,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 25",
@@ -303,7 +265,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for function 26",
@@ -314,7 +277,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for constant 27",
@@ -326,7 +290,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for function 28",
@@ -337,7 +302,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 29",
@@ -349,7 +315,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic rename for variable 30",
@@ -361,7 +328,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 31",
@@ -374,7 +342,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 32",
@@ -386,7 +355,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for property 33",
@@ -398,7 +368,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 34",
@@ -409,7 +380,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 35",
@@ -420,7 +392,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 36",
@@ -431,7 +404,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for constant 37",
@@ -444,7 +418,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{ts}",
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 38",
@@ -456,7 +431,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 39",
@@ -468,7 +444,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 40",
@@ -481,7 +458,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 41",
@@ -493,7 +471,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 42",
@@ -505,7 +484,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 43",
@@ -518,7 +498,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 44",
@@ -530,7 +511,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for constant 45",
@@ -543,7 +525,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 46",
@@ -555,7 +538,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 47",
@@ -568,7 +552,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 48",
@@ -580,7 +565,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for property 49",
@@ -593,7 +579,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{go}",
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 50",
@@ -605,7 +592,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for property 51",
@@ -618,7 +606,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 52",
@@ -630,7 +619,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 53",
@@ -642,7 +632,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for function 54",
@@ -655,7 +646,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic rename for constant 55",
@@ -667,7 +659,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 56",
@@ -679,7 +672,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 57",
@@ -690,7 +684,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 58",
@@ -702,7 +697,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 59",
@@ -714,7 +710,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 60",
@@ -726,7 +723,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for property 61",
@@ -739,7 +737,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 62",
@@ -751,7 +750,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 63",
@@ -763,7 +763,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic rename for class 64",
@@ -775,7 +776,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 65",
@@ -786,7 +788,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 66",
@@ -798,7 +801,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to class 67",
@@ -809,7 +813,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename class 68",
@@ -821,7 +826,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to constant 69",
@@ -833,7 +839,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 70",
@@ -844,7 +851,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename variable 71",
@@ -855,7 +863,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 72",
@@ -867,7 +876,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for method 73",
@@ -878,7 +888,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 74",
@@ -890,7 +901,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for function 75",
@@ -902,7 +914,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for property 76",
@@ -914,7 +927,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for constant 77",
@@ -926,7 +940,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 78",
@@ -937,7 +952,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 79",
@@ -949,7 +965,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 80",
@@ -962,7 +979,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{py}",
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for function 81",
@@ -974,7 +992,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for function 82",
@@ -985,7 +1004,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 83",
@@ -996,7 +1016,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 84",
@@ -1008,7 +1029,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 85",
@@ -1020,7 +1042,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 86",
@@ -1031,7 +1054,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 87",
@@ -1044,7 +1068,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename class 88",
@@ -1057,7 +1082,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 89",
@@ -1070,7 +1096,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 90",
@@ -1083,7 +1110,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{py}",
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for function 91",
@@ -1095,7 +1123,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 92",
@@ -1106,7 +1135,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic rename for property 93",
@@ -1118,7 +1148,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic rename for method 94",
@@ -1130,7 +1161,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 95",
@@ -1143,7 +1175,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 96",
@@ -1155,7 +1188,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 97",
@@ -1167,7 +1201,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 98",
@@ -1180,7 +1215,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 99",
@@ -1191,7 +1227,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 100",
@@ -1203,7 +1240,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic optimize for property 101",
@@ -1215,7 +1253,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 102",
@@ -1226,7 +1265,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 103",
@@ -1238,7 +1278,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property property 104",
@@ -1250,7 +1291,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 105",
@@ -1263,7 +1305,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 106",
@@ -1275,7 +1318,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 107",
@@ -1286,7 +1330,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 108",
@@ -1297,7 +1342,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename variable 109",
@@ -1309,7 +1355,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic modernize for class 110",
@@ -1321,7 +1368,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 111",
@@ -1332,7 +1380,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 112",
@@ -1344,7 +1393,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 113",
@@ -1356,7 +1406,8 @@
 				"matchWholeWord": true,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 114",
@@ -1367,7 +1418,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 115",
@@ -1379,7 +1431,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for property 116",
@@ -1391,7 +1444,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename variable 117",
@@ -1404,7 +1458,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 118",
@@ -1417,7 +1472,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for function 119",
@@ -1429,7 +1485,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for function 120",
@@ -1441,7 +1498,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic refactor for function 121",
@@ -1453,7 +1511,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for function 122",
@@ -1465,7 +1524,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 123",
@@ -1476,7 +1536,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for constant 124",
@@ -1488,7 +1549,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 125",
@@ -1499,7 +1561,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for property 126",
@@ -1510,7 +1573,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename variable 127",
@@ -1523,7 +1587,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{py}",
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 128",
@@ -1535,7 +1600,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 129",
@@ -1547,7 +1613,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 130",
@@ -1559,7 +1626,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic refactor for method 131",
@@ -1570,7 +1638,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for constant 132",
@@ -1582,7 +1651,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for property 133",
@@ -1593,7 +1663,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 134",
@@ -1604,7 +1675,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 135",
@@ -1616,7 +1688,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to constant 136",
@@ -1628,7 +1701,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 137",
@@ -1639,7 +1713,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 138",
@@ -1651,7 +1726,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename class 139",
@@ -1663,7 +1739,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic modernize for variable 140",
@@ -1675,7 +1752,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 141",
@@ -1686,7 +1764,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 142",
@@ -1698,7 +1777,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property property 143",
@@ -1709,7 +1789,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 144",
@@ -1721,7 +1802,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 145",
@@ -1733,7 +1815,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to class 146",
@@ -1745,7 +1828,8 @@
 				"matchWholeWord": true,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic optimize for method 147",
@@ -1756,7 +1840,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for function 148",
@@ -1768,7 +1853,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for property 149",
@@ -1780,7 +1866,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 150",
@@ -1792,7 +1879,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 151",
@@ -1803,7 +1891,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic optimize for class 152",
@@ -1815,7 +1904,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 153",
@@ -1827,7 +1917,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 154",
@@ -1838,7 +1929,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 155",
@@ -1849,7 +1941,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 156",
@@ -1861,7 +1954,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for method 157",
@@ -1873,7 +1967,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to class 158",
@@ -1885,7 +1980,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 159",
@@ -1897,7 +1993,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 160",
@@ -1909,7 +2006,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 161",
@@ -1920,7 +2018,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 162",
@@ -1931,7 +2030,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for method 163",
@@ -1943,7 +2043,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 164",
@@ -1956,7 +2057,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{py}",
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 165",
@@ -1968,7 +2070,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 166",
@@ -1979,7 +2082,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 167",
@@ -1991,7 +2095,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property property 168",
@@ -2003,7 +2108,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename class 169",
@@ -2014,7 +2120,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 170",
@@ -2026,7 +2133,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename property 171",
@@ -2039,7 +2147,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 172",
@@ -2051,7 +2160,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 173",
@@ -2064,7 +2174,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 174",
@@ -2077,7 +2188,8 @@
 				"isMultiline": true
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 175",
@@ -2089,7 +2201,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 176",
@@ -2101,7 +2214,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 177",
@@ -2112,7 +2226,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 178",
@@ -2124,7 +2239,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 179",
@@ -2135,7 +2251,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for method 180",
@@ -2147,7 +2264,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 181",
@@ -2160,7 +2278,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 182",
@@ -2172,7 +2291,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for property 183",
@@ -2184,7 +2304,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 184",
@@ -2196,7 +2317,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 185",
@@ -2208,7 +2330,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 186",
@@ -2221,7 +2344,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{go}",
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 187",
@@ -2233,7 +2357,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 188",
@@ -2245,7 +2370,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 189",
@@ -2258,7 +2384,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 190",
@@ -2270,7 +2397,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for function 191",
@@ -2282,7 +2410,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 192",
@@ -2294,7 +2423,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 193",
@@ -2306,7 +2436,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 194",
@@ -2317,7 +2448,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for method 195",
@@ -2329,7 +2461,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename property 196",
@@ -2340,7 +2473,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 197",
@@ -2353,7 +2487,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{ts}",
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 198",
@@ -2365,7 +2500,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 199",
@@ -2377,7 +2513,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for property 200",
@@ -2389,7 +2526,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 201",
@@ -2401,7 +2539,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 202",
@@ -2412,7 +2551,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 203",
@@ -2423,7 +2563,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 204",
@@ -2436,7 +2577,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 205",
@@ -2448,7 +2590,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 206",
@@ -2460,7 +2603,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 207",
@@ -2471,7 +2615,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 208",
@@ -2482,7 +2627,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 209",
@@ -2493,7 +2639,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 210",
@@ -2505,7 +2652,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 211",
@@ -2517,7 +2665,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for constant 212",
@@ -2529,7 +2678,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for property 213",
@@ -2542,7 +2692,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 214",
@@ -2555,7 +2706,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 215",
@@ -2567,7 +2719,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 216",
@@ -2579,7 +2732,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 217",
@@ -2591,7 +2745,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 218",
@@ -2603,7 +2758,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 219",
@@ -2615,7 +2771,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 220",
@@ -2627,7 +2784,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 221",
@@ -2638,7 +2796,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for constant 222",
@@ -2650,7 +2809,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 223",
@@ -2662,7 +2822,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 224",
@@ -2673,7 +2834,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename property 225",
@@ -2685,7 +2847,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 226",
@@ -2697,7 +2860,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic modernize for class 227",
@@ -2708,7 +2872,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename property 228",
@@ -2720,7 +2885,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for class 229",
@@ -2732,7 +2898,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 230",
@@ -2743,7 +2910,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 231",
@@ -2755,7 +2923,8 @@
 				"matchWholeWord": true,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 232",
@@ -2767,7 +2936,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 233",
@@ -2778,7 +2948,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 234",
@@ -2790,7 +2961,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 235",
@@ -2802,7 +2974,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 236",
@@ -2814,7 +2987,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 237",
@@ -2826,7 +3000,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for constant 238",
@@ -2839,7 +3014,8 @@
 				"isMultiline": true
 			},
 			"filesToInclude": "*.{go}",
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 239",
@@ -2850,7 +3026,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 240",
@@ -2862,7 +3039,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for constant 241",
@@ -2873,7 +3051,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for class 242",
@@ -2885,7 +3064,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 243",
@@ -2897,7 +3077,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 244",
@@ -2909,7 +3090,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to constant 245",
@@ -2921,7 +3103,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 246",
@@ -2933,7 +3116,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 247",
@@ -2945,7 +3129,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 248",
@@ -2956,7 +3141,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 249",
@@ -2969,7 +3155,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for property 250",
@@ -2981,7 +3168,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 251",
@@ -2993,7 +3181,8 @@
 				"matchWholeWord": true,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 252",
@@ -3005,7 +3194,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for function 253",
@@ -3016,7 +3206,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 254",
@@ -3028,7 +3219,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 255",
@@ -3040,7 +3232,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 256",
@@ -3052,7 +3245,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 257",
@@ -3064,7 +3258,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 258",
@@ -3077,7 +3272,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic convert for function 259",
@@ -3089,7 +3285,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 260",
@@ -3100,7 +3297,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 261",
@@ -3112,7 +3310,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename property 262",
@@ -3124,7 +3323,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 263",
@@ -3136,7 +3336,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 264",
@@ -3148,7 +3349,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 265",
@@ -3160,7 +3362,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 266",
@@ -3173,7 +3376,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 267",
@@ -3185,7 +3389,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 268",
@@ -3197,7 +3402,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 269",
@@ -3208,7 +3414,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 270",
@@ -3219,7 +3426,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 271",
@@ -3230,7 +3438,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 272",
@@ -3241,7 +3450,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 273",
@@ -3252,7 +3462,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for variable 274",
@@ -3264,7 +3475,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 275",
@@ -3276,7 +3488,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for method 276",
@@ -3287,7 +3500,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 277",
@@ -3299,7 +3513,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 278",
@@ -3311,7 +3526,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 279",
@@ -3323,7 +3539,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for constant 280",
@@ -3334,7 +3551,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 281",
@@ -3345,7 +3563,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 282",
@@ -3357,7 +3576,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic refactor for property 283",
@@ -3370,7 +3590,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for function 284",
@@ -3382,7 +3603,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 285",
@@ -3394,7 +3616,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 286",
@@ -3405,7 +3628,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 287",
@@ -3418,7 +3642,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 288",
@@ -3430,7 +3655,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 289",
@@ -3442,7 +3668,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic optimize for class 290",
@@ -3454,7 +3681,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property constant 291",
@@ -3466,7 +3694,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 292",
@@ -3479,7 +3708,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for class 293",
@@ -3491,7 +3721,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 294",
@@ -3504,7 +3735,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for function 295",
@@ -3515,7 +3747,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 296",
@@ -3527,7 +3760,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 297",
@@ -3539,7 +3773,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property property 298",
@@ -3551,7 +3786,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 299",
@@ -3564,7 +3800,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{py}",
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 300",
@@ -3576,7 +3813,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic convert for variable 301",
@@ -3587,7 +3825,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 302",
@@ -3599,7 +3838,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 303",
@@ -3611,7 +3851,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 304",
@@ -3623,7 +3864,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 305",
@@ -3635,7 +3877,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for variable 306",
@@ -3647,7 +3890,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 307",
@@ -3659,7 +3903,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 308",
@@ -3671,7 +3916,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 309",
@@ -3683,7 +3929,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 310",
@@ -3695,7 +3942,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 311",
@@ -3708,7 +3956,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 312",
@@ -3720,7 +3969,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for constant 313",
@@ -3733,7 +3983,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for function 314",
@@ -3745,7 +3996,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 315",
@@ -3757,7 +4009,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for property 316",
@@ -3769,7 +4022,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename variable 317",
@@ -3781,7 +4035,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 318",
@@ -3794,7 +4049,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 319",
@@ -3806,7 +4062,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 320",
@@ -3818,7 +4075,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 321",
@@ -3830,7 +4088,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 322",
@@ -3841,7 +4100,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 323",
@@ -3853,7 +4113,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic refactor for class 324",
@@ -3865,7 +4126,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 325",
@@ -3877,7 +4139,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename variable 326",
@@ -3889,7 +4152,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 327",
@@ -3901,7 +4165,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 328",
@@ -3913,7 +4178,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for class 329",
@@ -3925,7 +4191,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename property 330",
@@ -3936,7 +4203,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename property 331",
@@ -3949,7 +4217,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for function 332",
@@ -3961,7 +4230,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 333",
@@ -3973,7 +4243,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 334",
@@ -3985,7 +4256,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 335",
@@ -3997,7 +4269,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for class 336",
@@ -4009,7 +4282,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 337",
@@ -4020,7 +4294,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 338",
@@ -4031,7 +4306,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic refactor for constant 339",
@@ -4043,7 +4319,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 340",
@@ -4055,7 +4332,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for constant 341",
@@ -4066,7 +4344,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 342",
@@ -4077,7 +4356,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 343",
@@ -4090,7 +4370,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic convert for function 344",
@@ -4103,7 +4384,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 345",
@@ -4115,7 +4397,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 346",
@@ -4128,7 +4411,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for property 347",
@@ -4139,7 +4423,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 348",
@@ -4151,7 +4436,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property property 349",
@@ -4163,7 +4449,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for method 350",
@@ -4175,7 +4462,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 351",
@@ -4187,7 +4475,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 352",
@@ -4200,7 +4489,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property property 353",
@@ -4211,7 +4501,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 354",
@@ -4222,7 +4513,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 355",
@@ -4235,7 +4527,8 @@
 				"isMultiline": true
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 356",
@@ -4247,7 +4540,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 357",
@@ -4259,7 +4553,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for property 358",
@@ -4270,7 +4565,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to constant 359",
@@ -4282,7 +4578,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 360",
@@ -4294,7 +4591,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 361",
@@ -4307,7 +4605,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 362",
@@ -4319,7 +4618,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 363",
@@ -4332,7 +4632,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for property 364",
@@ -4344,7 +4645,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 365",
@@ -4356,7 +4658,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 366",
@@ -4368,7 +4671,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for function 367",
@@ -4380,7 +4684,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 368",
@@ -4391,7 +4696,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 369",
@@ -4403,7 +4709,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for property 370",
@@ -4414,7 +4721,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 371",
@@ -4426,7 +4734,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 372",
@@ -4439,7 +4748,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 373",
@@ -4451,7 +4761,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 374",
@@ -4462,7 +4773,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 375",
@@ -4473,7 +4785,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 376",
@@ -4485,7 +4798,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 377",
@@ -4497,7 +4811,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to method 378",
@@ -4508,7 +4823,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 379",
@@ -4521,7 +4837,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename function 380",
@@ -4534,7 +4851,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 381",
@@ -4546,7 +4864,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 382",
@@ -4558,7 +4877,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property function 383",
@@ -4570,7 +4890,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for variable 384",
@@ -4582,7 +4903,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 385",
@@ -4594,7 +4916,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename method 386",
@@ -4606,7 +4929,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 387",
@@ -4618,7 +4942,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 388",
@@ -4630,7 +4955,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic convert for function 389",
@@ -4641,7 +4967,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 390",
@@ -4652,7 +4979,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic rename for method 391",
@@ -4663,7 +4991,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for class 392",
@@ -4675,7 +5004,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 393",
@@ -4686,7 +5016,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 394",
@@ -4697,7 +5028,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 395",
@@ -4708,7 +5040,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 396",
@@ -4721,7 +5054,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 397",
@@ -4733,7 +5067,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic modernize for method 398",
@@ -4745,7 +5080,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 399",
@@ -4757,7 +5093,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 400",
@@ -4770,7 +5107,8 @@
 				"isMultiline": true
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 401",
@@ -4783,7 +5121,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 402",
@@ -4794,7 +5133,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 403",
@@ -4807,7 +5147,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rs}",
-			"filesToExclude": "*.min.rs"
+			"filesToExclude": "*.min.rs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for method 404",
@@ -4819,7 +5160,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 405",
@@ -4831,7 +5173,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 406",
@@ -4843,7 +5186,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to constant 407",
@@ -4854,7 +5198,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for property 408",
@@ -4865,7 +5210,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for property 409",
@@ -4877,7 +5223,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 410",
@@ -4889,7 +5236,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 411",
@@ -4901,7 +5249,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for property 412",
@@ -4913,7 +5262,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property function 413",
@@ -4926,7 +5276,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic modernize for function 414",
@@ -4938,7 +5289,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 415",
@@ -4950,7 +5302,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 416",
@@ -4962,7 +5315,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for variable 417",
@@ -4975,7 +5329,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 418",
@@ -4988,7 +5343,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property constant 419",
@@ -4999,7 +5355,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for function 420",
@@ -5011,7 +5368,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for property 421",
@@ -5022,7 +5380,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic optimize for variable 422",
@@ -5034,7 +5393,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to variable 423",
@@ -5047,7 +5407,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 424",
@@ -5060,7 +5421,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for method 425",
@@ -5072,7 +5434,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 426",
@@ -5083,7 +5446,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for class 427",
@@ -5095,7 +5459,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for method 428",
@@ -5107,7 +5472,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic refactor for function 429",
@@ -5120,7 +5486,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{ts}",
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for variable 430",
@@ -5131,7 +5498,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property method 431",
@@ -5142,7 +5510,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 432",
@@ -5154,7 +5523,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for property 433",
@@ -5165,7 +5535,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for constant 434",
@@ -5177,7 +5548,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 435",
@@ -5189,7 +5561,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for class 436",
@@ -5201,7 +5574,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 437",
@@ -5213,7 +5587,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 438",
@@ -5226,7 +5601,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{py}",
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for property 439",
@@ -5238,7 +5614,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 440",
@@ -5251,7 +5628,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for property 441",
@@ -5263,7 +5641,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rs}"
+			"filesToInclude": "*.{rs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 442",
@@ -5274,7 +5653,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for constant 443",
@@ -5287,7 +5667,8 @@
 				"isMultiline": true
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for class 444",
@@ -5299,7 +5680,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 445",
@@ -5311,7 +5693,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 446",
@@ -5323,7 +5706,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 447",
@@ -5336,7 +5720,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cpp}",
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to function 448",
@@ -5349,7 +5734,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{ts}",
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 449",
@@ -5360,7 +5746,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for constant 450",
@@ -5373,7 +5760,8 @@
 				"isMultiline": true
 			},
 			"filesToInclude": "*.{ts}",
-			"filesToExclude": "*.min.ts"
+			"filesToExclude": "*.min.ts",
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for constant 451",
@@ -5385,7 +5773,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic rename for class 452",
@@ -5398,7 +5787,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{java}",
-			"filesToExclude": "*.min.java"
+			"filesToExclude": "*.min.java",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property constant 453",
@@ -5411,7 +5801,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs"
+			"filesToExclude": "*.min.cs",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 454",
@@ -5423,7 +5814,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for method 455",
@@ -5435,7 +5827,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 456",
@@ -5447,7 +5840,8 @@
 				"matchWholeWord": true,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{py}"
+			"filesToInclude": "*.{py}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for constant 457",
@@ -5459,7 +5853,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to property 458",
@@ -5472,7 +5867,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{go}",
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for class 459",
@@ -5483,7 +5879,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for function 460",
@@ -5495,7 +5892,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 461",
@@ -5508,7 +5906,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{go}",
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic convert for method 462",
@@ -5519,7 +5918,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for variable 463",
@@ -5530,7 +5930,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property constant 464",
@@ -5542,7 +5943,8 @@
 				"matchWholeWord": true,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic convert for function 465",
@@ -5555,7 +5957,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{php}",
-			"filesToExclude": "*.min.php"
+			"filesToExclude": "*.min.php",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic standardize for property 466",
@@ -5567,7 +5970,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 467",
@@ -5578,7 +5982,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property constant 468",
@@ -5590,7 +5995,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename constant 469",
@@ -5602,7 +6008,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 470",
@@ -5614,7 +6021,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{java}"
+			"filesToInclude": "*.{java}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for method 471",
@@ -5626,7 +6034,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 472",
@@ -5638,7 +6047,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for method 473",
@@ -5650,7 +6060,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 474",
@@ -5662,7 +6073,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 475",
@@ -5674,7 +6086,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{js}"
+			"filesToInclude": "*.{js}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property class 476",
@@ -5686,7 +6099,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cs}"
+			"filesToInclude": "*.{cs}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 477",
@@ -5699,7 +6113,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for constant 478",
@@ -5711,7 +6126,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{cpp}"
+			"filesToInclude": "*.{cpp}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic optimize for constant 479",
@@ -5723,7 +6139,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 480",
@@ -5734,7 +6151,8 @@
 				"isCaseSensitive": true,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Add types to class 481",
@@ -5745,7 +6163,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Uppercase string for property 482",
@@ -5756,7 +6175,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 483",
@@ -5767,7 +6187,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 484",
@@ -5780,7 +6201,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{go}",
-			"filesToExclude": "*.min.go"
+			"filesToExclude": "*.min.go",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for class 485",
@@ -5792,7 +6214,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{php}"
+			"filesToInclude": "*.{php}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property constant 486",
@@ -5803,7 +6226,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic update for function 487",
@@ -5814,7 +6238,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 488",
@@ -5827,7 +6252,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{rb}",
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for method 489",
@@ -5838,7 +6264,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": true,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Replace console.log for method 490",
@@ -5851,7 +6278,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{py}",
-			"filesToExclude": "*.min.py"
+			"filesToExclude": "*.min.py",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for variable 491",
@@ -5862,7 +6290,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": true
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 492",
@@ -5874,7 +6303,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Transform property constant 493",
@@ -5886,7 +6316,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.rb"
+			"filesToExclude": "*.min.rb",
+			"scope": "workspace"
 		},
 		{
 			"label": "Rename variable 494",
@@ -5898,7 +6329,8 @@
 				"matchWholeWord": false,
 				"isMultiline": true
 			},
-			"filesToInclude": "*.{ts}"
+			"filesToInclude": "*.{ts}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for function 495",
@@ -5910,7 +6342,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{rb}"
+			"filesToInclude": "*.{rb}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Generic convert for property 496",
@@ -5922,7 +6355,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToInclude": "*.{go}"
+			"filesToInclude": "*.{go}",
+			"scope": "workspace"
 		},
 		{
 			"label": "Update comment for constant 497",
@@ -5933,7 +6367,8 @@
 				"isCaseSensitive": false,
 				"matchWholeWord": false,
 				"isMultiline": false
-			}
+			},
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for function 498",
@@ -5945,7 +6380,8 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"filesToExclude": "*.min.cpp"
+			"filesToExclude": "*.min.cpp",
+			"scope": "workspace"
 		},
 		{
 			"label": "Refactor assignment for class 499",
@@ -5958,7 +6394,8 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"filesToExclude": "*.min.js"
+			"filesToExclude": "*.min.js",
+			"scope": "workspace"
 		}
 	]
 }

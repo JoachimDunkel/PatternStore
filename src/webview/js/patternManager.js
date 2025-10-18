@@ -4,8 +4,6 @@ const vscode = acquireVsCodeApi();
 let workspacePatterns = [];
 let userPatterns = [];
 let searchQuery = '';
-let multiSelectMode = false;
-let selectedPatterns = new Set(); // Set of "label:scope" strings
 
 // Get collapse state from localStorage
 const getCollapseState = (section) => {
@@ -44,8 +42,6 @@ window.addEventListener('message', event => {
 function setupSearchInput() {
   const searchInput = document.getElementById('searchInput');
   const searchClear = document.getElementById('searchClear');
-  const multiSelectToggle = document.getElementById('multiSelectToggle');
-  const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
   
   if (!searchInput || !searchClear) return;
   
@@ -81,21 +77,6 @@ function setupSearchInput() {
       renderPatternList();
     }
   });
-  
-  // Multi-select toggle
-  if (multiSelectToggle) {
-    multiSelectToggle.addEventListener('change', (e) => {
-      multiSelectMode = e.target.checked;
-      selectedPatterns.clear();
-      renderPatternList();
-      updateBulkActions();
-    });
-  }
-  
-  // Bulk delete button
-  if (bulkDeleteBtn) {
-    bulkDeleteBtn.addEventListener('click', handleBulkDelete);
-  }
 }
 
 /**
@@ -217,18 +198,9 @@ function toggleSection(event) {
 function renderPatternItem(pattern) {
   const preview = pattern.find.substring(0, 40);
   const truncated = pattern.find.length > 40 ? '...' : '';
-  const patternKey = `${pattern.label}:${pattern.scope}`;
-  const isChecked = selectedPatterns.has(patternKey);
-  const multiSelectClass = multiSelectMode ? 'multi-select-mode' : '';
   
   return `
-    <div class="pattern-item ${multiSelectClass}" data-label="${pattern.label}" data-scope="${pattern.scope}">
-      <div class="pattern-checkbox">
-        <input type="checkbox" 
-               data-pattern-key="${patternKey}"
-               ${isChecked ? 'checked' : ''}
-               onclick="event.stopPropagation(); handleCheckboxChange(event)" />
-      </div>
+    <div class="pattern-item" data-label="${pattern.label}" data-scope="${pattern.scope}">
       <div class="pattern-info">
         <div class="pattern-name">${pattern.label}</div>
         <div class="pattern-preview">${preview}${truncated}</div>
@@ -329,65 +301,6 @@ function handleLoad(label, scope) {
     label: label,
     scope: scope
   });
-}
-
-/**
- * Handle checkbox change in multi-select mode
- */
-function handleCheckboxChange(event) {
-  const checkbox = event.target;
-  const patternKey = checkbox.dataset.patternKey;
-  
-  if (checkbox.checked) {
-    selectedPatterns.add(patternKey);
-  } else {
-    selectedPatterns.delete(patternKey);
-  }
-  
-  updateBulkActions();
-}
-
-/**
- * Update bulk actions visibility and text
- */
-function updateBulkActions() {
-  const bulkActions = document.getElementById('bulkActions');
-  const bulkDeleteText = document.getElementById('bulkDeleteText');
-  
-  if (!bulkActions || !bulkDeleteText) return;
-  
-  const count = selectedPatterns.size;
-  
-  if (multiSelectMode && count > 0) {
-    bulkActions.style.display = 'block';
-    bulkDeleteText.textContent = `Delete Selected (${count})`;
-  } else {
-    bulkActions.style.display = 'none';
-  }
-}
-
-/**
- * Handle bulk delete action
- */
-function handleBulkDelete() {
-  if (selectedPatterns.size === 0) return;
-  
-  // Build list of patterns to delete
-  const patternsToDelete = [];
-  selectedPatterns.forEach(patternKey => {
-    const [label, scope] = patternKey.split(':');
-    patternsToDelete.push({ label, scope });
-  });
-  
-  // Send bulk delete request to extension
-  vscode.postMessage({
-    type: 'bulkDelete',
-    patterns: patternsToDelete
-  });
-  
-  // Clear selection
-  selectedPatterns.clear();
-  updateBulkActions();
 }
 
 // Send ready message to extension

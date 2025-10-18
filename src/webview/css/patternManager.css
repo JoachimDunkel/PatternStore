@@ -21,78 +21,16 @@ body {
 }
 
 .search-box {
+  padding: 8px;
   background: var(--vscode-sideBar-background);
   border-bottom: 1px solid var(--vscode-panel-border);
-}
-
-.search-header {
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.multi-select-toggle {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 3px;
-  transition: background 0.15s ease;
-}
-
-.multi-select-toggle:hover {
-  background: var(--vscode-toolbar-hoverBackground);
-}
-
-.multi-select-toggle input[type="checkbox"] {
-  display: none;
-}
-
-.multi-select-toggle .codicon {
-  font-size: 16px;
-  color: var(--vscode-foreground);
-  opacity: 0.6;
-}
-
-.multi-select-toggle input[type="checkbox"]:checked + .codicon {
-  opacity: 1;
-  color: var(--vscode-textLink-foreground);
+  position: relative;
 }
 
 .search-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  flex: 1;
-}
-
-.bulk-actions {
-  padding: 0 8px 8px 8px;
-}
-
-.bulk-delete-btn {
-  width: 100%;
-  padding: 6px 12px;
-  background: var(--vscode-button-secondaryBackground);
-  color: var(--vscode-button-secondaryForeground);
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: background 0.15s ease;
-}
-
-.bulk-delete-btn:hover {
-  background: var(--vscode-button-secondaryHoverBackground);
-}
-
-.bulk-delete-btn .codicon {
-  font-size: 14px;
 }
 
 .search-icon {
@@ -207,27 +145,6 @@ body {
   align-items: center;
   gap: 8px;
   position: relative;
-}
-
-.pattern-item.multi-select-mode {
-  padding-left: 8px;
-}
-
-.pattern-checkbox {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.pattern-item.multi-select-mode .pattern-checkbox {
-  display: flex;
-}
-
-.pattern-checkbox input[type="checkbox"] {
-  cursor: pointer;
 }
 
 .pattern-item:hover {
