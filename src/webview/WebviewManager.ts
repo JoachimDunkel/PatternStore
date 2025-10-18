@@ -186,16 +186,67 @@ export class WebviewManager {
       padding: 8px;
       background: var(--vscode-sideBar-background);
       border-bottom: 1px solid var(--vscode-panel-border);
+      position: relative;
+    }
+    
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 8px;
+      pointer-events: none;
+      color: var(--vscode-input-placeholderForeground);
+      font-size: 14px;
     }
     
     .search-input {
       width: 100%;
-      padding: 6px 8px;
+      padding: 6px 30px 6px 30px;
       background: var(--vscode-input-background);
       color: var(--vscode-input-foreground);
       border: 1px solid var(--vscode-input-border);
       border-radius: 2px;
       font-size: 13px;
+      box-sizing: border-box;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--vscode-focusBorder);
+    }
+    
+    .search-clear {
+      position: absolute;
+      right: 6px;
+      padding: 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--vscode-input-placeholderForeground);
+      border-radius: 3px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      transition: all 0.15s ease;
+    }
+    
+    .search-clear:hover {
+      background: var(--vscode-toolbar-hoverBackground);
+      color: var(--vscode-foreground);
+    }
+    
+    .search-clear.visible {
+      display: flex;
+    }
+    
+    .search-clear .codicon {
+      font-size: 12px;
     }
     
     .pattern-list {
@@ -428,12 +479,18 @@ export class WebviewManager {
     <!-- Left: Pattern List -->
     <div class="pattern-list-panel">
       <div class="search-box">
-        <input 
-          type="text" 
-          class="search-input" 
-          placeholder="Search patterns..."
-          id="searchInput"
-        />
+        <div class="search-wrapper">
+          <i class="codicon codicon-search search-icon"></i>
+          <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Search patterns..."
+            id="searchInput"
+          />
+          <button class="search-clear" id="searchClear" title="Clear search">
+            <i class="codicon codicon-close"></i>
+          </button>
+        </div>
       </div>
       <div class="pattern-list" id="patternList">
         <!-- Patterns will be inserted here -->
@@ -533,11 +590,40 @@ export class WebviewManager {
      */
     function setupSearchInput() {
       const searchInput = document.getElementById('searchInput');
-      if (!searchInput) return;
+      const searchClear = document.getElementById('searchClear');
+      if (!searchInput || !searchClear) return;
       
+      // Update search query and show/hide clear button
       searchInput.addEventListener('input', (e) => {
         searchQuery = e.target.value.toLowerCase();
+        
+        // Show/hide clear button
+        if (searchQuery) {
+          searchClear.classList.add('visible');
+        } else {
+          searchClear.classList.remove('visible');
+        }
+        
         renderPatternList();
+      });
+      
+      // Clear button click
+      searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        searchClear.classList.remove('visible');
+        renderPatternList();
+        searchInput.focus();
+      });
+      
+      // ESC key to clear search
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchQuery) {
+          searchInput.value = '';
+          searchQuery = '';
+          searchClear.classList.remove('visible');
+          renderPatternList();
+        }
       });
     }
     
