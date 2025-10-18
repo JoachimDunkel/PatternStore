@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { RegexPattern } from '../types';
+import * as storage from '../storage';
 
 /**
  * Manages the webview panel for pattern management
@@ -55,11 +56,57 @@ export class WebviewManager {
     // Handle messages from the webview
     this.panel.webview.onDidReceiveMessage(
       message => {
-        console.log('Received message from webview:', message);
+        this.handleMessage(message);
       },
       null,
       this.disposables
     );
+
+    // Send initial pattern data to webview
+    this.sendPatterns();
+  }
+
+  /**
+   * Load patterns from storage and send to webview
+   */
+  private sendPatterns(): void {
+    const allPatterns = storage.getAllPatterns();
+    
+    // Group patterns by scope
+    const workspacePatterns = allPatterns.filter(p => p.scope === 'workspace');
+    const userPatterns = allPatterns.filter(p => p.scope === 'global');
+    
+    this.panel.webview.postMessage({
+      type: 'patterns',
+      workspace: workspacePatterns,
+      user: userPatterns
+    });
+  }
+
+  /**
+   * Handle messages from the webview
+   */
+  private handleMessage(message: any): void {
+    console.log('Received message from webview:', message);
+    
+    switch (message.type) {
+      case 'ready':
+        // Webview is ready, send patterns
+        this.sendPatterns();
+        break;
+      
+      case 'delete':
+        // TODO: Delete pattern
+        break;
+      
+      case 'load':
+        // TODO: Load pattern to search
+        break;
+      
+      case 'save':
+        // TODO: Save pattern changes
+        break;
+    }
   }
 
   /**
@@ -115,6 +162,21 @@ export class WebviewManager {
       flex: 1;
       overflow-y: auto;
       padding: 4px;
+    }
+    
+    .section-header {
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--vscode-foreground);
+      opacity: 0.6;
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+    }
+    
+    .section-header:first-child {
+      margin-top: 0;
     }
     
     .pattern-item {
@@ -303,6 +365,75 @@ export class WebviewManager {
       </div>
     </div>
   </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+    
+    // Store patterns data
+    let workspacePatterns = [];
+    let userPatterns = [];
+    
+    // Listen for messages from extension
+    window.addEventListener('message', event => {
+      const message = event.data;
+      
+      if (message.type === 'patterns') {
+        workspacePatterns = message.workspace;
+        userPatterns = message.user;
+        renderPatternList();
+      }
+    });
+    
+    /**
+     * Render the pattern list grouped by scope
+     */
+    function renderPatternList() {
+      const listContainer = document.getElementById('patternList');
+      
+      if (workspacePatterns.length === 0 && userPatterns.length === 0) {
+        listContainer.innerHTML = '<div class="empty-state">No patterns yet</div>';
+        return;
+      }
+      
+      let html = '';
+      
+      // Workspace section
+      if (workspacePatterns.length > 0) {
+        html += '<div class="section-header">Workspace (' + workspacePatterns.length + ')</div>';
+        workspacePatterns.forEach(pattern => {
+          html += renderPatternItem(pattern);
+        });
+      }
+      
+      // User section
+      if (userPatterns.length > 0) {
+        html += '<div class="section-header">User (' + userPatterns.length + ')</div>';
+        userPatterns.forEach(pattern => {
+          html += renderPatternItem(pattern);
+        });
+      }
+      
+      listContainer.innerHTML = html;
+    }
+    
+    /**
+     * Render a single pattern item
+     */
+    function renderPatternItem(pattern) {
+      const preview = pattern.find.substring(0, 40);
+      const truncated = pattern.find.length > 40 ? '...' : '';
+      
+      return \`
+        <div class="pattern-item" data-label="\${pattern.label}" data-scope="\${pattern.scope}">
+          <div class="pattern-name">\${pattern.label}</div>
+          <div class="pattern-preview">\${preview}\${truncated}</div>
+        </div>
+      \`;
+    }
+    
+    // Send ready message to extension
+    vscode.postMessage({ type: 'ready' });
+  </script>
 </body>
 </html>`;
   }
