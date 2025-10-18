@@ -27,6 +27,12 @@ window.addEventListener('message', event => {
     userPatterns = message.user;
     renderPatternList();
     setupSearchInput();
+    
+    // Focus search input when webview opens
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.focus();
+    }
   }
 });
 
