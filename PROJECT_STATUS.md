@@ -2,8 +2,8 @@
 
 ## 🎯 Current State
 
-**Version:** 0.1.0 (MVP in progress)  
-**Status:** Webview UI implementation in progress  
+**Version:** 0.1.0 (MVP nearly complete)  
+**Status:** Webview UI functional, final polish needed  
 **Last Updated:** October 18, 2025
 
 ---
@@ -19,11 +19,16 @@
 6. ✅ **Dual Scopes** - Global and workspace pattern storage
 7. ✅ **File Filters** - `filesToInclude`/`filesToExclude` fields added to types and passed to search
 8. ✅ **Webview Shell** - Basic webview panel opens with HTML structure
+9. ✅ **Pattern List** - Unified list showing all patterns (no scope separation)
+10. ✅ **Pattern Selection** - Clicking pattern populates edit form
+11. ✅ **Auto-Save** - Changes save automatically (1 second debounce)
+12. ✅ **Delete Functionality** - Delete patterns from webview
+13. ✅ **Load to Search** - Load patterns directly from webview
 
 ### Commands:
 - ✅ `PatternStore: Load Pattern` - Fully functional with file filters
-- 🚧 `PatternStore: Manage Patterns` - Webview UI in progress (skeleton complete)
-- ❌ `PatternStore: Save Pattern` - Placeholder only (not implemented)
+- ✅ `PatternStore: Manage Patterns` - Webview UI functional with auto-save
+- ❌ `PatternStore: Save Pattern` - Placeholder only (not implemented - using auto-save instead)
 
 ---
 
@@ -140,23 +145,33 @@ Update settings.json
 
 ## 🎯 Next Steps (MVP)
 
-### Priority 1: Webview UI (2.5 hours)
-1. Add file filter fields to `RegexPattern` interface
-2. Create webview structure (HTML/CSS/JS)
-3. Build pattern list with search/filter
-4. Build pattern editor form
-5. Create `WebviewManager.ts`
-6. Add two new commands:
-   - `PatternStore: Manage Patterns (User)`
-   - `PatternStore: Manage Patterns (Workspace)`
+### Immediate Fixes (High Priority)
+1. ✅ **Change auto-save timeout** - Kept at 1000ms (user preference)
+2. **Remove Load to Search button** - Already have load buttons in search view for each item
+3. **Fix delete functionality** - Delete button doesn't seem to work, needs debugging
+4. ✅ **Reposition save status** - Moved "Saving..." message to the right of "Edit Pattern" title
+5. ✅ **Fix save status persistence** - Added timeout fallback and proper message handling
+6. ✅ **Fix whitespace change detection** - Now properly detects whitespace-only changes
+7. ✅ **VS Code-like save timing** - Success: 1.5s, Error: 4s (much faster than before)
+8. ✅ **Subtle save styling** - More VS Code-like appearance with badge styling
+7. **Selected item at top** - Currently selected pattern should stay at top of search view
+8. **Alphabetical search results** - Search results should be sorted alphabetically
 
-### Priority 2: File Filters (15 minutes)
-1. Add `filesToInclude?: string` to types
-2. Add `filesToExclude?: string` to types
-3. Pass to `findInFiles` command
-4. Update package.json schema
+### Priority 1: Webview UI Polish (30 minutes)
+- ✅ Pattern list with real data (DONE)
+- ✅ Pattern selection and form population (DONE)
+- ✅ Auto-save implementation (DONE - now only saves on actual changes)
+- 🔄 Search/filter functionality (needs alphabetical sorting)
+- ✅ UI positioning fixes (save status repositioned)
+- 🔄 Selected item positioning
 
-**Total MVP Time:** ~3 hours
+### Priority 2: Testing & Validation (15 minutes)
+- Test delete functionality
+- Test auto-save with 500ms timeout
+- Test search result ordering
+- Test selected item positioning
+
+**Total MVP Time:** ~45 minutes remaining
 
 ---
 
@@ -256,3 +271,20 @@ MVP is complete when:
 - Implementation Plan: See `ROADMAP.md`
 - User Guide: See `README.md`
 - Command Reference: See `QUICK_REFERENCE.md`
+
+## ⚠️ Outstanding State Issues (as of October 18, 2025)
+
+1. **Saving... indicator can get stuck**
+   - If a save never completes (e.g., error, extension crash), the indicator is never cleared.
+   - Needs a fallback timeout (e.g., 5s) to always hide "Saving..." even if no response.
+
+2. **Current item should be visually separated and pinned at the top**
+   - The pattern being edited in the details panel should always be shown at the top of the list, visually distinct from the rest.
+   - When you edit the details, the top item should update live.
+
+3. **Live update of the item in the list**
+   - When editing a pattern, changes should immediately reflect in the pinned/top item (even before save completes).
+
+4. **Efficient data structure for patterns**
+   - Use a global hash table (object or Map) for fast lookup and update by label+scope.
+   - This will allow instant updates and efficient re-rendering.

@@ -226,6 +226,49 @@ body {
   padding: 20px;
 }
 
+.edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.edit-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.save-status {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 2px 6px;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  background: var(--vscode-badge-background);
+  color: var(--vscode-badge-foreground);
+  border: 1px solid var(--vscode-badge-border);
+}
+
+.save-status.saving {
+  background: var(--vscode-progressBar-background, var(--vscode-badge-background));
+  color: var(--vscode-progressBar-foreground, var(--vscode-badge-foreground));
+  opacity: 1;
+}
+
+.save-status.success {
+  background: var(--vscode-gitDecoration-addedResourceForeground, #89d185);
+  color: var(--vscode-editor-background, white);
+  opacity: 1;
+}
+
+.save-status.error {
+  background: var(--vscode-gitDecoration-deletedResourceForeground, #f48771);
+  color: var(--vscode-editor-background, white);
+  opacity: 1;
+}
+
 .form-group {
   margin-bottom: 16px;
 }

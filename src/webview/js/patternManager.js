@@ -5,7 +5,9 @@ let workspacePatterns = [];
 let userPatterns = [];
 let searchQuery = '';
 let currentPattern = null; // Track currently selected pattern for auto-save
+let lastSavedData = null; // Track last saved form data to avoid unnecessary saves
 let autoSaveTimeout = null; // For debouncing auto-save
+let saveStatusTimeout = null; // For hiding save status if it gets stuck
 
 // Get collapse state from localStorage
 const getCollapseState = (section) => {
@@ -37,9 +39,23 @@ window.addEventListener('message', event => {
       searchInput.focus();
     }
   } else if (message.type === 'saveSuccess') {
+    // Clear any existing save status timeout
+    if (saveStatusTimeout) {
+      clearTimeout(saveStatusTimeout);
+      saveStatusTimeout = null;
+    }
     showSaveStatus('Saved successfully', 'success');
+    // Update last saved data on successful save
+    lastSavedData = getFormData();
   } else if (message.type === 'saveError') {
+    // Clear any existing save status timeout
+    if (saveStatusTimeout) {
+      clearTimeout(saveStatusTimeout);
+      saveStatusTimeout = null;
+    }
     showSaveStatus('Save failed: ' + message.error, 'error');
+    // Revert last saved data on error
+    lastSavedData = null;
   }
 });
 
@@ -207,7 +223,7 @@ function populatePatternDetails(pattern) {
   const matchWholeWordCheckbox = document.getElementById('matchWholeWord');
   const filesToIncludeInput = document.getElementById('filesToInclude');
   const filesToExcludeInput = document.getElementById('filesToExclude');
-
+  
   if (labelInput) labelInput.value = pattern.label || '';
   if (findInput) findInput.value = pattern.find || '';
   if (replaceInput) replaceInput.value = pattern.replace || '';
@@ -216,9 +232,16 @@ function populatePatternDetails(pattern) {
   if (matchWholeWordCheckbox) matchWholeWordCheckbox.checked = pattern.matchWholeWord || false;
   if (filesToIncludeInput) filesToIncludeInput.value = pattern.filesToInclude || '';
   if (filesToExcludeInput) filesToExcludeInput.value = pattern.filesToExclude || '';
-}
-
-/**
+  
+  // Update last saved data to current pattern data (normalized)
+  const formData = getFormData();
+  lastSavedData = {
+    ...formData,
+    label: formData.label?.trim(),
+    filesToInclude: formData.filesToInclude?.trim(),
+    filesToExclude: formData.filesToExclude?.trim()
+  };
+}/**
  * Setup auto-save event listeners for form inputs
  */
 function setupAutoSave() {
@@ -243,10 +266,30 @@ function setupAutoSave() {
 }
 
 /**
- * Handle form input changes - trigger auto-save
+ * Handle form input changes - trigger auto-save only if data changed
  */
 function handleFormChange() {
   if (!currentPattern) return;
+  
+  const currentData = getFormData();
+  
+  // Create normalized versions for comparison (trim strings)
+  const normalizeData = (data) => ({
+    ...data,
+    label: data.label?.trim(),
+    find: data.find,
+    replace: data.replace,
+    filesToInclude: data.filesToInclude?.trim(),
+    filesToExclude: data.filesToExclude?.trim()
+  });
+  
+  const normalizedCurrent = normalizeData(currentData);
+  const normalizedLast = lastSavedData ? normalizeData(lastSavedData) : null;
+  
+  // Only save if data actually changed
+  if (JSON.stringify(normalizedCurrent) === JSON.stringify(normalizedLast)) {
+    return; // No changes, don't save
+  }
   
   // Clear existing timeout
   if (autoSaveTimeout) {
@@ -266,14 +309,29 @@ function showSaveStatus(message, type = 'info') {
   const statusEl = document.getElementById('saveStatus');
   if (!statusEl) return;
   
+  // Clear any existing timeout
+  if (saveStatusTimeout) {
+    clearTimeout(saveStatusTimeout);
+    saveStatusTimeout = null;
+  }
+  
   statusEl.textContent = message;
   statusEl.className = `save-status ${type}`;
   statusEl.style.display = 'block';
   
-  // Hide after 3 seconds
-  setTimeout(() => {
-    statusEl.style.display = 'none';
-  }, 3000);
+  // For success, hide quickly (VS Code-like timing)
+  if (type === 'success') {
+    saveStatusTimeout = setTimeout(() => {
+      statusEl.style.display = 'none';
+    }, 1500); // 1.5 seconds - much shorter than before
+  }
+  // For error, hide after longer delay so user notices
+  else if (type === 'error') {
+    saveStatusTimeout = setTimeout(() => {
+      statusEl.style.display = 'none';
+    }, 4000); // 4 seconds - longer for errors
+  }
+  // For 'saving', no timeout - wait for success/error message
 }
 
 /**
@@ -294,6 +352,9 @@ function autoSavePattern() {
     originalScope: currentPattern.scope,
     pattern: formData
   });
+  
+  // Update last saved data immediately (optimistic update)
+  lastSavedData = formData;
 }
 
 /**
