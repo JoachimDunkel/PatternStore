@@ -501,6 +501,7 @@ export class WebviewManager {
     // Store patterns data
     let workspacePatterns = [];
     let userPatterns = [];
+    let searchQuery = '';
     
     // Get collapse state from localStorage
     const getCollapseState = (section) => {
@@ -523,8 +524,36 @@ export class WebviewManager {
         workspacePatterns = message.workspace;
         userPatterns = message.user;
         renderPatternList();
+        setupSearchInput();
       }
     });
+    
+    /**
+     * Setup search input event listener
+     */
+    function setupSearchInput() {
+      const searchInput = document.getElementById('searchInput');
+      if (!searchInput) return;
+      
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        renderPatternList();
+      });
+    }
+    
+    /**
+     * Filter patterns based on search query
+     */
+    function filterPatterns(patterns) {
+      if (!searchQuery) return patterns;
+      
+      return patterns.filter(pattern => {
+        const nameMatch = pattern.label.toLowerCase().includes(searchQuery);
+        const findMatch = pattern.find.toLowerCase().includes(searchQuery);
+        const replaceMatch = pattern.replace && pattern.replace.toLowerCase().includes(searchQuery);
+        return nameMatch || findMatch || replaceMatch;
+      });
+    }
     
     /**
      * Render the pattern list grouped by scope
@@ -532,23 +561,34 @@ export class WebviewManager {
     function renderPatternList() {
       const listContainer = document.getElementById('patternList');
       
-      if (workspacePatterns.length === 0 && userPatterns.length === 0) {
-        listContainer.innerHTML = '<div class="empty-state">No patterns yet</div>';
+      // Apply search filter
+      const filteredWorkspace = filterPatterns(workspacePatterns);
+      const filteredUser = filterPatterns(userPatterns);
+      
+      // Check if empty after filtering
+      if (filteredWorkspace.length === 0 && filteredUser.length === 0) {
+        if (searchQuery) {
+          listContainer.innerHTML = '<div class="empty-state">No patterns found</div>';
+        } else {
+          listContainer.innerHTML = '<div class="empty-state">No patterns yet</div>';
+        }
         return;
       }
       
       let html = '';
       
-      // Workspace section
-      if (workspacePatterns.length > 0) {
-        const collapsed = getCollapseState('workspace');
-        html += renderSection('workspace', 'Workspace', workspacePatterns, collapsed);
+      // Workspace section - only show if has filtered patterns
+      if (filteredWorkspace.length > 0) {
+        // Auto-expand when searching, otherwise use saved state
+        const collapsed = searchQuery ? false : getCollapseState('workspace');
+        html += renderSection('workspace', 'Workspace', filteredWorkspace, collapsed);
       }
       
-      // User section
-      if (userPatterns.length > 0) {
-        const collapsed = getCollapseState('user');
-        html += renderSection('user', 'User', userPatterns, collapsed);
+      // User section - only show if has filtered patterns
+      if (filteredUser.length > 0) {
+        // Auto-expand when searching, otherwise use saved state
+        const collapsed = searchQuery ? false : getCollapseState('user');
+        html += renderSection('user', 'User', filteredUser, collapsed);
       }
       
       listContainer.innerHTML = html;
