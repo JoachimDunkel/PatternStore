@@ -94,17 +94,18 @@ function filterPatterns(patterns) {
 }
 
 /**
- * Render the pattern list grouped by scope
+ * Render the pattern list (all patterns combined)
  */
 function renderPatternList() {
   const listContainer = document.getElementById('patternList');
   
-  // Apply search filter
-  const filteredWorkspace = filterPatterns(workspacePatterns);
-  const filteredUser = filterPatterns(userPatterns);
+  // Combine all patterns
+  const allPatterns = [...workspacePatterns, ...userPatterns];
   
-  // Check if empty after filtering
-  if (filteredWorkspace.length === 0 && filteredUser.length === 0) {
+  // Apply search filter
+  const filteredPatterns = filterPatterns(allPatterns);
+
+  if (filteredPatterns.length === 0) {
     if (searchQuery) {
       listContainer.innerHTML = '<div class="empty-state">No patterns found</div>';
     } else {
@@ -112,85 +113,21 @@ function renderPatternList() {
     }
     return;
   }
-  
+
   let html = '';
   
-  // Workspace section - only show if has filtered patterns
-  if (filteredWorkspace.length > 0) {
-    // Auto-expand when searching, otherwise use saved state
-    const collapsed = searchQuery ? false : getCollapseState('workspace');
-    html += renderSection('workspace', 'Workspace', filteredWorkspace, collapsed);
-  }
-  
-  // User section - only show if has filtered patterns
-  if (filteredUser.length > 0) {
-    // Auto-expand when searching, otherwise use saved state
-    const collapsed = searchQuery ? false : getCollapseState('user');
-    html += renderSection('user', 'User', filteredUser, collapsed);
-  }
+  // Render all patterns in a single list
+  filteredPatterns.forEach(pattern => {
+    html += renderPatternItem(pattern);
+  });
   
   listContainer.innerHTML = html;
-  
-  // Attach click handlers to section headers
-  document.querySelectorAll('.section-header').forEach(header => {
-    header.addEventListener('click', toggleSection);
-  });
   
   // Attach event listeners to pattern items and action buttons
   attachEventListeners();
 }
 
-/**
- * Render a collapsible section
- */
-function renderSection(id, title, patterns, collapsed) {
-  const chevron = collapsed ? 'codicon-chevron-right' : 'codicon-chevron-down';
-  const contentClass = collapsed ? 'section-content collapsed' : 'section-content';
-  
-  let html = `
-    <div class="section-header ${collapsed ? 'collapsed' : ''}" data-section="${id}">
-      <i class="codicon ${chevron}"></i>
-      <span>${title} (${patterns.length})</span>
-    </div>
-    <div class="${contentClass}" data-section-content="${id}">
-  `;
-  
-  patterns.forEach(pattern => {
-    html += renderPatternItem(pattern);
-  });
-  
-  html += '</div>';
-  return html;
-}
 
-/**
- * Toggle section collapsed state
- */
-function toggleSection(event) {
-  const header = event.currentTarget;
-  const sectionId = header.dataset.section;
-  const content = document.querySelector('[data-section-content="' + sectionId + '"]');
-  const chevron = header.querySelector('.codicon');
-  
-  // Toggle collapsed state
-  const isCollapsed = header.classList.contains('collapsed');
-  
-  if (isCollapsed) {
-    // Expand
-    header.classList.remove('collapsed');
-    content.classList.remove('collapsed');
-    chevron.classList.remove('codicon-chevron-right');
-    chevron.classList.add('codicon-chevron-down');
-    setCollapseState(sectionId, false);
-  } else {
-    // Collapse
-    header.classList.add('collapsed');
-    content.classList.add('collapsed');
-    chevron.classList.remove('codicon-chevron-down');
-    chevron.classList.add('codicon-chevron-right');
-    setCollapseState(sectionId, true);
-  }
-}
 
 /**
  * Render a single pattern item
@@ -240,24 +177,74 @@ function attachEventListeners() {
   });
 }
 
+// Helper function to populate the edit panel with pattern data
+function populatePatternDetails(pattern) {
+  // Populate form inputs
+  const labelInput = document.getElementById('labelInput');
+  const findInput = document.getElementById('findInput');
+  const replaceInput = document.getElementById('replaceInput');
+  const isRegexCheckbox = document.getElementById('isRegex');
+  const isCaseSensitiveCheckbox = document.getElementById('isCaseSensitive');
+  const matchWholeWordCheckbox = document.getElementById('matchWholeWord');
+  const filesToIncludeInput = document.getElementById('filesToInclude');
+  const filesToExcludeInput = document.getElementById('filesToExclude');
+
+  if (labelInput) labelInput.value = pattern.label || '';
+  if (findInput) findInput.value = pattern.find || '';
+  if (replaceInput) replaceInput.value = pattern.replace || '';
+  if (isRegexCheckbox) isRegexCheckbox.checked = pattern.isRegex || false;
+  if (isCaseSensitiveCheckbox) isCaseSensitiveCheckbox.checked = pattern.isCaseSensitive || false;
+  if (matchWholeWordCheckbox) matchWholeWordCheckbox.checked = pattern.matchWholeWord || false;
+  if (filesToIncludeInput) filesToIncludeInput.value = pattern.filesToInclude || '';
+  if (filesToExcludeInput) filesToExcludeInput.value = pattern.filesToExclude || '';
+}
+
+// Helper function to clear the edit panel
+function clearPatternDetails() {
+  const labelInput = document.getElementById('labelInput');
+  const findInput = document.getElementById('findInput');
+  const replaceInput = document.getElementById('replaceInput');
+  const isRegexCheckbox = document.getElementById('isRegex');
+  const isCaseSensitiveCheckbox = document.getElementById('isCaseSensitive');
+  const matchWholeWordCheckbox = document.getElementById('matchWholeWord');
+  const filesToIncludeInput = document.getElementById('filesToInclude');
+  const filesToExcludeInput = document.getElementById('filesToExclude');
+
+  if (labelInput) labelInput.value = '';
+  if (findInput) findInput.value = '';
+  if (replaceInput) replaceInput.value = '';
+  if (isRegexCheckbox) isRegexCheckbox.checked = false;
+  if (isCaseSensitiveCheckbox) isCaseSensitiveCheckbox.checked = false;
+  if (matchWholeWordCheckbox) matchWholeWordCheckbox.checked = false;
+  if (filesToIncludeInput) filesToIncludeInput.value = '';
+  if (filesToExcludeInput) filesToExcludeInput.value = '';
+}
+
 /**
- * Handle pattern item click (for future: show in details panel)
+ * Handle pattern item click - populate edit panel with pattern data
  */
 function handlePatternClick(event) {
   const item = event.currentTarget;
   const label = item.dataset.label;
   const scope = item.dataset.scope;
-  
+
   // Remove previous selection
   document.querySelectorAll('.pattern-item').forEach(i => {
     i.classList.remove('selected');
   });
-  
+
   // Select this item
   item.classList.add('selected');
-  
-  // TODO: Load pattern details into right panel
-  console.log('Selected pattern:', label, scope);
+
+  // Find the selected pattern in the appropriate array
+  const selectedPattern = (scope === 'workspace' ? workspacePatterns : userPatterns)
+    .find(pattern => pattern.label === label);
+
+  if (selectedPattern) {
+    populatePatternDetails(selectedPattern);
+  } else {
+    clearPatternDetails();
+  }
 }
 
 /**
