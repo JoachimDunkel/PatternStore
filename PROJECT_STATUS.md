@@ -38,11 +38,15 @@
 ### Phase 2: Webview UI 🚧 IN PROGRESS
 - ✅ WebviewManager.ts created with basic structure
 - ✅ HTML layout with two-column design
-- 🚧 Pattern list not yet populated with real data
-- 🚧 Edit form not yet functional
-- ❌ Collapsible sections not yet implemented
-- ❌ Inline action buttons not yet functional
+- ✅ Pattern list populated with real data (unified list)
+- ✅ Pattern selection - clicking populates edit form
+- ✅ Auto-save implementation (1 second debounce)
+- ✅ Delete functionality (needs testing)
+- ✅ Load to Search button in edit panel (to be removed)
 - ❌ Search/filter not yet implemented
+- ❌ Save status positioning (should be right of title)
+- ❌ Selected item should stay at top of search results
+- ❌ Search results should be alphabetical
 
 ### Known Limitations:
 - Cannot read current search panel state (VS Code API limitation)

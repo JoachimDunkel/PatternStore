@@ -108,8 +108,8 @@ export class WebviewManager {
         await this.handleLoad(message.label, message.scope);
         break;
       
-      case 'save':
-        // TODO: Save pattern changes
+      case 'loadFromForm':
+        await this.handleLoadFromForm(message.pattern);
         break;
     }
   }
@@ -129,6 +129,59 @@ export class WebviewManager {
       await storage.deletePattern(label, scope);
       // Refresh pattern list
       this.sendPatterns();
+    }
+  }
+
+  /**
+   * Handle save pattern request from webview
+   */
+  private async handleSave(originalLabel: string, originalScope: 'global' | 'workspace', pattern: any): Promise<void> {
+    try {
+      // Validate required fields
+      if (!pattern.label || !pattern.find) {
+        this.panel.webview.postMessage({
+          type: 'saveError',
+          error: 'Pattern name and find text are required'
+        });
+        return;
+      }
+
+      // If label changed, delete old pattern and create new one
+      if (originalLabel !== pattern.label) {
+        await storage.deletePattern(originalLabel, originalScope);
+      }
+
+      // Save the updated pattern
+      await storage.savePattern(pattern);
+
+      // Refresh pattern list
+      this.sendPatterns();
+
+      // Send success message to webview
+      this.panel.webview.postMessage({
+        type: 'saveSuccess'
+      });
+    } catch (error) {
+      // Send error message to webview
+      this.panel.webview.postMessage({
+        type: 'saveError',
+        error: String(error)
+      });
+    }
+  }
+
+  /**
+   * Handle load pattern from form data
+   */
+  private async handleLoadFromForm(pattern: any): Promise<void> {
+    try {
+      // Load the pattern into search
+      await searchCtx.loadPatternIntoSearch(pattern);
+
+      // Close the webview
+      this.panel.dispose();
+    } catch (error) {
+      vscode.window.showErrorMessage(`Failed to load pattern: ${error}`);
     }
   }
 

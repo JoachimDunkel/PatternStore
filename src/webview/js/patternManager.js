@@ -4,6 +4,8 @@ const vscode = acquireVsCodeApi();
 let workspacePatterns = [];
 let userPatterns = [];
 let searchQuery = '';
+let currentPattern = null; // Track currently selected pattern for auto-save
+let autoSaveTimeout = null; // For debouncing auto-save
 
 // Get collapse state from localStorage
 const getCollapseState = (section) => {
@@ -27,12 +29,17 @@ window.addEventListener('message', event => {
     userPatterns = message.user;
     renderPatternList();
     setupSearchInput();
+    setupAutoSave(); // Setup auto-save for form inputs
     
     // Focus search input when webview opens
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
       searchInput.focus();
     }
+  } else if (message.type === 'saveSuccess') {
+    showSaveStatus('Saved successfully', 'success');
+  } else if (message.type === 'saveError') {
+    showSaveStatus('Save failed: ' + message.error, 'error');
   }
 });
 
@@ -175,6 +182,18 @@ function attachEventListeners() {
   document.querySelectorAll('.action-btn').forEach(btn => {
     btn.addEventListener('click', handleActionClick);
   });
+  
+  // Delete button in edit panel
+  const deleteBtn = document.getElementById('deleteBtn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', handleDeleteCurrent);
+  }
+  
+  // Load to Search button in edit panel
+  const loadToSearchBtn = document.getElementById('loadToSearchBtn');
+  if (loadToSearchBtn) {
+    loadToSearchBtn.addEventListener('click', handleLoadToSearch);
+  }
 }
 
 // Helper function to populate the edit panel with pattern data
@@ -199,28 +218,103 @@ function populatePatternDetails(pattern) {
   if (filesToExcludeInput) filesToExcludeInput.value = pattern.filesToExclude || '';
 }
 
-// Helper function to clear the edit panel
-function clearPatternDetails() {
-  const labelInput = document.getElementById('labelInput');
-  const findInput = document.getElementById('findInput');
-  const replaceInput = document.getElementById('replaceInput');
-  const isRegexCheckbox = document.getElementById('isRegex');
-  const isCaseSensitiveCheckbox = document.getElementById('isCaseSensitive');
-  const matchWholeWordCheckbox = document.getElementById('matchWholeWord');
-  const filesToIncludeInput = document.getElementById('filesToInclude');
-  const filesToExcludeInput = document.getElementById('filesToExclude');
-
-  if (labelInput) labelInput.value = '';
-  if (findInput) findInput.value = '';
-  if (replaceInput) replaceInput.value = '';
-  if (isRegexCheckbox) isRegexCheckbox.checked = false;
-  if (isCaseSensitiveCheckbox) isCaseSensitiveCheckbox.checked = false;
-  if (matchWholeWordCheckbox) matchWholeWordCheckbox.checked = false;
-  if (filesToIncludeInput) filesToIncludeInput.value = '';
-  if (filesToExcludeInput) filesToExcludeInput.value = '';
+/**
+ * Setup auto-save event listeners for form inputs
+ */
+function setupAutoSave() {
+  const formInputs = [
+    'labelInput',
+    'findInput', 
+    'replaceInput',
+    'isRegex',
+    'isCaseSensitive',
+    'matchWholeWord',
+    'filesToInclude',
+    'filesToExclude'
+  ];
+  
+  formInputs.forEach(inputId => {
+    const element = document.getElementById(inputId);
+    if (element) {
+      element.addEventListener('input', handleFormChange);
+      element.addEventListener('change', handleFormChange);
+    }
+  });
 }
 
 /**
+ * Handle form input changes - trigger auto-save
+ */
+function handleFormChange() {
+  if (!currentPattern) return;
+  
+  // Clear existing timeout
+  if (autoSaveTimeout) {
+    clearTimeout(autoSaveTimeout);
+  }
+  
+  // Debounce auto-save (save after 1 second of no changes)
+  autoSaveTimeout = setTimeout(() => {
+    autoSavePattern();
+  }, 1000);
+}
+
+/**
+ * Show save status message
+ */
+function showSaveStatus(message, type = 'info') {
+  const statusEl = document.getElementById('saveStatus');
+  if (!statusEl) return;
+  
+  statusEl.textContent = message;
+  statusEl.className = `save-status ${type}`;
+  statusEl.style.display = 'block';
+  
+  // Hide after 3 seconds
+  setTimeout(() => {
+    statusEl.style.display = 'none';
+  }, 3000);
+}
+
+/**
+ * Auto-save the current pattern with form data
+ */
+function autoSavePattern() {
+  if (!currentPattern) return;
+  
+  const formData = getFormData();
+  
+  // Show saving status
+  showSaveStatus('Saving...', 'saving');
+  
+  // Send save request to extension
+  vscode.postMessage({
+    type: 'save',
+    originalLabel: currentPattern.label,
+    originalScope: currentPattern.scope,
+    pattern: formData
+  });
+}
+
+/**
+ * Get current form data as pattern object
+ */
+function getFormData() {
+  return {
+    label: document.getElementById('labelInput').value.trim(),
+    find: document.getElementById('findInput').value,
+    replace: document.getElementById('replaceInput').value || undefined,
+    flags: {
+      isRegex: document.getElementById('isRegex').checked,
+      isCaseSensitive: document.getElementById('isCaseSensitive').checked,
+      matchWholeWord: document.getElementById('matchWholeWord').checked,
+      isMultiline: false // Not implemented in UI yet
+    },
+    filesToInclude: document.getElementById('filesToInclude').value.trim() || undefined,
+    filesToExclude: document.getElementById('filesToExclude').value.trim() || undefined,
+    scope: currentPattern.scope // Keep original scope
+  };
+}/**
  * Handle pattern item click - populate edit panel with pattern data
  */
 function handlePatternClick(event) {
@@ -241,8 +335,10 @@ function handlePatternClick(event) {
     .find(pattern => pattern.label === label);
 
   if (selectedPattern) {
+    currentPattern = selectedPattern; // Track for auto-save
     populatePatternDetails(selectedPattern);
   } else {
+    currentPattern = null;
     clearPatternDetails();
   }
 }
@@ -267,14 +363,26 @@ function handleActionClick(event) {
 }
 
 /**
- * Handle delete action
+ * Handle delete action for currently selected pattern
  */
-function handleDelete(label, scope) {
-  // Send delete request to extension
+function handleDeleteCurrent() {
+  if (!currentPattern) return;
+  
+  handleDelete(currentPattern.label, currentPattern.scope);
+}
+
+/**
+ * Handle load to search for current form data
+ */
+function handleLoadToSearch() {
+  if (!currentPattern) return;
+  
+  const formData = getFormData();
+  
+  // Send load request to extension with current form data
   vscode.postMessage({
-    type: 'delete',
-    label: label,
-    scope: scope
+    type: 'loadFromForm',
+    pattern: formData
   });
 }
 
