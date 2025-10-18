@@ -150,76 +150,9 @@ async function loadPatternCommand(): Promise<void> {
 }
 
 /**
- * Command: Manage (rename/delete) patterns
+ * Command: Manage saved patterns (will be replaced with webview)
  */
 async function managePatternsCommand(): Promise<void> {
-  try {
-    // Get all patterns
-    const patterns = storage.getAllPatterns();
-    
-    if (patterns.length === 0) {
-      vscode.window.showInformationMessage('No saved patterns found.');
-      return;
-    }
-    
-    // Create QuickPick items with action icons
-    const items = patterns.map(p => ({
-      label: `$(edit) ${p.label}`,
-      description: `[${p.scope}]`,
-      detail: `Find: ${p.find.substring(0, 50)}${p.find.length > 50 ? '...' : ''}`,
-      pattern: p
-    }));
-    
-    // Show QuickPick
-    const selected = await vscode.window.showQuickPick(items, {
-      placeHolder: 'Select a pattern to manage'
-    });
-    
-    if (!selected) {
-      return; // User cancelled
-    }
-    
-    // Ask what to do
-    const action = await vscode.window.showQuickPick(
-      [
-        { label: '$(edit) Rename', value: 'rename' },
-        { label: '$(trash) Delete', value: 'delete' }
-      ],
-      { placeHolder: `What would you like to do with "${selected.pattern.label}"?` }
-    );
-    
-    if (!action) {
-      return; // User cancelled
-    }
-    
-    if (action.value === 'delete') {
-      // Confirm deletion
-      const confirm = await vscode.window.showWarningMessage(
-        `Delete pattern "${selected.pattern.label}"?`,
-        'Yes', 'No'
-      );
-      if (confirm === 'Yes') {
-        await storage.deletePattern(selected.pattern.label, selected.pattern.scope);
-      }
-    } else if (action.value === 'rename') {
-      // Prompt for new name
-      const newLabel = await vscode.window.showInputBox({
-        prompt: 'Enter new name for this pattern',
-        value: selected.pattern.label,
-        validateInput: (value) => {
-          if (!value || value.trim().length === 0) {
-            return 'Pattern name cannot be empty';
-          }
-          return null;
-        }
-      });
-      
-      if (newLabel && newLabel !== selected.pattern.label) {
-        await storage.renamePattern(selected.pattern.label, newLabel.trim(), selected.pattern.scope);
-      }
-    }
-    
-  } catch (error) {
-    vscode.window.showErrorMessage(`Error managing patterns: ${error}`);
-  }
+  console.log('Manage Patterns command pressed - webview will be implemented here');
+  vscode.window.showInformationMessage('Manage Patterns pressed (webview coming soon)');
 }
