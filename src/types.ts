@@ -15,6 +15,10 @@ export interface RegexPattern {
     matchWholeWord: boolean;
     isMultiline: boolean;
   };
+  /** Files to include (glob pattern, e.g. "*.ts,*.js" or "src/**") */
+  filesToInclude?: string;
+  /** Files to exclude (glob pattern, e.g. "node_modules/**,dist/**") */
+  filesToExclude?: string;
   /** Storage scope */
   scope: "global" | "workspace";
 }

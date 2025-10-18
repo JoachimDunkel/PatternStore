@@ -51,6 +51,14 @@
               "flags": {
                 "type": "object"
               },
+              "filesToInclude": {
+                "type": "string",
+                "description": "Files to include (glob pattern, e.g. '*.ts,*.js' or 'src/**')"
+              },
+              "filesToExclude": {
+                "type": "string",
+                "description": "Files to exclude (glob pattern, e.g. 'node_modules/**,dist/**')"
+              },
               "scope": {
                 "type": "string"
               }
@@ -76,6 +84,14 @@
               },
               "flags": {
                 "type": "object"
+              },
+              "filesToInclude": {
+                "type": "string",
+                "description": "Files to include (glob pattern, e.g. '*.ts,*.js' or 'src/**')"
+              },
+              "filesToExclude": {
+                "type": "string",
+                "description": "Files to exclude (glob pattern, e.g. 'node_modules/**,dist/**')"
               },
               "scope": {
                 "type": "string"

@@ -105,6 +105,14 @@ export async function loadPatternIntoSearch(pattern: RegexPattern): Promise<void
       commandArgs.replace = replace;
     }
     
+    // Add file filters if specified
+    if (pattern.filesToInclude) {
+      commandArgs.filesToInclude = pattern.filesToInclude;
+    }
+    if (pattern.filesToExclude) {
+      commandArgs.filesToExclude = pattern.filesToExclude;
+    }
+    
     // Use VS Code's built-in command to open search with parameters
     await vscode.commands.executeCommand("workbench.action.findInFiles", commandArgs);
     
