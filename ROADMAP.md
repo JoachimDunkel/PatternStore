@@ -2,21 +2,138 @@
 
 ## 🚀 Quick Start (Next Session)
 
-**Before you start:**
-1. Read `PROJECT_STATUS.md` - Current state
-2. Read this file - Implementation details
+**Status:** Phase 1 complete ✅, Phase 2 in progress 🚧
+
+**What's Done:**
+1. ✅ File Filters - Added to types, search integration, schema (tested & working)
+2. ✅ Webview Shell - Basic HTML structure created
+
+**What's Next:**
+1. 🚧 Pattern List UI - Collapsible sections, inline actions
+2. ❌ Pattern Details Form - Auto-save editing
+3. ❌ Search/Filter - Fuzzy pattern matching
+4. ❌ Multi-Select - Bulk delete functionality
+
+**Before you continue:**
+1. Read `PROJECT_STATUS.md` - Current implementation state
+2. Read this file - Updated UI design below
 3. Compile: `npm run compile`
-4. Test current features: `F5` → `Ctrl+Alt+R`
+4. Test: `F5` → Run "PatternStore: Manage Patterns"
 
-**Implementation order:**
-1. **File Filters** (15 min) → Update types.ts, searchCtx.ts, package.json
-2. **Webview Structure** (30 min) → Create HTML/CSS files
-3. **JavaScript Logic** (45 min) → Form validation, search/filter
-4. **WebviewManager** (30 min) → Message handling
-5. **Commands** (15 min) → Register new commands
-6. **Testing** (30 min) → Test all workflows
+---
 
-**Total time:** ~2.5-3 hours
+## 🎨 Updated UI Design (October 18, 2025)
+
+### Design Decisions Made:
+
+**✅ Confirmed:**
+- Single "Manage Patterns" command (not separate User/Workspace commands)
+- Show ALL patterns (both scopes) in one view
+- Collapsible sections by scope (not filter toggles)
+- Auto-save on change (no explicit save button)
+- Inline action buttons on each pattern
+- Multi-select mode with bulk delete
+- Fuzzy search filtering
+
+**❌ Rejected:**
+- Separate commands for User/Workspace (too complex)
+- Filter toggle buttons (collapsibles better)
+- Explicit Save/Revert buttons (overengineered)
+- Complex dirty state tracking (unnecessary)
+
+### Webview Layout:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                    Manage Patterns                       [×]   │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  ┌─ PATTERN LIST ──────────────┬─ PATTERN DETAILS ──────────┐ │
+│  │                              │                             │ │
+│  │ [ ] | 🔍 Search...          │  Pattern Name               │ │
+│  │                              │  [Console Logger          ] │ │
+│  ├──────────────────────────────┤                             │ │
+│  │                              │  Find                       │ │
+│  │ ▼ Workspace (3)              │  ┌────────────────────────┐│ │
+│  │   Pattern 1        [🗑️][📋] │  │console\.log            ││ │
+│  │   Pattern 2        [🗑️][📋] │  └────────────────────────┘│ │
+│  │   Pattern 3        [🗑️][📋] │                             │ │
+│  │                              │  ▶ Replace (optional)       │ │
+│  │ ▼ User (2)                   │                             │ │
+│  │   Pattern 4        [🗑️][📋] │  Flags                      │ │
+│  │   Pattern 5        [🗑️][📋] │  [.*] [Aa] [|word|]        │ │
+│  │                              │                             │ │
+│  │                              │  Files to Include           │ │
+│  │                              │  [*.ts,*.js             ]   │ │
+│  │                              │                             │ │
+│  │                              │  Files to Exclude           │ │
+│  │                              │  [node_modules/**       ]   │ │
+│  │                              │                             │ │
+│  │                              │  Scope: Workspace           │ │
+│  │                              │                             │ │
+│  │                              │        [Load to Search]     │ │
+│  └──────────────────────────────┴─────────────────────────────┘ │
+│                                                                │
+│  Resizable divider between panels                             │
+└────────────────────────────────────────────────────────────────┘
+```
+
+### Pattern List States:
+
+**Normal Mode (Checkboxes Hidden):**
+```
+┌──────────────────────────────────┐
+│ [ ] | 🔍 Search patterns...     │ ← Click [ ] to show checkboxes
+├──────────────────────────────────┤
+│ ▼ Workspace (3)                  │ ← Collapsible section
+│   Pattern 1          [🗑️][📋]   │ ← Inline actions
+│   Pattern 2          [🗑️][📋]   │
+│   Pattern 3          [🗑️][📋]   │
+│                                  │
+│ ▼ User (2)                       │
+│   Pattern 4          [🗑️][📋]   │
+│   Pattern 5          [🗑️][📋]   │
+└──────────────────────────────────┘
+```
+
+**Multi-Select Mode (Checkboxes Visible):**
+```
+┌──────────────────────────────────┐
+│ [✓] | 🔍 Search patterns...     │ ← Checkbox checked = multi-select ON
+│ [Delete Selected (2)]            │ ← Bulk action bar
+├──────────────────────────────────┤
+│ ▼ Workspace (3)                  │
+│   [ ] Pattern 1                  │ ← Individual checkboxes
+│   [✓] Pattern 2                  │
+│   [ ] Pattern 3                  │
+│                                  │
+│ ▼ User (2)                       │
+│   [✓] Pattern 4                  │
+│   [ ] Pattern 5                  │
+└──────────────────────────────────┘
+```
+
+### UI Behavior:
+
+**Pattern List:**
+- Click pattern name → Show in details panel (right side)
+- Click [🗑️] → Confirm and delete individual pattern
+- Click [📋] → Load pattern to search and close webview
+- Click ▶/▼ → Expand/collapse section
+- Click [ ] in search box → Toggle multi-select mode
+- Type in search → Filter patterns (fuzzy match), auto-expand matching sections
+
+**Pattern Details:**
+- Edit any field → Auto-saves after debounce (500ms)
+- Click "Load to Search" → Load current pattern and close webview
+- Collapsible "Replace" section → Click ▶ to expand if needed
+- Icon buttons for flags → Toggle on/off (visual feedback)
+- Scope dropdown → Change between Workspace/User
+
+**Collapsible Sections:**
+- Show pattern count: `Workspace (3)`
+- Remember collapsed/expanded state
+- Search auto-expands sections with matches
 
 ---
 
@@ -115,22 +232,138 @@ WHEN EDITING/ADDING:
 └──────────────────────────────────────────────────────┘
 ```
 
-#### Key Features:
+---
 
-**Pattern List Panel:**
-- ✅ Search input with real-time filtering
-- ✅ Two collapsible sections (Global/Workspace)
-- ✅ Pattern count badges
-- ✅ Edit and Delete buttons per pattern
-- ✅ Add button to create new patterns
-- ✅ Scrollable list (for many patterns)
+## 📋 Updated Implementation Plan
 
-**Pattern Editor Form:**
-- ✅ All fields in single view (no multi-step wizard)
-- ✅ Icon toggle buttons for flags (using Codicons)
-- ✅ Radio buttons for scope selection
-- ✅ Optional file filters (include/exclude)
-- ✅ Two save options:
+### Phase 3: Pattern List with Collapsible Sections
+
+**Chunk 3.1: Load and Display Patterns** (15 min)
+- Load patterns from storage (both global and workspace)
+- Send to webview via postMessage
+- Group patterns by scope
+- Render basic list with section headers
+- Show pattern count: `Workspace (3)`, `User (2)`
+
+**Chunk 3.2: Collapsible Sections** (15 min)
+- Add chevron icons (▶/▼) using Codicons
+- Click to expand/collapse sections
+- Remember state in localStorage
+- Smooth CSS transitions
+
+**Chunk 3.3: Inline Action Buttons** (15 min)
+- Add [🗑️] delete icon to each pattern
+  - Click → Confirm dialog → Delete → Refresh list
+- Add [📋] load icon to each pattern
+  - Click → Load pattern to search → Close webview
+
+**Chunk 3.4: Search/Filter** (15 min)
+- Implement search input functionality
+- Filter patterns by substring match (case-insensitive)
+- Auto-expand sections with matches
+- Hide empty sections
+- Show "No patterns found" if no matches
+
+**Chunk 3.5: Multi-Select Mode** (20 min)
+- Add checkbox to search box ([ ])
+- Click → Toggle multi-select mode
+- Show/hide individual checkboxes on patterns
+- Show "Delete Selected (N)" button when items checked
+- Bulk delete functionality with confirmation
+
+**Total Phase 3:** ~80 minutes
+
+---
+
+### Phase 4: Pattern Details Panel
+
+**Chunk 4.1: Resizable Panels** (10 min)
+- Add draggable divider between list and details
+- CSS resize or JavaScript drag handler
+- Save panel sizes to localStorage
+
+**Chunk 4.2: Display Pattern Details** (15 min)
+- Click pattern → Populate details form
+- Show all fields (name, find, replace, flags, filters)
+- Show scope as badge or dropdown
+
+**Chunk 4.3: Collapsible Replace Section** (10 min)
+- Replace field hidden by default
+- Add ▶ "Replace (optional)" toggle
+- Expand/collapse with animation
+
+**Chunk 4.4: Icon-Based Flag Buttons** (15 min)
+- Replace checkboxes with icon toggle buttons
+- Use Codicons: `$(regex)`, `$(case-sensitive)`, `$(whole-word)`
+- Visual active/inactive states
+- Match VS Code search panel style
+
+**Chunk 4.5: Auto-Save on Change** (15 min)
+- Add debounced onChange handlers (500ms)
+- Save to storage automatically
+- Show subtle "Saving..." indicator
+- Refresh pattern list if name changed
+
+**Chunk 4.6: Load to Search Button** (10 min)
+- Add "Load to Search" button in details panel
+- Call existing loadPatternIntoSearch() function
+- Close webview after loading
+
+**Total Phase 4:** ~75 minutes
+
+---
+
+### Phase 5: Polish & Edge Cases
+
+**Chunk 5.1: Empty States** (5 min)
+- "No patterns yet" when list empty
+- "No patterns found" when search has no matches
+- "Select a pattern" placeholder in details panel
+
+**Chunk 5.2: Validation** (10 min)
+- Pattern name required (disable save if empty)
+- Find text required
+- Show validation errors inline
+
+**Chunk 5.3: Keyboard Navigation** (10 min)
+- Arrow keys to navigate pattern list
+- Enter to select pattern
+- Delete key to delete selected
+- Escape to close webview
+
+**Chunk 5.4: Confirmation Dialogs** (5 min)
+- Delete single: "Delete 'Pattern Name'?"
+- Delete multiple: "Delete 3 patterns?"
+- Use VS Code native dialogs
+
+**Total Phase 5:** ~30 minutes
+
+---
+
+## ⏱️ Total Estimated Time
+
+- ✅ Phase 1 (File Filters): ~20 minutes - **COMPLETE**
+- ✅ Phase 2 (Webview Shell): ~10 minutes - **COMPLETE**
+- 🚧 Phase 3 (Pattern List): ~80 minutes - **NEXT**
+- ❌ Phase 4 (Details Panel): ~75 minutes
+- ❌ Phase 5 (Polish): ~30 minutes
+
+**Remaining:** ~3 hours
+
+---
+
+## 🎯 MVP Features for Next Session
+
+### 1. Manage Patterns Webview ⭐ HIGHEST PRIORITY
+
+**Current State:**
+- ✅ File filters added and working
+- ✅ Webview shell created
+- ✅ Basic HTML structure in place
+- 🚧 Pattern list needs implementation
+- ❌ Details panel not functional yet
+
+**New Solution: Native HTML Webview with VS Code Styling**
   - "Save" - Just save the pattern
   - "Save & Load" - Save and immediately open in search panel
 

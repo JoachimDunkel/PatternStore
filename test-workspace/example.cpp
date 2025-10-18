@@ -7,6 +7,7 @@
 #include "string"
 #include "algorithm"
 #include "map"
+#include "geometry/polygon.h"
 
 // Test Pattern: "TODO"
 // This pattern converts TODO comments to FIXME

@@ -3,7 +3,7 @@
 ## 🎯 Current State
 
 **Version:** 0.1.0 (MVP in progress)  
-**Status:** Core features working, webview UI next  
+**Status:** Webview UI implementation in progress  
 **Last Updated:** October 18, 2025
 
 ---
@@ -12,32 +12,43 @@
 
 ### Implemented Features:
 1. ✅ **Load Pattern** (`Ctrl+Alt+R`) - Loads patterns into VS Code search panel
-2. ✅ **Manage Patterns** - Rename and delete via QuickPick UI
-3. ✅ **Storage System** - Read/write settings.json (global & workspace)
-4. ✅ **Placeholder System** - `${prompt:name}` with single prompt per unique name
-5. ✅ **Keybindings** - `Ctrl+Alt+R` for quick load
-6. ✅ **Toolbar Integration** - Load button in search panel
-7. ✅ **Dual Scopes** - Global and workspace pattern storage
+2. ✅ **Storage System** - Read/write settings.json (global & workspace)
+3. ✅ **Placeholder System** - `${prompt:name}` with single prompt per unique name
+4. ✅ **Keybindings** - `Ctrl+Alt+R` for quick load
+5. ✅ **Toolbar Integration** - Load button in search panel
+6. ✅ **Dual Scopes** - Global and workspace pattern storage
+7. ✅ **File Filters** - `filesToInclude`/`filesToExclude` fields added to types and passed to search
+8. ✅ **Webview Shell** - Basic webview panel opens with HTML structure
 
 ### Commands:
-- ✅ `PatternStore: Load Pattern` - Fully functional
-- ⚠️ `PatternStore: Manage Patterns` - Rename/delete only (no add/edit UI)
+- ✅ `PatternStore: Load Pattern` - Fully functional with file filters
+- 🚧 `PatternStore: Manage Patterns` - Webview UI in progress (skeleton complete)
 - ❌ `PatternStore: Save Pattern` - Placeholder only (not implemented)
 
 ---
 
-## 🚧 What's Not Working
+## 🚧 What's Not Working / In Progress
 
-### Missing Features:
-1. ❌ **Add Pattern UI** - Must edit settings.json manually
-2. ❌ **Edit Pattern UI** - Must edit settings.json manually
-3. ❌ **File Scope Filters** - `filesToInclude`/`filesToExclude` not yet added
-4. ❌ **Webview Manager** - Not yet created
+### Phase 1: File Filters ✅ COMPLETE
+- ✅ Added to types.ts
+- ✅ Passed to search in searchCtx.ts
+- ✅ Schema updated in package.json
+- ✅ Tested and working
+
+### Phase 2: Webview UI 🚧 IN PROGRESS
+- ✅ WebviewManager.ts created with basic structure
+- ✅ HTML layout with two-column design
+- 🚧 Pattern list not yet populated with real data
+- 🚧 Edit form not yet functional
+- ❌ Collapsible sections not yet implemented
+- ❌ Inline action buttons not yet functional
+- ❌ Multi-select mode not yet implemented
+- ❌ Search/filter not yet implemented
 
 ### Known Limitations:
 - Cannot read current search panel state (VS Code API limitation)
-- Must manually create patterns in JSON format
-- No visual pattern editor yet
+- Webview uses auto-save approach (no explicit save button)
+- Pattern list UI redesigned but not yet implemented
 
 ---
 
@@ -46,8 +57,13 @@
 ### File Structure:
 ```
 src/
-├── extension.ts         ← Command registration, activation
-├── storage.ts           ← Settings.json read/write (✅ complete)
+├── extension.ts              ← Command registration, activation (✅ complete)
+├── storage.ts                ← Settings.json read/write (✅ complete)
+├── searchCtx.ts              ← Search integration with file filters (✅ complete)
+├── types.ts                  ← RegexPattern interface with file filters (✅ complete)
+└── webview/
+    └── WebviewManager.ts     ← Webview panel management (🚧 in progress)
+```
 ├── searchCtx.ts         ← Search integration (✅ complete)
 └── types.ts             ← TypeScript interfaces
 
