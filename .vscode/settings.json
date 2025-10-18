@@ -1,0 +1,29 @@
+{
+  "patternStore.workspacePatterns": [
+    {
+      "label": "Find TODO Comments",
+      "find": "TODO:",
+      "replace": "FIXME:",
+      "flags": {
+        "isRegex": false,
+        "isCaseSensitive": true,
+        "matchWholeWord": false,
+        "isMultiline": false
+      },
+      "filesToInclude": "*.ts,*.js",
+      "scope": "workspace"
+    },
+    {
+      "label": "Console Log Finder",
+      "find": "console\\.log",
+      "flags": {
+        "isRegex": true,
+        "isCaseSensitive": false,
+        "matchWholeWord": false,
+        "isMultiline": false
+      },
+      "filesToExclude": "node_modules/**",
+      "scope": "workspace"
+    }
+  ]
+}

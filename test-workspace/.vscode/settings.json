@@ -1,0 +1,16 @@
+{
+	"patternStore.workspacePatterns": [
+		{
+			"label": "Get rid of pragma once",
+			"find": "#pragma once",
+			"replace": "#ifndef HEADER_GUARD\\n#define HEADER_GUARD\\n\\n#endif // HEADER_GUARD",
+			"flags": {
+				"isRegex": true,
+				"isCaseSensitive": false,
+				"matchWholeWord": false,
+				"isMultiline": false
+			},
+			"filesToInclude": "*.hpp"
+		}
+	]
+}

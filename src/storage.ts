@@ -1,20 +1,21 @@
 import * as vscode from 'vscode';
 import { RegexPattern } from './types';
+import * as C from './constants';
 
 /**
  * Read all patterns from global and workspace settings
  * Workspace patterns take precedence over global patterns with the same label
  */
 export function getAllPatterns(): RegexPattern[] {
-  const config = vscode.workspace.getConfiguration('patternStore');
+  const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
   
   // Get global patterns
-  const globalPatterns = config.inspect<RegexPattern[]>('savedPatterns')?.globalValue || [];
+  const globalPatterns = config.inspect<RegexPattern[]>(C.CONFIG_KEY_USER_PATTERNS)?.globalValue || [];
   
   // Get workspace patterns
-  const workspacePatterns = config.inspect<RegexPattern[]>('workspacePatterns')?.workspaceValue || [];
+  const workspacePatterns = config.inspect<RegexPattern[]>(C.CONFIG_KEY_WORKSPACE_PATTERNS)?.workspaceValue || [];
   
-  // Combine patterns, ensuring scope is set correctly
+  // Combine patterns, ensuring scope is set correctly based on WHERE they're stored
   const global = globalPatterns.map(p => ({ ...p, scope: 'global' as const }));
   const workspace = workspacePatterns.map(p => ({ ...p, scope: 'workspace' as const }));
   
@@ -41,13 +42,13 @@ export function getAllPatterns(): RegexPattern[] {
  * Get patterns from a specific scope
  */
 function getPatternsByScope(scope: 'global' | 'workspace'): RegexPattern[] {
-  const config = vscode.workspace.getConfiguration('patternStore');
+  const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
   
   if (scope === 'global') {
-    const patterns = config.inspect<RegexPattern[]>('savedPatterns')?.globalValue || [];
+    const patterns = config.inspect<RegexPattern[]>(C.CONFIG_KEY_USER_PATTERNS)?.globalValue || [];
     return patterns.map(p => ({ ...p, scope: 'global' as const }));
   } else {
-    const patterns = config.inspect<RegexPattern[]>('workspacePatterns')?.workspaceValue || [];
+    const patterns = config.inspect<RegexPattern[]>(C.CONFIG_KEY_WORKSPACE_PATTERNS)?.workspaceValue || [];
     return patterns.map(p => ({ ...p, scope: 'workspace' as const }));
   }
 }
@@ -56,8 +57,8 @@ function getPatternsByScope(scope: 'global' | 'workspace'): RegexPattern[] {
  * Save a pattern to either global or workspace settings
  */
 export async function savePattern(pattern: RegexPattern): Promise<void> {
-  const config = vscode.workspace.getConfiguration('patternStore');
-  const configKey = pattern.scope === 'global' ? 'savedPatterns' : 'workspacePatterns';
+  const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
+  const configKey = pattern.scope === 'global' ? C.CONFIG_KEY_USER_PATTERNS : C.CONFIG_KEY_WORKSPACE_PATTERNS;
   const target = pattern.scope === 'global' 
     ? vscode.ConfigurationTarget.Global 
     : vscode.ConfigurationTarget.Workspace;
@@ -81,8 +82,8 @@ export async function savePattern(pattern: RegexPattern): Promise<void> {
  * Delete a pattern by label and scope
  */
 export async function deletePattern(label: string, scope: 'global' | 'workspace'): Promise<void> {
-  const config = vscode.workspace.getConfiguration('patternStore');
-  const configKey = scope === 'global' ? 'savedPatterns' : 'workspacePatterns';
+  const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
+  const configKey = scope === 'global' ? C.CONFIG_KEY_USER_PATTERNS : C.CONFIG_KEY_WORKSPACE_PATTERNS;
   const target = scope === 'global' 
     ? vscode.ConfigurationTarget.Global 
     : vscode.ConfigurationTarget.Workspace;
@@ -109,8 +110,8 @@ export async function deletePattern(label: string, scope: 'global' | 'workspace'
  * Rename a pattern
  */
 export async function renamePattern(oldLabel: string, newLabel: string, scope: 'global' | 'workspace'): Promise<void> {
-  const config = vscode.workspace.getConfiguration('patternStore');
-  const configKey = scope === 'global' ? 'savedPatterns' : 'workspacePatterns';
+  const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
+  const configKey = scope === 'global' ? C.CONFIG_KEY_USER_PATTERNS : C.CONFIG_KEY_WORKSPACE_PATTERNS;
   const target = scope === 'global' 
     ? vscode.ConfigurationTarget.Global 
     : vscode.ConfigurationTarget.Workspace;
