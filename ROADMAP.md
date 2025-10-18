@@ -1,4 +1,24 @@
-# PatternStore - Future Development Roadmap
+# PatternStore - Development Roadmap & Implementation Guide
+
+## 🚀 Quick Start (Next Session)
+
+**Before you start:**
+1. Read `PROJECT_STATUS.md` - Current state
+2. Read this file - Implementation details
+3. Compile: `npm run compile`
+4. Test current features: `F5` → `Ctrl+Alt+R`
+
+**Implementation order:**
+1. **File Filters** (15 min) → Update types.ts, searchCtx.ts, package.json
+2. **Webview Structure** (30 min) → Create HTML/CSS files
+3. **JavaScript Logic** (45 min) → Form validation, search/filter
+4. **WebviewManager** (30 min) → Message handling
+5. **Commands** (15 min) → Register new commands
+6. **Testing** (30 min) → Test all workflows
+
+**Total time:** ~2.5-3 hours
+
+---
 
 ## 🎯 MVP Features for Next Session
 
