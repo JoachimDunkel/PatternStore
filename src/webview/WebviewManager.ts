@@ -104,6 +104,10 @@ export class WebviewManager {
         await this.handleDelete(message.label, message.scope);
         break;
       
+      case 'bulkDelete':
+        await this.handleBulkDelete(message.patterns);
+        break;
+      
       case 'load':
         await this.handleLoad(message.label, message.scope);
         break;
@@ -127,6 +131,28 @@ export class WebviewManager {
     
     if (confirm === 'Delete') {
       await storage.deletePattern(label, scope);
+      // Refresh pattern list
+      this.sendPatterns();
+    }
+  }
+
+  /**
+   * Handle bulk delete patterns request from webview
+   */
+  private async handleBulkDelete(patterns: Array<{ label: string; scope: 'global' | 'workspace' }>): Promise<void> {
+    // Confirm bulk deletion
+    const count = patterns.length;
+    const confirm = await vscode.window.showWarningMessage(
+      `Delete ${count} pattern${count > 1 ? 's' : ''}?`,
+      { modal: true },
+      'Delete'
+    );
+    
+    if (confirm === 'Delete') {
+      // Delete all patterns
+      for (const pattern of patterns) {
+        await storage.deletePattern(pattern.label, pattern.scope);
+      }
       // Refresh pattern list
       this.sendPatterns();
     }
