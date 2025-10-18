@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { RegexPattern } from './types';
 import * as storage from './storage';
 import * as searchCtx from './searchCtx';
+import { WebviewManager } from './webview/WebviewManager';
 
 /**
  * Called when the extension is activated
@@ -21,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Register command: Manage Patterns
   const manageCommand = vscode.commands.registerCommand('patternStore.manage', async () => {
-    await managePatternsCommand();
+    await managePatternsCommand(context.extensionUri);
   });
 
   context.subscriptions.push(saveCommand, loadCommand, manageCommand);
@@ -152,7 +153,8 @@ async function loadPatternCommand(): Promise<void> {
 /**
  * Command: Manage saved patterns (will be replaced with webview)
  */
-async function managePatternsCommand(): Promise<void> {
-  console.log('Manage Patterns command pressed - webview will be implemented here');
-  vscode.window.showInformationMessage('Manage Patterns pressed (webview coming soon)');
+async function managePatternsCommand(extensionUri: vscode.Uri): Promise<void> {
+  console.log('Manage Patterns command pressed - opening webview');
+  // For now, just open global patterns. We'll add separate commands later
+  WebviewManager.show(extensionUri, 'global');
 }
