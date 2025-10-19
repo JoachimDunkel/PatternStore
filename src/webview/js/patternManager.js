@@ -30,6 +30,18 @@ window.addEventListener('message', event => {
     // If a pattern should be selected, select it
     if (message.selectPattern) {
       selectPattern(message.selectPattern.label, message.selectPattern.scope);
+    } else {
+      // If no selection specified, check if current pattern still exists
+      const state = vscode.getState() || {};
+      if (state.currentPattern) {
+        const allPatterns = state.currentPattern.scope === 'workspace' ? workspacePatterns : userPatterns;
+        const stillExists = allPatterns.some(p => p.label === state.currentPattern.label);
+
+        // If current pattern was deleted, clear details view
+        if (!stillExists) {
+          clearDetailsView();
+        }
+      }
     }
 
     // Focus search input when webview opens
@@ -275,23 +287,23 @@ function selectPattern(label, scope) {
 function handleSavePattern() {
   const state = vscode.getState() || {};
   const currentPattern = state.currentPattern;
-  
+
   if (!currentPattern) {
     console.error('No pattern selected to save');
     return;
   }
-  
+
   // Get form values
   const label = document.getElementById('labelInput').value.trim();
   const find = document.getElementById('findInput').value;
   const replace = document.getElementById('replaceInput').value;
-  
+
   // Validate
   if (!label) {
     alert('Pattern name cannot be empty');
     return;
   }
-  
+
   // Build pattern object
   const pattern = {
     oldLabel: currentPattern.label, // Original label for updates
@@ -308,11 +320,48 @@ function handleSavePattern() {
     filesToExclude: document.getElementById('filesToExclude').value.trim() || undefined,
     scope: currentPattern.scope
   };
-  
+
   // Send save request to extension
   vscode.postMessage({
     type: 'save',
     pattern: pattern
+  });
+}
+
+function handleDeletePattern() {
+  const state = vscode.getState() || {};
+  const currentPattern = state.currentPattern;
+
+  if (!currentPattern) {
+    console.error('No pattern selected to delete');
+    return;
+  }
+
+  vscode.postMessage({
+    type: 'delete',
+    label: currentPattern.label,
+    scope: currentPattern.scope
+  });
+
+  clearDetailsView();
+}
+
+function clearDetailsView() {
+  document.getElementById('labelInput').value = '';
+  document.getElementById('findInput').value = '';
+  document.getElementById('replaceInput').value = '';
+  document.getElementById('isRegex').checked = false;
+  document.getElementById('isCaseSensitive').checked = false;
+  document.getElementById('matchWholeWord').checked = false;
+  document.getElementById('filesToInclude').value = '';
+  document.getElementById('filesToExclude').value = '';
+
+  const state = vscode.getState() || {};
+  delete state.currentPattern;
+  vscode.setState(state);
+
+  document.querySelectorAll('.pattern-item').forEach(i => {
+    i.classList.remove('selected');
   });
 }
 
@@ -362,5 +411,7 @@ function handleLoad(label, scope) {
 }
 
 document.getElementById('saveBtn').addEventListener('click', handleSavePattern);
+
+document.getElementById('deleteBtn').addEventListener('click', handleDeletePattern);
 
 vscode.postMessage({ type: 'ready' });
