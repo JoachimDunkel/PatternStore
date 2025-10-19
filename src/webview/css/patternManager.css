@@ -102,11 +102,43 @@ body {
   opacity: 0.6;
   letter-spacing: 0.5px;
   margin-top: 8px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.section-header-left {
   display: flex;
   align-items: center;
   gap: 6px;
-  user-select: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+.add-pattern-btn {
+  padding: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--vscode-foreground);
+  opacity: 0.6;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  transition: all 0.15s ease;
+}
+
+.add-pattern-btn:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+  opacity: 1;
+}
+
+.add-pattern-btn .codicon {
+  font-size: 14px;
 }
 
 .section-header:hover {
