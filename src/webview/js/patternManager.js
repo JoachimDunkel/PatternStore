@@ -192,12 +192,17 @@ function toggleSection(event) {
 function renderPatternItem(pattern) {
   const preview = pattern.find.substring(0, 40);
   const truncated = pattern.find.length > 40 ? '...' : '';
+  const isInvalid = !pattern.find || pattern.find.trim() === '';
+  const invalidClass = isInvalid ? 'pattern-item-invalid' : '';
 
   return `
-    <div class="pattern-item" data-label="${pattern.label}" data-scope="${pattern.scope}">
+    <div class="pattern-item ${invalidClass}" data-label="${pattern.label}" data-scope="${pattern.scope}">
       <div class="pattern-info">
-        <div class="pattern-name">${pattern.label}</div>
-        <div class="pattern-preview">${preview}${truncated}</div>
+        <div class="pattern-name">
+          ${pattern.label}
+          ${isInvalid ? '<i class="codicon codicon-warning" title="Find field is empty"></i>' : ''}
+        </div>
+        <div class="pattern-preview">${isInvalid ? '<em>Empty find pattern</em>' : preview + truncated}</div>
       </div>
       <div class="pattern-actions">
         ${renderActionButton('trash', 'delete', 'Delete pattern')}
@@ -371,10 +376,22 @@ function handleAddPattern(event) {
   const button = event.currentTarget;
   const scope = button.dataset.scope;
 
+  // Visual feedback: disable button temporarily
+  button.disabled = true;
+  button.style.opacity = '0.5';
+  button.style.cursor = 'wait';
+
   vscode.postMessage({
     type: 'create',
     scope: scope === 'workspace' ? 'workspace' : 'global'
   });
+
+  // Re-enable after 2 seconds (fallback in case of error)
+  setTimeout(() => {
+    button.disabled = false;
+    button.style.opacity = '';
+    button.style.cursor = '';
+  }, 2000);
 }
 
 function handleActionClick(event) {

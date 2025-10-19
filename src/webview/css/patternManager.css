@@ -210,6 +210,27 @@ body {
   white-space: nowrap;
 }
 
+.pattern-item-invalid {
+  border-left: 2px solid var(--vscode-errorForeground);
+  opacity: 0.8;
+}
+
+.pattern-item-invalid .pattern-name .codicon-warning {
+  color: var(--vscode-errorForeground);
+  margin-left: 4px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.pattern-item-invalid .pattern-preview {
+  color: var(--vscode-errorForeground);
+}
+
+.pattern-item-invalid .pattern-preview em {
+  font-style: italic;
+  opacity: 0.7;
+}
+
 /* Action buttons */
 .pattern-actions {
   display: flex;

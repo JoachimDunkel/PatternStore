@@ -1,19 +1,6 @@
 {
 	"patternStore.workspacePatterns": [
 		{
-			"label": "Update import path for method 3",
-			"find": "import { method3 } from './old-path';",
-			"replace": "import { method3 } from './new-path';",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": false,
-				"matchWholeWord": true,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{cs}",
-			"scope": "workspace"
-		},
-		{
 			"label": "Replace console.log for variable 6",
 			"find": "console.log('variable 6');",
 			"replace": "logger.info('variable 6');",

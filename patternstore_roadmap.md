@@ -11,11 +11,11 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] Add `+` icon button to the right side of "Workspace" section header
 - [x] Add `+` icon button to the right side of "User" section header
 - [x] Always show sections even when they have 0 patterns
-- [ ] Implement create new pattern functionality:
-  - [ ] Create pattern with dummy/placeholder values
-  - [ ] Add new pattern at the top of the respective list
-  - [ ] Visual indicator that pattern is incomplete/invalid
-  - [ ] Auto-select newly created pattern in details view
+- [x] Implement create new pattern functionality:
+  - [x] Create pattern with dummy/placeholder values
+  - [x] Add new pattern at the top of the respective list
+  - [x] Visual indicator that pattern is incomplete/invalid
+  - [x] Auto-select newly created pattern in details view
 
 ### 2. Details View - Core Functionality
 - [ ] Clicking a pattern populates the details view with its data
