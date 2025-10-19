@@ -25,21 +25,17 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] Empty state when no pattern is selected:
 
 #### 2.1 Bug: 
-- [ ] details view - remove -> cancel should not make the details view empty
-
-#### 2.2 UI:
-- [ ] The currently selected item should always stay on top independen of search and filtering
+- [x] details view - remove -> cancel should not make the details view empty
 
 ### 3. Details View - UI Improvements
-- [ ] Replace flag text labels with VSCode icons:
-  - [ ] Regex flag → icon
-  - [ ] Case Sensitive flag → icon
-  - [ ] Whole Word flag → icon
+- [ ] Replace flag text labels with VSCode icons - Duplicating vs code ui
+
 - [ ] Make UI more compact:
   - [ ] Reduce padding/spacing
   - [ ] Smaller input fields
   - [ ] Condensed form layout
 - [ ] Add visual feedback for validation errors
+- [ ] Add auto fill into the details view - this way the user can make temporary changes that get injected into the search without having them permanent
 
 ### 4. Resizable Panels
 - [ ] Implement horizontal resize between pattern list and details view
@@ -56,6 +52,7 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [ ] Export/Import patterns
 - [ ] Pattern validation with real-time feedback
 - [ ] Undo/Redo functionality
+- [ ] The currently selected item should always stay on top independent of search and filtering
 
 ---
 
