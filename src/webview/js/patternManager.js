@@ -27,17 +27,14 @@ window.addEventListener('message', event => {
     renderPatternList();
     setupSearchInput();
 
-    // If a pattern should be selected, select it
     if (message.selectPattern) {
-      selectPattern(message.selectPattern.label, message.selectPattern.scope);
+      selectPattern(message.selectPattern.id, message.selectPattern.scope);
     } else {
-      // If no selection specified, check if current pattern still exists
       const state = vscode.getState() || {};
       if (state.currentPattern) {
         const allPatterns = state.currentPattern.scope === 'workspace' ? workspacePatterns : userPatterns;
-        const stillExists = allPatterns.some(p => p.label === state.currentPattern.label);
+        const stillExists = allPatterns.some(p => p.id === state.currentPattern.id);
 
-        // If current pattern was deleted, clear details view
         if (!stillExists) {
           clearDetailsView();
         }
@@ -198,8 +195,7 @@ function renderPatternItem(pattern) {
   const invalidClass = isInvalid ? 'pattern-item-invalid' : '';
 
   return `
-    <div class="pattern-item ${invalidClass}" data-label="${pattern.label}" data-scope="${pattern.scope}">
-      <div class="pattern-info">
+    <div class="pattern-item ${invalidClass}" data-id="${pattern.id}" data-label="${pattern.label}" data-scope="${pattern.scope}">      <div class="pattern-info">
         <div class="pattern-name">
           ${pattern.label}
           ${isInvalid ? '<i class="codicon codicon-warning" title="Find field is empty"></i>' : ''}
@@ -241,20 +237,17 @@ function attachEventListeners() {
 
 function handlePatternClick(event) {
   const item = event.currentTarget;
-  const label = item.dataset.label;
+  const id = item.dataset.id;
   const scope = item.dataset.scope;
 
-  // Remove previous selection
   document.querySelectorAll('.pattern-item').forEach(i => {
     i.classList.remove('selected');
   });
 
-  // Select this item
   item.classList.add('selected');
 
-  // Find the pattern data
   const allPatterns = scope === 'workspace' ? workspacePatterns : userPatterns;
-  const pattern = allPatterns.find(p => p.label === label);
+  const pattern = allPatterns.find(p => p.id === id);
 
   if (pattern) {
     populateDetailsView(pattern);
@@ -278,15 +271,16 @@ function populateDetailsView(pattern) {
 
   const state = vscode.getState() || {};
   state.currentPattern = {
+    id: pattern.id,
     label: pattern.label,
     scope: pattern.scope
   };
   vscode.setState(state);
 }
 
-function selectPattern(label, scope) {
+function selectPattern(id, scope) {
   const item = document.querySelector(
-    `.pattern-item[data-label="${label}"][data-scope="${scope}"]`
+    `.pattern-item[data-id="${id}"][data-scope="${scope}"]`
   );
 
   if (item) {
@@ -314,9 +308,8 @@ function handleSavePattern() {
     return;
   }
 
-  // Build pattern object
   const pattern = {
-    oldLabel: currentPattern.label, // Original label for updates
+    id: currentPattern.id,
     label: label,
     find: find,
     replace: replace,
@@ -349,7 +342,7 @@ function handleDeletePattern() {
 
   vscode.postMessage({
     type: 'delete',
-    label: currentPattern.label,
+    id: currentPattern.id,
     scope: currentPattern.scope
   });
 
@@ -408,29 +401,28 @@ function handleActionClick(event) {
   const button = event.currentTarget;
   const action = button.dataset.action;
   const item = button.closest('.pattern-item');
-  const label = item.dataset.label;
+  const id = item.dataset.id;
   const scope = item.dataset.scope;
 
   if (action === 'delete') {
-    handleDelete(label, scope);
+    handleDelete(id, scope);
   } else if (action === 'load') {
-    handleLoad(label, scope);
+    handleLoad(id, scope);
   }
 }
 
-function handleDelete(label, scope) {
+function handleDelete(id, scope) {
   vscode.postMessage({
     type: 'delete',
-    label: label,
+    id: id,
     scope: scope
   });
 }
 
-
-function handleLoad(label, scope) {
+function handleLoad(id, scope) {
   vscode.postMessage({
     type: 'load',
-    label: label,
+    id: id,
     scope: scope
   });
 }

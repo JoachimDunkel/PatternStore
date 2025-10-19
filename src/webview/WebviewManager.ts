@@ -67,11 +67,10 @@ export class WebviewManager {
       this.disposables
     );
 
-    // Send initial pattern data to webview
     this.sendPatterns();
   }
 
-  private sendPatterns(selectLabel?: string, selectScope?: 'global' | 'workspace'): void {
+  private sendPatterns(selectId?: string, selectScope?: 'global' | 'workspace'): void {
     const allPatterns = storage.getAllPatterns();
 
     const workspacePatterns = allPatterns.filter(p => p.scope === 'workspace');
@@ -83,9 +82,9 @@ export class WebviewManager {
       user: userPatterns
     };
 
-    if (selectLabel && selectScope) {
+    if (selectId && selectScope) {
       message.selectPattern = {
-        label: selectLabel,
+        id: selectId,
         scope: selectScope
       };
     }
@@ -103,11 +102,11 @@ export class WebviewManager {
         break;
 
       case 'delete':
-        await this.handleDelete(message.label, message.scope);
+        await this.handleDelete(message.id, message.scope);
         break;
 
       case 'load':
-        await this.handleLoad(message.label, message.scope);
+        await this.handleLoad(message.id, message.scope);
         break;
 
       case 'create':
@@ -145,21 +144,16 @@ export class WebviewManager {
       scope: scope
     };
 
-    // Save pattern
     await storage.savePattern(newPattern);
-
-    this.sendPatterns(newPattern.label, newPattern.scope);
+    this.sendPatterns(newPattern.id, newPattern.scope);
   }
 
 
   private async handleSave(patternData: any): Promise<void> {
-    const { oldLabel, label, find, replace, flags, filesToInclude, filesToExclude, scope } = patternData;
-    if (oldLabel !== label && storage.patternExists(label, scope)) {
-      vscode.window.showErrorMessage(`A pattern named "${label}" already exists in ${scope} settings`);
-      return;
-    }
+    const { id, label, find, replace, flags, filesToInclude, filesToExclude, scope } = patternData;
 
     const pattern: RegexPattern = {
+      id: id,  // Preserve existing ID
       label: label,
       find: find,
       replace: replace,
@@ -169,39 +163,40 @@ export class WebviewManager {
       scope: scope
     };
 
-    if (oldLabel !== label) {
-      await storage.deletePattern(oldLabel, scope);
-    }
     await storage.savePattern(pattern);
 
-    this.sendPatterns(label, scope);
+    this.sendPatterns(id, scope);
   }
 
-  private async handleDelete(label: string, scope: 'global' | 'workspace'): Promise<void> {
+  private async handleDelete(id: string, scope: 'global' | 'workspace'): Promise<void> {
+    // Find pattern to get label for confirmation
+    const allPatterns = storage.getAllPatterns();
+    const pattern = allPatterns.find(p => p.id === id && p.scope === scope);
+
+    if (!pattern) {
+      vscode.window.showErrorMessage(`Pattern not found`);
+      return;
+    }
+
     // Confirm deletion
     const confirm = await vscode.window.showWarningMessage(
-      `Delete pattern "${label}"?`,
+      `Delete pattern "${pattern.label}"?`,
       { modal: true },
       'Delete'
     );
 
     if (confirm === 'Delete') {
-      await storage.deletePattern(label, scope);
+      await storage.deletePattern(id, scope);
       // Refresh pattern list
       this.sendPatterns();
     }
   }
 
-  /**
-   * Handle load pattern request from webview
-   */
-  private async handleLoad(label: string, scope: 'global' | 'workspace'): Promise<void> {
-    // Find the pattern
+  private async handleLoad(id: string, scope: 'global' | 'workspace'): Promise<void> {
     const allPatterns = storage.getAllPatterns();
-    const pattern = allPatterns.find(p => p.label === label && p.scope === scope);
-
+    const pattern = allPatterns.find(p => p.id === id && p.scope === scope);
     if (!pattern) {
-      vscode.window.showErrorMessage(`Pattern "${label}" not found`);
+      vscode.window.showErrorMessage(`Pattern "${id}" not found`);
       return;
     }
 
