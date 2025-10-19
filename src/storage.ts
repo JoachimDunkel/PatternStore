@@ -59,17 +59,16 @@ export async function savePattern(pattern: RegexPattern): Promise<void> {
   const isUpdate = existingIndex !== -1;
 
   if (isUpdate) {
-    // Update existing pattern in place
     patterns[existingIndex] = pattern;
   } else {
-    // Add new pattern at the beginning
     patterns.unshift(pattern);
   }
 
-  // Save to settings
   await config.update(configKey, patterns, target);
 
-  vscode.window.showInformationMessage(`✅ Pattern "${pattern.label}" saved to ${pattern.scope} settings`);
+  if (!isUpdate) {
+    vscode.window.showInformationMessage(`✅ Pattern "${pattern.label}" saved to ${pattern.scope} settings`);
+  }
 }
 
 export async function deletePattern(label: string, scope: 'global' | 'workspace'): Promise<void> {

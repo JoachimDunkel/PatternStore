@@ -8,8 +8,8 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 ## 📋 Tasks
 
 ### 1. Add New Pattern Creation
-- [ ] Add `+` icon button to the right side of "Workspace" section header
-- [ ] Add `+` icon button to the right side of "User" section header
+- [x] Add `+` icon button to the right side of "Workspace" section header
+- [x] Add `+` icon button to the right side of "User" section header
 - [x] Always show sections even when they have 0 patterns
 - [ ] Implement create new pattern functionality:
   - [ ] Create pattern with dummy/placeholder values
