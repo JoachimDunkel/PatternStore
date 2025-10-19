@@ -48,6 +48,7 @@
         <div class="form-group">
           <label class="form-label" for="findInput">Find</label>
           <textarea class="form-textarea" id="findInput" placeholder="Search pattern or regex"></textarea>
+          <div class="validation-error" id="findValidationError"></div>
         </div>
 
         <div class="form-group">
@@ -56,20 +57,21 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Flags</label>
-          <div class="checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" id="isRegex" />
-              <span>Regex</span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="isCaseSensitive" />
-              <span>Case Sensitive</span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="matchWholeWord" />
-              <span>Whole Word</span>
-            </label>
+          <label class="form-label">Options</label>
+          <div class="checkbox-group-icons">
+            <button type="button" class="toggle-btn" id="isRegexBtn" title="Use Regular Expression" data-checkbox="isRegex">
+              <i class="codicon codicon-regex"></i>
+            </button>
+            <button type="button" class="toggle-btn" id="isCaseSensitiveBtn" title="Match Case" data-checkbox="isCaseSensitive">
+              <i class="codicon codicon-case-sensitive"></i>
+            </button>
+            <button type="button" class="toggle-btn" id="matchWholeWordBtn" title="Match Whole Word" data-checkbox="matchWholeWord">
+              <i class="codicon codicon-whole-word"></i>
+            </button>
+            <!-- Hidden checkboxes to maintain state -->
+            <input type="checkbox" id="isRegex" style="display: none;" />
+            <input type="checkbox" id="isCaseSensitive" style="display: none;" />
+            <input type="checkbox" id="matchWholeWord" style="display: none;" />
           </div>
         </div>
 

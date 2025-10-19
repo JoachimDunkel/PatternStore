@@ -262,9 +262,12 @@ function populateDetailsView(pattern) {
   document.getElementById('findInput').value = pattern.find || '';
   document.getElementById('replaceInput').value = pattern.replace || '';
 
-  document.getElementById('isRegex').checked = pattern.flags.isRegex;
-  document.getElementById('isCaseSensitive').checked = pattern.flags.isCaseSensitive;
-  document.getElementById('matchWholeWord').checked = pattern.flags.matchWholeWord;
+  updateToggleButtonState(document.getElementById('isRegexBtn'), pattern.flags.isRegex);
+  updateToggleButtonState(document.getElementById('isCaseSensitiveBtn'), pattern.flags.isCaseSensitive);
+  updateToggleButtonState(document.getElementById('matchWholeWordBtn'), pattern.flags.matchWholeWord);
+
+  document.getElementById('findInput').classList.remove('error');
+  document.getElementById('findValidationError').classList.remove('visible');
 
   document.getElementById('filesToInclude').value = pattern.filesToInclude || '';
   document.getElementById('filesToExclude').value = pattern.filesToExclude || '';
@@ -305,6 +308,11 @@ function handleSavePattern() {
   // Validate
   if (!label) {
     alert('Pattern name cannot be empty');
+    return;
+  }
+
+  if (!validateRegexPattern()) {
+    alert('Please fix the regex pattern error before saving');
     return;
   }
 
@@ -370,6 +378,90 @@ function clearDetailsView() {
   });
 }
 
+/**
+ * Setup toggle buttons for flags
+ */
+function setupToggleButtons() {
+  const buttons = [
+    { btnId: 'isRegexBtn', checkboxId: 'isRegex' },
+    { btnId: 'isCaseSensitiveBtn', checkboxId: 'isCaseSensitive' },
+    { btnId: 'matchWholeWordBtn', checkboxId: 'matchWholeWord' }
+  ];
+
+  buttons.forEach(({ btnId, checkboxId }) => {
+    const btn = document.getElementById(btnId);
+    const checkbox = document.getElementById(checkboxId);
+
+    if (!btn || !checkbox) return;
+
+    btn.addEventListener('click', () => {
+      checkbox.checked = !checkbox.checked;
+      updateToggleButtonState(btn, checkbox.checked);
+
+      // Validate regex when regex flag changes
+      if (checkboxId === 'isRegex') {
+        validateRegexPattern();
+      }
+    });
+
+    // Initialize button state
+    updateToggleButtonState(btn, checkbox.checked);
+  });
+}
+
+/**
+ * Update visual state of toggle button
+ */
+function updateToggleButtonState(button, isActive) {
+  if (isActive) {
+    button.classList.add('active');
+  } else {
+    button.classList.remove('active');
+  }
+}
+
+/**
+ * Validate regex pattern
+ */
+function validateRegexPattern() {
+  const findInput = document.getElementById('findInput');
+  const isRegex = document.getElementById('isRegex').checked;
+  const errorDiv = document.getElementById('findValidationError');
+
+  if (!isRegex) {
+    // Not using regex, clear any errors
+    findInput.classList.remove('error');
+    errorDiv.classList.remove('visible');
+    errorDiv.textContent = '';
+    return true;
+  }
+
+  const pattern = findInput.value;
+
+  if (!pattern) {
+    // Empty pattern is okay
+    findInput.classList.remove('error');
+    errorDiv.classList.remove('visible');
+    errorDiv.textContent = '';
+    return true;
+  }
+
+  try {
+    new RegExp(pattern);
+    // Valid regex
+    findInput.classList.remove('error');
+    errorDiv.classList.remove('visible');
+    errorDiv.textContent = '';
+    return true;
+  } catch (e) {
+    // Invalid regex
+    findInput.classList.add('error');
+    errorDiv.classList.add('visible');
+    errorDiv.textContent = `Invalid regular expression: ${e.message}`;
+    return false;
+  }
+}
+
 function handleAddPattern(event) {
   event.stopPropagation();
 
@@ -428,4 +520,14 @@ function handleLoad(id, scope) {
 
 document.getElementById('saveBtn').addEventListener('click', handleSavePattern);
 document.getElementById('deleteBtn').addEventListener('click', handleDeletePattern);
+
+setupToggleButtons();
+
+const findInput = document.getElementById('findInput');
+if (findInput) {
+  findInput.addEventListener('input', () => {
+    validateRegexPattern();
+  });
+}
+
 vscode.postMessage({ type: 'ready' });
