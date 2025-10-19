@@ -22,9 +22,13 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] Save button updates/overwrites the selected pattern
 - [x] Delete button removes pattern everywhere
 
-- [ ] Empty state when no pattern is selected:
-  - [ ] Show empty icon/placeholder
-  - [ ] Clear/disable form fields
+- [x] Empty state when no pattern is selected:
+
+#### 2.1 Bug: 
+- [ ] details view - remove -> cancel should not make the details view empty
+
+#### 2.2 UI:
+- [ ] The currently selected item should always stay on top independen of search and filtering
 
 ### 3. Details View - UI Improvements
 - [ ] Replace flag text labels with VSCode icons:

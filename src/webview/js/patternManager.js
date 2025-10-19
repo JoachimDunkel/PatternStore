@@ -346,7 +346,6 @@ function handleDeletePattern() {
     scope: currentPattern.scope
   });
 
-  clearDetailsView();
 }
 
 function clearDetailsView() {

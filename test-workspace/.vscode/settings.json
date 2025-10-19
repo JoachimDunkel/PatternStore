@@ -1,60 +1,6 @@
 {
 	"patternStore.workspacePatterns": [
 		{
-			"label": "New Pattern",
-			"find": "",
-			"replace": "",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"scope": "workspace",
-			"id": "ad177f2f-c800-436a-9f47-79d929784f0a"
-		},
-		{
-			"label": "Update import path for variable 9",
-			"find": "import { variable9 } from './old-path';",
-			"replace": "import { variable9 } from './new-path';",
-			"flags": {
-				"isRegex": true,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{py}",
-			"scope": "workspace",
-			"id": "8981200e-90ec-4170-becc-394d751449d1"
-		},
-		{
-			"label": "Add types to method 10",
-			"find": "function method10(param) {",
-			"replace": "function method10(param: any): void {",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": true,
-				"matchWholeWord": false,
-				"isMultiline": true
-			},
-			"scope": "workspace",
-			"id": "09770997-dc4a-48f0-8f47-923e7dfc0230"
-		},
-		{
-			"label": "Update comment for class 11",
-			"find": "// TODO: modernize class",
-			"replace": "// DONE: modernize class - 2025-10-18",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{ts}",
-			"scope": "workspace",
-			"id": "9dc2e991-7672-4a49-9b24-18026f03e6d3"
-		},
-		{
 			"label": "Update comment for class 12",
 			"find": "// TODO: convert class",
 			"replace": "// DONE: convert class - 2025-10-18",
