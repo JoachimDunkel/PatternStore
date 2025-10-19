@@ -2,27 +2,23 @@ import * as vscode from 'vscode';
 import { RegexPattern } from './types';
 import * as C from './constants';
 
-/**
- * Read all patterns from global and workspace settings
- * Workspace patterns take precedence over global patterns with the same label
- */
 export function getAllPatterns(): RegexPattern[] {
   const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
-  
+
   // Get global patterns
   const globalPatterns = config.inspect<RegexPattern[]>(C.CONFIG_KEY_USER_PATTERNS)?.globalValue || [];
-  
+
   // Get workspace patterns
   const workspacePatterns = config.inspect<RegexPattern[]>(C.CONFIG_KEY_WORKSPACE_PATTERNS)?.workspaceValue || [];
-  
+
   // Combine patterns, ensuring scope is set correctly based on WHERE they're stored
   const global = globalPatterns.map(p => ({ ...p, scope: 'global' as const }));
   const workspace = workspacePatterns.map(p => ({ ...p, scope: 'workspace' as const }));
-  
+
   // Merge: workspace patterns override global ones with same label
   const allPatterns: RegexPattern[] = [...global];
   const globalLabels = new Set(global.map(p => p.label));
-  
+
   for (const wp of workspace) {
     if (globalLabels.has(wp.label)) {
       // Replace global pattern with workspace one
@@ -34,16 +30,13 @@ export function getAllPatterns(): RegexPattern[] {
       allPatterns.push(wp);
     }
   }
-  
+
   return allPatterns;
 }
 
-/**
- * Get patterns from a specific scope
- */
 function getPatternsByScope(scope: 'global' | 'workspace'): RegexPattern[] {
   const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
-  
+
   if (scope === 'global') {
     const patterns = config.inspect<RegexPattern[]>(C.CONFIG_KEY_USER_PATTERNS)?.globalValue || [];
     return patterns.map(p => ({ ...p, scope: 'global' as const }));
@@ -53,97 +46,91 @@ function getPatternsByScope(scope: 'global' | 'workspace'): RegexPattern[] {
   }
 }
 
-/**
- * Save a pattern to either global or workspace settings
- */
 export async function savePattern(pattern: RegexPattern): Promise<void> {
   const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
   const configKey = pattern.scope === 'global' ? C.CONFIG_KEY_USER_PATTERNS : C.CONFIG_KEY_WORKSPACE_PATTERNS;
-  const target = pattern.scope === 'global' 
-    ? vscode.ConfigurationTarget.Global 
+  const target = pattern.scope === 'global'
+    ? vscode.ConfigurationTarget.Global
     : vscode.ConfigurationTarget.Workspace;
-  
-  // Get existing patterns
+
   let patterns = getPatternsByScope(pattern.scope);
-  
-  // Remove existing pattern with same label if it exists
-  patterns = patterns.filter(p => p.label !== pattern.label);
-  
-  // Add new pattern
-  patterns.push(pattern);
-  
+
+  const existingIndex = patterns.findIndex(p => p.label === pattern.label);
+  const isUpdate = existingIndex !== -1;
+
+  if (isUpdate) {
+    // Update existing pattern in place
+    patterns[existingIndex] = pattern;
+  } else {
+    // Add new pattern at the beginning
+    patterns.unshift(pattern);
+  }
+
   // Save to settings
   await config.update(configKey, patterns, target);
-  
+
   vscode.window.showInformationMessage(`✅ Pattern "${pattern.label}" saved to ${pattern.scope} settings`);
 }
 
-/**
- * Delete a pattern by label and scope
- */
 export async function deletePattern(label: string, scope: 'global' | 'workspace'): Promise<void> {
   const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
   const configKey = scope === 'global' ? C.CONFIG_KEY_USER_PATTERNS : C.CONFIG_KEY_WORKSPACE_PATTERNS;
-  const target = scope === 'global' 
-    ? vscode.ConfigurationTarget.Global 
+  const target = scope === 'global'
+    ? vscode.ConfigurationTarget.Global
     : vscode.ConfigurationTarget.Workspace;
-  
+
   // Get existing patterns
   let patterns = getPatternsByScope(scope);
-  
+
   // Remove pattern with matching label
   const originalLength = patterns.length;
   patterns = patterns.filter(p => p.label !== label);
-  
+
   if (patterns.length === originalLength) {
     vscode.window.showWarningMessage(`Pattern "${label}" not found in ${scope} settings`);
     return;
   }
-  
+
   // Save updated list
   await config.update(configKey, patterns, target);
-  
+
   vscode.window.showInformationMessage(`🗑️ Pattern "${label}" deleted from ${scope} settings`);
 }
 
-/**
- * Rename a pattern
- */
+
 export async function renamePattern(oldLabel: string, newLabel: string, scope: 'global' | 'workspace'): Promise<void> {
   const config = vscode.workspace.getConfiguration(C.CONFIG_NAMESPACE);
   const configKey = scope === 'global' ? C.CONFIG_KEY_USER_PATTERNS : C.CONFIG_KEY_WORKSPACE_PATTERNS;
-  const target = scope === 'global' 
-    ? vscode.ConfigurationTarget.Global 
+  const target = scope === 'global'
+    ? vscode.ConfigurationTarget.Global
     : vscode.ConfigurationTarget.Workspace;
-  
+
   // Get existing patterns
   const patterns = getPatternsByScope(scope);
-  
+
   // Find and rename pattern
   const pattern = patterns.find(p => p.label === oldLabel);
   if (!pattern) {
     vscode.window.showWarningMessage(`Pattern "${oldLabel}" not found in ${scope} settings`);
     return;
   }
-  
+
   // Check if new label already exists
   if (patterns.some(p => p.label === newLabel && p.label !== oldLabel)) {
     vscode.window.showErrorMessage(`A pattern named "${newLabel}" already exists in ${scope} settings`);
     return;
   }
-  
+
   // Update label
   pattern.label = newLabel;
-  
+
   // Save updated list
   await config.update(configKey, patterns, target);
-  
+
   vscode.window.showInformationMessage(`✏️ Pattern renamed to "${newLabel}" in ${scope} settings`);
 }
 
-/**
- * Check if a pattern with the given label exists
- */
+
 export function patternExists(label: string, scope: 'global' | 'workspace'): boolean {
   const patterns = getPatternsByScope(scope);
   return patterns.some(p => p.label === label);

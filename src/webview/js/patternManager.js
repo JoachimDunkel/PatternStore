@@ -210,6 +210,10 @@ function attachEventListeners() {
 	document.querySelectorAll('.action-btn').forEach(btn => {
 		btn.addEventListener('click', handleActionClick);
 	});
+
+	document.querySelectorAll('.add-pattern-btn').forEach(btn => {
+    btn.addEventListener('click', handleAddPattern);
+  });
 }
 
 function handlePatternClick(event) {
@@ -225,6 +229,18 @@ function handlePatternClick(event) {
 
 	// TODO: Load pattern details into right panel
 	console.log('Selected pattern:', label, scope);
+}
+
+function handleAddPattern(event) {
+  event.stopPropagation();
+  
+  const button = event.currentTarget;
+  const scope = button.dataset.scope; 
+  
+  vscode.postMessage({
+    type: 'create',
+    scope: scope === 'workspace' ? 'workspace' : 'global'
+  });
 }
 
 function handleActionClick(event) {
