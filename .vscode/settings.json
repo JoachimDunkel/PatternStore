@@ -1,32 +1,35 @@
 {
-    "patternStore.workspacePatterns": [
-        {
-            "label": "Find TODO Comments",
-            "find": "TODO:",
-            "replace": "FIXME:",
-            "flags": {
-                "isRegex": false,
-                "isCaseSensitive": true,
-                "matchWholeWord": false,
-                "isMultiline": false
-            },
-            "filesToInclude": "*.ts,*.js",
-            "scope": "workspace"
-        },
-        {
-            "label": "Console Log Finder",
-            "find": "console\\.log",
-            "flags": {
-                "isRegex": true,
-                "isCaseSensitive": false,
-                "matchWholeWord": false,
-                "isMultiline": false
-            },
-            "filesToExclude": "node_modules/**",
-            "scope": "workspace"
-        }
-    ],
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true
+  "patternStore.workspacePatterns": [
+    {
+      "label": "Find TODO Comments",
+      "find": "TODO:",
+      "replace": "FIXME:",
+      "flags": {
+        "isRegex": false,
+        "isCaseSensitive": true,
+        "matchWholeWord": false,
+        "isMultiline": false
+      },
+      "filesToInclude": "*.ts,*.js",
+      "scope": "workspace"
+    },
+    {
+      "label": "Console Log Finder",
+      "find": "console\\.log",
+      "flags": {
+        "isRegex": true,
+        "isCaseSensitive": false,
+        "matchWholeWord": false,
+        "isMultiline": false
+      },
+      "filesToExclude": "node_modules/**",
+      "scope": "workspace"
+    }
+  ],
+  "[html]": {
+    "editor.defaultFormatter": "disable-prettier-formatting-for-html"
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true
 }

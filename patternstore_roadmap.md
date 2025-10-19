@@ -18,12 +18,10 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
   - [x] Auto-select newly created pattern in details view
 
 ### 2. Details View - Core Functionality
-- [ ] Clicking a pattern populates the details view with its data
-- [ ] Save button updates/overwrites the selected pattern
-- [ ] Delete button removes pattern from:
-  - [ ] Storage (workspace or user settings)
-  - [ ] Pattern list view
-  - [ ] Details view (reset to empty state)
+- [x] Clicking a pattern populates the details view with its data
+- [x] Save button updates/overwrites the selected pattern
+- [x] Delete button removes pattern everywhere
+
 - [ ] Empty state when no pattern is selected:
   - [ ] Show empty icon/placeholder
   - [ ] Clear/disable form fields

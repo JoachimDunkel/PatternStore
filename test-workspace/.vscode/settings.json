@@ -1,45 +1,6 @@
 {
 	"patternStore.workspacePatterns": [
 		{
-			"label": "Replace console.log for variable 6",
-			"find": "console.log('variable 6');",
-			"replace": "logger.info('variable 6');",
-			"flags": {
-				"isRegex": true,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": true
-			},
-			"scope": "workspace"
-		},
-		{
-			"label": "Refactor assignment for constant 7",
-			"find": "(constant_7)s*=s*(.+);",
-			"replace": "const constant_7 = refactor($2);",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{cs}",
-			"scope": "workspace"
-		},
-		{
-			"label": "Update import path for property 8",
-			"find": "import { property8 } from './old-path';",
-			"replace": "import { property8 } from './new-path';",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": true,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToInclude": "*.{cs}",
-			"filesToExclude": "*.min.cs",
-			"scope": "workspace"
-		},
-		{
 			"label": "Update import path for variable 9",
 			"find": "import { variable9 } from './old-path';",
 			"replace": "import { variable9 } from './new-path';",

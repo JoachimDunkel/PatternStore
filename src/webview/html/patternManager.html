@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src {{cspSource}} https://unpkg.com 'nonce-{{nonce}}'; font-src https://unpkg.com; script-src 'nonce-{{nonce}}';">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none'; style-src {{cspSource}} https://unpkg.com 'nonce-{{nonce}}'; font-src https://unpkg.com; script-src 'nonce-{{nonce}}';">
   <title>Manage Patterns</title>
   <link href="https://unpkg.com/@vscode/codicons/dist/codicon.css" rel="stylesheet" />
   {{styleTag}}
 </head>
+
 <body>
   <div class="container">
     <!-- Left: Pattern List -->
@@ -15,12 +18,7 @@
       <div class="search-box">
         <div class="search-wrapper">
           <i class="codicon codicon-search search-icon"></i>
-          <input 
-            type="text" 
-            class="search-input" 
-            placeholder="Search patterns..."
-            id="searchInput"
-          />
+          <input type="text" class="search-input" placeholder="Search patterns..." id="searchInput" />
           <button class="search-clear" id="searchClear" title="Clear search">
             <i class="codicon codicon-close"></i>
           </button>
@@ -31,63 +29,69 @@
         <div class="empty-state">No patterns yet</div>
       </div>
     </div>
-    
-    <!-- Right: Edit Form -->
+
     <div class="edit-panel" id="editPanel">
-      <h2>Edit Pattern</h2>
-      
-      <div class="form-group">
-        <label class="form-label" for="labelInput">Name</label>
-        <input type="text" class="form-input" id="labelInput" placeholder="Pattern name" />
+      <div class="edit-empty-state" id="editEmptyState">
+        <i class="codicon codicon-list-selection"></i>
+        <p>Select a pattern to edit</p>
+        <p class="hint">or create a new one with the + button</p>
       </div>
-      
-      <div class="form-group">
-        <label class="form-label" for="findInput">Find</label>
-        <textarea class="form-textarea" id="findInput" placeholder="Search pattern or regex"></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label" for="replaceInput">Replace (optional)</label>
-        <textarea class="form-textarea" id="replaceInput" placeholder="Replacement text"></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Flags</label>
-        <div class="checkbox-group">
-          <label class="checkbox-label">
-            <input type="checkbox" id="isRegex" />
-            <span>Regex</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" id="isCaseSensitive" />
-            <span>Case Sensitive</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" id="matchWholeWord" />
-            <span>Whole Word</span>
-          </label>
+
+      <div class="edit-form" id="editForm">
+        <h2>Edit Pattern</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="labelInput">Name</label>
+          <input type="text" class="form-input" id="labelInput" placeholder="Pattern name" />
         </div>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label" for="filesToInclude">Files to Include</label>
-        <input type="text" class="form-input" id="filesToInclude" placeholder="*.ts,*.js or src/**" />
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label" for="filesToExclude">Files to Exclude</label>
-        <input type="text" class="form-input" id="filesToExclude" placeholder="node_modules/**,dist/**" />
-      </div>
-      
-      <div class="button-group">
-        <button id="saveBtn">Save</button>
-        <button id="deleteBtn" class="secondary">Delete</button>
+
+        <div class="form-group">
+          <label class="form-label" for="findInput">Find</label>
+          <textarea class="form-textarea" id="findInput" placeholder="Search pattern or regex"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="replaceInput">Replace (optional)</label>
+          <textarea class="form-textarea" id="replaceInput" placeholder="Replacement text"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Flags</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="isRegex" />
+              <span>Regex</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="isCaseSensitive" />
+              <span>Case Sensitive</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="matchWholeWord" />
+              <span>Whole Word</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="filesToInclude">Files to Include</label>
+          <input type="text" class="form-input" id="filesToInclude" placeholder="*.ts,*.js or src/**" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="filesToExclude">Files to Exclude</label>
+          <input type="text" class="form-input" id="filesToExclude" placeholder="node_modules/**,dist/**" />
+        </div>
+
+        <div class="button-group">
+          <button id="saveBtn">Save</button>
+          <button id="deleteBtn" class="secondary">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <script nonce="{{nonce}}">
-    {{script}}
-  </script>
+              
+  <script nonce="{{nonce}}">{{script}}</script>
 </body>
+
 </html>

@@ -58,11 +58,15 @@ function setupSearchInput() {
 
   if (!searchInput || !searchClear) return;
 
-  // Update search query and show/hide clear button
+  // if (searchInput.dataset.initialized === 'true') {
+  //   return;
+  // }
+
+  // searchInput.dataset.initialized = 'true';
+
   searchInput.addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase();
 
-    // Show/hide clear button
     if (searchQuery) {
       searchClear.classList.add('visible');
     } else {
@@ -72,7 +76,6 @@ function setupSearchInput() {
     renderPatternList();
   });
 
-  // Clear button click
   searchClear.addEventListener('click', () => {
     searchInput.value = '';
     searchQuery = '';
@@ -81,7 +84,6 @@ function setupSearchInput() {
     searchInput.focus();
   });
 
-  // ESC key to clear search
   searchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && searchQuery) {
       searchInput.value = '';
@@ -260,6 +262,9 @@ function handlePatternClick(event) {
 }
 
 function populateDetailsView(pattern) {
+  document.getElementById('editEmptyState').style.display = 'none';
+  document.getElementById('editForm').classList.add('active');
+
   document.getElementById('labelInput').value = pattern.label;
   document.getElementById('findInput').value = pattern.find || '';
   document.getElementById('replaceInput').value = pattern.replace || '';
@@ -352,6 +357,9 @@ function handleDeletePattern() {
 }
 
 function clearDetailsView() {
+  document.getElementById('editForm').classList.remove('active');
+  document.getElementById('editEmptyState').style.display = 'flex';
+
   document.getElementById('labelInput').value = '';
   document.getElementById('findInput').value = '';
   document.getElementById('replaceInput').value = '';
@@ -428,7 +436,5 @@ function handleLoad(label, scope) {
 }
 
 document.getElementById('saveBtn').addEventListener('click', handleSavePattern);
-
 document.getElementById('deleteBtn').addEventListener('click', handleDeletePattern);
-
 vscode.postMessage({ type: 'ready' });
