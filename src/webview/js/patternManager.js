@@ -93,56 +93,35 @@ function filterPatterns(patterns) {
   });
 }
 
-/**
- * Render the pattern list grouped by scope
- */
+
 function renderPatternList() {
   const listContainer = document.getElementById('patternList');
   
-  // Apply search filter
   const filteredWorkspace = filterPatterns(workspacePatterns);
   const filteredUser = filterPatterns(userPatterns);
-  
-  // Check if empty after filtering
-  if (filteredWorkspace.length === 0 && filteredUser.length === 0) {
-    if (searchQuery) {
-      listContainer.innerHTML = '<div class="empty-state">No patterns found</div>';
-    } else {
-      listContainer.innerHTML = '<div class="empty-state">No patterns yet</div>';
-    }
-    return;
-  }
-  
   let html = '';
   
-  // Workspace section - only show if has filtered patterns
-  if (filteredWorkspace.length > 0) {
-    // Auto-expand when searching, otherwise use saved state
-    const collapsed = searchQuery ? false : getCollapseState('workspace');
-    html += renderSection('workspace', 'Workspace', filteredWorkspace, collapsed);
+  if (searchQuery && filteredWorkspace.length === 0 && filteredUser.length === 0) {
+    listContainer.innerHTML = '<div class="empty-state">No patterns found</div>';
+    return;
   }
+
+  const workspaceCollapsed = searchQuery ? false : getCollapseState('workspace');
+  html += renderSection('workspace', 'Workspace', filteredWorkspace, workspaceCollapsed);
   
-  // User section - only show if has filtered patterns
-  if (filteredUser.length > 0) {
-    // Auto-expand when searching, otherwise use saved state
-    const collapsed = searchQuery ? false : getCollapseState('user');
-    html += renderSection('user', 'User', filteredUser, collapsed);
-  }
+  const userCollapsed = searchQuery ? false : getCollapseState('user');
+  html += renderSection('user', 'User', filteredUser, userCollapsed);
   
   listContainer.innerHTML = html;
   
-  // Attach click handlers to section headers
   document.querySelectorAll('.section-header').forEach(header => {
     header.addEventListener('click', toggleSection);
   });
   
-  // Attach event listeners to pattern items and action buttons
   attachEventListeners();
 }
 
-/**
- * Render a collapsible section
- */
+
 function renderSection(id, title, patterns, collapsed) {
   const chevron = collapsed ? 'codicon-chevron-right' : 'codicon-chevron-down';
   const contentClass = collapsed ? 'section-content collapsed' : 'section-content';
@@ -155,17 +134,20 @@ function renderSection(id, title, patterns, collapsed) {
     <div class="${contentClass}" data-section-content="${id}">
   `;
   
-  patterns.forEach(pattern => {
-    html += renderPatternItem(pattern);
-  });
+  // Show patterns or empty state
+  if (patterns.length === 0) {
+    html += '<div class="empty-state-section">No patterns in this scope</div>';
+  } else {
+    patterns.forEach(pattern => {
+      html += renderPatternItem(pattern);
+    });
+  }
   
   html += '</div>';
   return html;
 }
 
-/**
- * Toggle section collapsed state
- */
+
 function toggleSection(event) {
   const header = event.currentTarget;
   const sectionId = header.dataset.section;

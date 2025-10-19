@@ -302,3 +302,12 @@ button.secondary:hover {
   padding: 40px 20px;
   opacity: 0.6;
 }
+
+
+.empty-state-section {
+  padding: 16px 12px;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 12px;
+  font-style: italic;
+}
