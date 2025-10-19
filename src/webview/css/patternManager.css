@@ -314,12 +314,37 @@ body {
   display: block;
 }
 
+.edit-form-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
 .edit-form h2 {
   font-size: 13px;
   font-weight: 600;
-  margin: 0 0 12px 0;
+  margin: 0;
   text-transform: uppercase;
   opacity: 0.8;
+  white-space: nowrap;
+}
+
+.form-input-inline {
+  flex: 1;
+  padding: 4px 6px;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 2px;
+  font-size: 13px;
+  font-family: var(--vscode-editor-font-family);
+  box-sizing: border-box;
+}
+
+.form-input-inline:focus {
+  outline: none;
+  border-color: var(--vscode-focusBorder);
 }
 
 .form-group {
@@ -333,6 +358,17 @@ body {
   font-size: 11px;
   opacity: 0.8;
   text-transform: uppercase;
+}
+
+.form-label-with-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.form-label-with-options .form-label {
+  margin-bottom: 0;
 }
 
 .form-input,
@@ -376,11 +412,9 @@ body {
   display: block;
 }
 
-/* Icon-based toggle buttons (like VSCode search) */
 .checkbox-group-icons {
   display: flex;
   gap: 4px;
-  margin-top: 4px;
 }
 
 .toggle-btn {

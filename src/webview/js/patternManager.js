@@ -356,6 +356,22 @@ function handleDeletePattern() {
 
 }
 
+function handleLoadPatternFromDetails() {
+  const state = vscode.getState() || {};
+  const currentPattern = state.currentPattern;
+
+  if (!currentPattern) {
+    console.error('No pattern selected to load');
+    return;
+  }
+
+  vscode.postMessage({
+    type: 'load',
+    id: currentPattern.id,
+    scope: currentPattern.scope
+  });
+}
+
 function clearDetailsView() {
   document.getElementById('editForm').classList.remove('active');
   document.getElementById('editEmptyState').style.display = 'flex';
@@ -520,6 +536,7 @@ function handleLoad(id, scope) {
 
 document.getElementById('saveBtn').addEventListener('click', handleSavePattern);
 document.getElementById('deleteBtn').addEventListener('click', handleDeletePattern);
+document.getElementById('loadBtn').addEventListener('click', handleLoadPatternFromDetails);
 
 setupToggleButtons();
 

@@ -1,9 +1,10 @@
 {
 	"patternStore.workspacePatterns": [
 		{
-			"label": "Update comment for class 12",
-			"find": "// TODO: convert class",
-			"replace": "// DONE: convert class - 2025-10-18",
+			"id": "0d025081-5288-40bd-b101-fa29daa43722",
+			"label": "Invalid Regex",
+			"find": "[",
+			"replace": "",
 			"flags": {
 				"isRegex": true,
 				"isCaseSensitive": false,
@@ -11,8 +12,7 @@
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{js}",
-			"scope": "workspace",
-			"id": "0d025081-5288-40bd-b101-fa29daa43722"
+			"scope": "workspace"
 		},
 		{
 			"label": "Update import path for property 13",

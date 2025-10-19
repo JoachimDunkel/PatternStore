@@ -30,18 +30,25 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 ### 3. Details View - UI Improvements
 - [ ] Replace flag text labels with VSCode icons - Duplicating vs code ui
 
-- [ ] Make UI more compact:
-  - [ ] Reduce padding/spacing
-  - [ ] Smaller input fields
-  - [ ] Condensed form layout
-- [ ] Add visual feedback for validation errors
-- [ ] Add auto fill into the details view - this way the user can make temporary changes that get injected into the search without having them permanent
+- [x] Make UI more compact:
+  - [x] Reduce padding/spacing
+  - [x] Smaller input fields
+  - [x] Condensed form layout
+- [x] Add visual feedback for validation errors
+- [x] Add auto fill into the details view - this way the user can make temporary changes that get injected into the search without having them permanent
+
+#### 3.1 Bug:
+- [ ] detail view | an unseclected button needs two clicks to jump to selected but only one to jump to unselected. Also it does not alway seem to be in the correct state visually
+- [ ] save is disabled if regex is invalid - this is unnecessary.  Just show the error but allow saving. -> never disable save
+- [ ] we need to track if a detail is dirty and needs saving. (e.g. a cycle icon somewhere or be creative.)
+- [ ] The load to search button should have the same icon as the one in the search view
+- [ ] The load to search button should use the current details (which may be dirty) and send those instead of the item itself.
+- [ ] A saved pattern stores itself with the id. but we dont want to have this info in the settings.json files.
 
 ### 4. Resizable Panels
 - [ ] Implement horizontal resize between pattern list and details view
 - [ ] Add draggable divider/handle
 - [ ] Save panel size preference in webview state
-- [ ] Set sensible min/max widths for both panels
 
 ---
 
