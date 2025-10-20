@@ -43,18 +43,29 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] save is disabled if regex is invalid - this is unnecessary.  Just show the error but allow saving. -> never disable save
 - [x] when selecting another element during saving of the current detail it jumps back to the saved on.
 
-- [ ] we need to track if a detail is dirty and needs saving. (e.g. a cycle icon somewhere or be creative.)
 - [ ] The load to search button should not close the dialog
 - [ ] The load to search button should have the same icon as the one in the search view
 - [ ] The load to search button should use the current details (which may be dirty) and send those instead of the item itself.
-- [ ] A saved pattern stores itself with the id. but we dont want to have this info in the settings.json files.
+
+- [ ] Improve speed - use map for all lookups instead of array find
+
+- [ ] we need to track if a detail is dirty and needs saving. (e.g. a cycle icon somewhere or be creative.)
+
+
 
 ### 4. Resizable Panels
 - [ ] Implement horizontal resize between pattern list and details view
 - [ ] Add draggable divider/handle
 - [ ] Save panel size preference in webview state
 
+### 5. Remove redundant features
+- [x] Remove Search view "Save" button.
+- [ ] Remove Launch button. The manage is enough.
+
 ---
+## 6. Fix 
+- [ ] Storing id's in the config prevents user from manually editing the config file. We need to find a way to store the patterns without interfering with manual edits.
+
 
 ## Publish 
 - [ ] Final testing and bug fixes
@@ -72,6 +83,7 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [ ] The currently selected item should always stay on top independent of search and filtering
 
 ---
+
 
 ## 📝 Notes
 - Keep the search functionality working throughout all changes

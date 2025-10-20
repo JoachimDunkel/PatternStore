@@ -5,6 +5,11 @@ let workspacePatterns = [];
 let userPatterns = [];
 let searchQuery = '';
 
+function findPatternById(id, scope) {
+  const allPatterns = scope === 'workspace' ? workspacePatterns : userPatterns;
+  return allPatterns.find(p => p.id === id);
+}
+
 // Get collapse state from localStorage
 const getCollapseState = (section) => {
   const state = vscode.getState() || {};
@@ -250,8 +255,7 @@ function handlePatternClick(event) {
 
   item.classList.add('selected');
 
-  const allPatterns = scope === 'workspace' ? workspacePatterns : userPatterns;
-  const pattern = allPatterns.find(p => p.id === id);
+  const pattern = findPatternById(id, scope);
 
   if (pattern) {
     populateDetailsView(pattern);
@@ -380,10 +384,26 @@ function handleLoadPatternFromDetails() {
     return;
   }
 
+  // Build pattern from current form values (may be dirty)
+  const pattern = {
+    id: currentPattern.id,
+    label: document.getElementById('labelInput').value.trim(),
+    find: document.getElementById('findInput').value,
+    replace: document.getElementById('replaceInput').value,
+    flags: {
+      isRegex: document.getElementById('isRegex').checked,
+      isCaseSensitive: document.getElementById('isCaseSensitive').checked,
+      matchWholeWord: document.getElementById('matchWholeWord').checked,
+      isMultiline: false
+    },
+    filesToInclude: document.getElementById('filesToInclude').value.trim() || undefined,
+    filesToExclude: document.getElementById('filesToExclude').value.trim() || undefined,
+    scope: currentPattern.scope
+  };
+
   vscode.postMessage({
     type: 'load',
-    id: currentPattern.id,
-    scope: currentPattern.scope
+    pattern: pattern
   });
 }
 
@@ -529,7 +549,8 @@ function handleActionClick(event) {
   if (action === 'delete') {
     handleDelete(id, scope);
   } else if (action === 'load') {
-    handleLoad(id, scope);
+    const pattern = findPatternById(id, scope);
+    handleLoad(pattern);
   }
 }
 
@@ -541,11 +562,15 @@ function handleDelete(id, scope) {
   });
 }
 
-function handleLoad(id, scope) {
+function handleLoad(pattern) {
+  if (!pattern) {
+    console.error('Pattern not found');
+    return;
+  }
+
   vscode.postMessage({
     type: 'load',
-    id: id,
-    scope: scope
+    pattern: pattern
   });
 }
 
