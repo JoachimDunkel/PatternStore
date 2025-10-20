@@ -262,6 +262,10 @@ function populateDetailsView(pattern) {
   document.getElementById('findInput').value = pattern.find || '';
   document.getElementById('replaceInput').value = pattern.replace || '';
 
+  document.getElementById('isRegex').checked = pattern.flags.isRegex;
+  document.getElementById('isCaseSensitive').checked = pattern.flags.isCaseSensitive;
+  document.getElementById('matchWholeWord').checked = pattern.flags.matchWholeWord;
+
   updateToggleButtonState(document.getElementById('isRegexBtn'), pattern.flags.isRegex);
   updateToggleButtonState(document.getElementById('isCaseSensitiveBtn'), pattern.flags.isCaseSensitive);
   updateToggleButtonState(document.getElementById('matchWholeWordBtn'), pattern.flags.matchWholeWord);

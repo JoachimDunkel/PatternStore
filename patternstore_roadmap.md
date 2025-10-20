@@ -41,6 +41,7 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [ ] detail view | an unseclected button needs two clicks to jump to selected but only one to jump to unselected. Also it does not alway seem to be in the correct state visually
 - [ ] save is disabled if regex is invalid - this is unnecessary.  Just show the error but allow saving. -> never disable save
 - [ ] we need to track if a detail is dirty and needs saving. (e.g. a cycle icon somewhere or be creative.)
+- [ ] The load to search button should not close the dialog
 - [ ] The load to search button should have the same icon as the one in the search view
 - [ ] The load to search button should use the current details (which may be dirty) and send those instead of the item itself.
 - [ ] A saved pattern stores itself with the id. but we dont want to have this info in the settings.json files.
@@ -50,6 +51,12 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [ ] Add draggable divider/handle
 - [ ] Save panel size preference in webview state
 
+---
+
+## Publish 
+- [ ] Final testing and bug fixes
+- [ ] Update documentation/screenshots
+- [ ] Publish updated extension to VSCode Marketplace
 ---
 
 ## 🚀 Nice-to-Have (Post-MVP)
