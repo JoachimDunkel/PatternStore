@@ -38,8 +38,11 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] Add auto fill into the details view - this way the user can make temporary changes that get injected into the search without having them permanent
 
 #### 3.1 Bug:
-- [ ] detail view | an unseclected button needs two clicks to jump to selected but only one to jump to unselected. Also it does not alway seem to be in the correct state visually
-- [ ] save is disabled if regex is invalid - this is unnecessary.  Just show the error but allow saving. -> never disable save
+- [x] detail view | an unseclected button needs two clicks to jump to selected but only one to jump to unselected. Also it does not alway seem to be in the correct state visually
+- [x] regex validation does not show red indicator on initial load or when a new details is moved into the view
+- [x] save is disabled if regex is invalid - this is unnecessary.  Just show the error but allow saving. -> never disable save
+- [x] when selecting another element during saving of the current detail it jumps back to the saved on.
+
 - [ ] we need to track if a detail is dirty and needs saving. (e.g. a cycle icon somewhere or be creative.)
 - [ ] The load to search button should not close the dialog
 - [ ] The load to search button should have the same icon as the one in the search view

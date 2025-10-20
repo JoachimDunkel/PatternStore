@@ -22,6 +22,10 @@ window.addEventListener('message', event => {
   const message = event.data;
 
   if (message.type === 'patterns') {
+
+    disablePatternList(false);
+    document.body.style.cursor = '';
+
     workspacePatterns = message.workspace;
     userPatterns = message.user;
     renderPatternList();
@@ -272,6 +276,7 @@ function populateDetailsView(pattern) {
 
   document.getElementById('findInput').classList.remove('error');
   document.getElementById('findValidationError').classList.remove('visible');
+  validateRegexPattern();
 
   document.getElementById('filesToInclude').value = pattern.filesToInclude || '';
   document.getElementById('filesToExclude').value = pattern.filesToExclude || '';
@@ -304,21 +309,17 @@ function handleSavePattern() {
     return;
   }
 
-  // Get form values
   const label = document.getElementById('labelInput').value.trim();
   const find = document.getElementById('findInput').value;
   const replace = document.getElementById('replaceInput').value;
 
-  // Validate
   if (!label) {
     alert('Pattern name cannot be empty');
     return;
   }
 
-  if (!validateRegexPattern()) {
-    alert('Please fix the regex pattern error before saving');
-    return;
-  }
+  disablePatternList(true);
+  document.body.style.cursor = 'wait';
 
   const pattern = {
     id: currentPattern.id,
@@ -336,11 +337,21 @@ function handleSavePattern() {
     scope: currentPattern.scope
   };
 
-  // Send save request to extension
   vscode.postMessage({
     type: 'save',
     pattern: pattern
   });
+}
+
+function disablePatternList(disabled) {
+  const listPanel = document.querySelector('.pattern-list-panel');
+  if (disabled) {
+    listPanel.style.pointerEvents = 'none';
+    listPanel.style.opacity = '0.6';
+  } else {
+    listPanel.style.pointerEvents = '';
+    listPanel.style.opacity = '';
+  }
 }
 
 function handleDeletePattern() {
