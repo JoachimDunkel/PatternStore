@@ -775,6 +775,66 @@ initDomCache();
 // Set up event delegation for pattern list (once, not per render)
 setupEventDelegation();
 
+// Resizable panels functionality
+function setupResizablePanels() {
+  const resizeHandle = document.getElementById('resizeHandle');
+  const patternListPanel = document.querySelector('.pattern-list-panel');
+
+  if (!resizeHandle || !patternListPanel) return;
+
+  let isResizing = false;
+  let startX = 0;
+  let startWidth = 0;
+
+  // Load saved width from state
+  const state = vscode.getState() || {};
+  if (state.panelWidth) {
+    patternListPanel.style.flexBasis = `${state.panelWidth}px`;
+  }
+
+  resizeHandle.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    startX = e.clientX;
+    startWidth = patternListPanel.offsetWidth;
+    resizeHandle.classList.add('resizing');
+    document.body.style.cursor = 'ew-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+
+    const deltaX = e.clientX - startX;
+    const newWidth = startWidth + deltaX;
+
+    // Respect min/max constraints
+    const minWidth = 200;
+    const maxWidth = 600;
+    const clampedWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+
+    patternListPanel.style.flexBasis = `${clampedWidth}px`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isResizing) {
+      isResizing = false;
+      resizeHandle.classList.remove('resizing');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+
+      // Save width to state
+      const currentWidth = patternListPanel.offsetWidth;
+      const state = vscode.getState() || {};
+      state.panelWidth = currentWidth;
+      vscode.setState(state);
+    }
+  });
+}
+
+// Set up resizable panels
+setupResizablePanels();
+
 // Add validation listener to find input
 if (domCache.findInput) {
   domCache.findInput.addEventListener('input', () => {

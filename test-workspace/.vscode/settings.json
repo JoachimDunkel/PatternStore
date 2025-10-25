@@ -17,7 +17,7 @@
 			"id": "96b356bb-8df4-44e0-bd32-12b9ca203f41",
 			"label": "New Patterndssadfsadf",
 			"find": "[sdafsdfdf",
-			"replace": "asdsafasdfsadf",
+			"replace": "asdsafasdfsadfasdasd",
 			"flags": {
 				"isRegex": false,
 				"isCaseSensitive": true,
