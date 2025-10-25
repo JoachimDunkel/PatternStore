@@ -106,7 +106,7 @@ export class WebviewManager {
         break;
 
       case 'load':
-        await this.handleLoad(message.id, message.scope);
+        await this.handleLoad(message.id, message.scope, message.pattern);
         break;
 
       case 'create':
@@ -192,12 +192,17 @@ export class WebviewManager {
     }
   }
 
-  private async handleLoad(id: string, scope: 'global' | 'workspace'): Promise<void> {
-    const allPatterns = storage.getAllPatterns();
-    const pattern = allPatterns.find(p => p.id === id && p.scope === scope);
+  private async handleLoad(id: string, scope: 'global' | 'workspace', providedPattern?: any): Promise<void> {
+    let pattern = providedPattern;
+
+    // If no pattern was provided, look it up
     if (!pattern) {
-      vscode.window.showErrorMessage(`Pattern "${id}" not found`);
-      return;
+      const allPatterns = storage.getAllPatterns();
+      pattern = allPatterns.find(p => p.id === id && p.scope === scope);
+      if (!pattern) {
+        vscode.window.showErrorMessage(`Pattern "${id}" not found`);
+        return;
+      }
     }
 
     // Load into search

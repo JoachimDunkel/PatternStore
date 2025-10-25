@@ -31,7 +31,7 @@ function getPatternsByScope(scope: 'global' | 'workspace'): RegexPattern[] {
   }
 
   // Add scope and ensure all have IDs
-  patterns = patterns.map(p => ({ ...p, scope: scope as const }));
+  patterns = patterns.map(p => ({ ...p, scope: scope }));
   const { patterns: withIds, idsAdded } = ensurePatternIds(patterns);
 
   // If we added any IDs, save back to settings immediately

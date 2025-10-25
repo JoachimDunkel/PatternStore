@@ -403,6 +403,8 @@ function handleLoadPatternFromDetails() {
 
   vscode.postMessage({
     type: 'load',
+    id: currentPattern.id,
+    scope: currentPattern.scope,
     pattern: pattern
   });
 }
@@ -549,8 +551,7 @@ function handleActionClick(event) {
   if (action === 'delete') {
     handleDelete(id, scope);
   } else if (action === 'load') {
-    const pattern = findPatternById(id, scope);
-    handleLoad(pattern);
+    handleLoad(id, scope);
   }
 }
 
@@ -562,15 +563,16 @@ function handleDelete(id, scope) {
   });
 }
 
-function handleLoad(pattern) {
-  if (!pattern) {
+function handleLoad(id, scope) {
+  if (!id || !scope) {
     console.error('Pattern not found');
     return;
   }
 
   vscode.postMessage({
     type: 'load',
-    pattern: pattern
+    id: id,
+    scope: scope
   });
 }
 
