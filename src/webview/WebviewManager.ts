@@ -29,10 +29,9 @@ export class WebviewManager {
       return;
     }
 
-    // Create a new panel
     const panel = vscode.window.createWebviewPanel(
       'patternStoreManage',
-      scope === 'global' ? 'Manage User Patterns' : 'Manage Workspace Patterns',
+      'PatternStore',
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,

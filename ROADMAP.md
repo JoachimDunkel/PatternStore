@@ -1,6 +1,10 @@
 # PatternStore Roadmap
 
 
+## TODO before publish:
+- [ ] if include and exclude are empty they should still overwrite old left over values in the search panel
+- [ ] improve/update the readme file.
+
 
 ## Publish 
 - [ ] Final testing and bug fixes

@@ -17,8 +17,8 @@ Save and recall reusable **regex find/replace** pairs in VS Code.
 
 
 ### Load a Pattern (Fastest!)
-1. Open the Manage Pattern Press `Ctrl+Alt+R`
-2. Select a pattern
+1. Open the PatternStore view - via commands or click the gear icon in the search panel
+2. Select a pattern - Press -> Load to Search
 3. ✅ Search panel opens with your pattern!
 
 ### Create a Pattern Manually
