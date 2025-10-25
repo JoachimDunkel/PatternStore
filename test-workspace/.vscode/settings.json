@@ -55,20 +55,8 @@
 			"id": "546d8dc7-1334-42b8-84cb-6a0fe2e76045"
 		},
 		{
-			"label": "Update import path for class 17",
-			"find": "import { class17 } from './old-path';",
-			"replace": "import { class17 } from './new-path';",
-			"flags": {
-				"isRegex": true,
-				"isCaseSensitive": false,
-				"matchWholeWord": true,
-				"isMultiline": false
-			},
-			"scope": "workspace",
-			"id": "0d2e313f-a8c8-4013-94f9-61a9449c7866"
-		},
-		{
-			"label": "Refactor assignment for constant 18",
+			"id": "a9dc35a3-f830-44ce-9b8f-554b161ad73d",
+			"label": "WHAT UPPPPPPPPPPPPP",
 			"find": "(constant_18)s*=s*(.+);",
 			"replace": "const constant_18 = convert($2);",
 			"flags": {
@@ -77,8 +65,7 @@
 				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"scope": "workspace",
-			"id": "a9dc35a3-f830-44ce-9b8f-554b161ad73d"
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for variable 19",

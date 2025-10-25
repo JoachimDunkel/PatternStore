@@ -577,7 +577,6 @@ function handleLoad(id, scope) {
 }
 
 document.getElementById('saveBtn').addEventListener('click', handleSavePattern);
-document.getElementById('deleteBtn').addEventListener('click', handleDeletePattern);
 document.getElementById('loadBtn').addEventListener('click', handleLoadPatternFromDetails);
 
 setupToggleButtons();
