@@ -42,20 +42,6 @@
 			"id": "697ab1c7-3adf-467a-8a88-f7853863fbb2"
 		},
 		{
-			"label": "Uppercase string for constant 15",
-			"find": "'convert constant 15'",
-			"replace": "'CONVERT CONSTANT 15'",
-			"flags": {
-				"isRegex": false,
-				"isCaseSensitive": false,
-				"matchWholeWord": false,
-				"isMultiline": false
-			},
-			"filesToExclude": "*.min.cs",
-			"scope": "workspace",
-			"id": "548c2352-7fdc-4d6f-8523-88598aabdfc9"
-		},
-		{
 			"label": "Transform property method 16",
 			"find": "this.method_16 = value;",
 			"replace": "this.method_16 = optimize(value);",

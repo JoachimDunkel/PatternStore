@@ -43,9 +43,9 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] save is disabled if regex is invalid - this is unnecessary.  Just show the error but allow saving. -> never disable save
 - [x] when selecting another element during saving of the current detail it jumps back to the saved on.
 
-- [ ] Load to Search returns "Pattern not found" error
+- [x] Load to Search returns "Pattern not found" error
 
-- [ ] The load to search button should not close the dialog
+- [x] The load to search button should not close the dialog
 - [ ] The load to search button should have the same icon as the one in the search view
 - [ ] The load to search button should use the current details (which may be dirty) and send those instead of the item itself.
 

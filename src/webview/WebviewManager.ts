@@ -208,8 +208,7 @@ export class WebviewManager {
     // Load into search
     await searchCtx.loadPatternIntoSearch(pattern);
 
-    // Close the webview
-    this.panel.dispose();
+    // Don't close the dialog - keep it open for further edits
   }
 
   /**
