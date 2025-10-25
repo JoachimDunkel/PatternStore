@@ -46,7 +46,7 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] Load to Search returns "Pattern not found" error
 
 - [x] The load to search button should not close the dialog
-- [ ] The load to search button in the details view should be some where else more prominent ?
+- [?] The load to search button in the details view should be some where else more prominent 
 - [ ] we need to track if a detail is dirty and needs saving. (e.g. a cycle icon somewhere or be creative.)
 - [ ] The load to search button should use the current details (which may be dirty) and send those instead of the item itself.
 

@@ -5,6 +5,51 @@ let workspacePatterns = [];
 let userPatterns = [];
 let searchQuery = '';
 
+// Dirty state tracking
+let savedPatternState = null;
+
+function checkIfDirty() {
+  const state = vscode.getState() || {};
+  const currentPattern = state.currentPattern;
+
+  if (!currentPattern || !savedPatternState) {
+    updateDirtyIndicator(false);
+    return;
+  }
+
+  // Compare current form values with saved state
+  const isDirty =
+    document.getElementById('labelInput').value.trim() !== savedPatternState.label ||
+    document.getElementById('findInput').value !== savedPatternState.find ||
+    document.getElementById('replaceInput').value !== savedPatternState.replace ||
+    document.getElementById('isRegex').checked !== savedPatternState.flags.isRegex ||
+    document.getElementById('isCaseSensitive').checked !== savedPatternState.flags.isCaseSensitive ||
+    document.getElementById('matchWholeWord').checked !== savedPatternState.flags.matchWholeWord ||
+    (document.getElementById('filesToInclude').value.trim() || '') !== (savedPatternState.filesToInclude || '') ||
+    (document.getElementById('filesToExclude').value.trim() || '') !== (savedPatternState.filesToExclude || '');
+
+  updateDirtyIndicator(isDirty);
+}
+
+function updateDirtyIndicator(isDirty) {
+  const indicator = document.getElementById('dirtyIndicator');
+  if (indicator) {
+    indicator.style.display = isDirty ? 'inline' : 'none';
+  }
+}
+
+function saveDirtyState(pattern) {
+  savedPatternState = {
+    label: pattern.label,
+    find: pattern.find || '',
+    replace: pattern.replace || '',
+    flags: { ...pattern.flags },
+    filesToInclude: pattern.filesToInclude || '',
+    filesToExclude: pattern.filesToExclude || ''
+  };
+  updateDirtyIndicator(false);
+}
+
 function findPatternById(id, scope) {
   const allPatterns = scope === 'workspace' ? workspacePatterns : userPatterns;
   return allPatterns.find(p => p.id === id);
@@ -292,6 +337,9 @@ function populateDetailsView(pattern) {
     scope: pattern.scope
   };
   vscode.setState(state);
+
+  // Save the clean state for dirty tracking
+  saveDirtyState(pattern);
 }
 
 function selectPattern(id, scope) {
@@ -580,6 +628,21 @@ document.getElementById('saveBtn').addEventListener('click', handleSavePattern);
 document.getElementById('loadBtn').addEventListener('click', handleLoadPatternFromDetails);
 
 setupToggleButtons();
+
+// Add event listeners to all form inputs for dirty tracking
+const formInputs = [
+  'labelInput', 'findInput', 'replaceInput',
+  'isRegex', 'isCaseSensitive', 'matchWholeWord',
+  'filesToInclude', 'filesToExclude'
+];
+
+formInputs.forEach(id => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.addEventListener('input', checkIfDirty);
+    element.addEventListener('change', checkIfDirty);
+  }
+});
 
 const findInput = document.getElementById('findInput');
 if (findInput) {

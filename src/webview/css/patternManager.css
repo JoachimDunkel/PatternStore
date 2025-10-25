@@ -476,3 +476,19 @@ button.secondary {
 button.secondary:hover {
   background: var(--vscode-button-secondaryHoverBackground);
 }
+
+.dirty-indicator {
+  margin-left: 6px;
+  color: var(--vscode-editorWarning-foreground);
+  font-size: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
