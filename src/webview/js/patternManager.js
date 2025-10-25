@@ -14,6 +14,7 @@ function checkIfDirty() {
 
   if (!currentPattern || !savedPatternState) {
     updateDirtyIndicator(false);
+    clearAllDirtyClasses();
     return;
   }
 
@@ -29,6 +30,7 @@ function checkIfDirty() {
     (document.getElementById('filesToExclude').value.trim() || '') !== (savedPatternState.filesToExclude || '');
 
   updateDirtyIndicator(isDirty);
+  updateFieldDirtyStates();
 }
 
 function updateDirtyIndicator(isDirty) {
@@ -36,6 +38,76 @@ function updateDirtyIndicator(isDirty) {
   if (indicator) {
     indicator.style.visibility = isDirty ? 'visible' : 'hidden';
   }
+}
+
+function updateFieldDirtyStates() {
+  if (!savedPatternState) {
+    clearAllDirtyClasses();
+    return;
+  }
+
+  // Check text inputs
+  const labelInput = document.getElementById('labelInput');
+  const findInput = document.getElementById('findInput');
+  const replaceInput = document.getElementById('replaceInput');
+  const filesToInclude = document.getElementById('filesToInclude');
+  const filesToExclude = document.getElementById('filesToExclude');
+
+  if (labelInput) {
+    toggleDirtyClass(labelInput, labelInput.value.trim() !== savedPatternState.label);
+  }
+  if (findInput) {
+    toggleDirtyClass(findInput, findInput.value !== savedPatternState.find);
+  }
+  if (replaceInput) {
+    toggleDirtyClass(replaceInput, replaceInput.value !== savedPatternState.replace);
+  }
+  if (filesToInclude) {
+    toggleDirtyClass(filesToInclude, (filesToInclude.value.trim() || '') !== (savedPatternState.filesToInclude || ''));
+  }
+  if (filesToExclude) {
+    toggleDirtyClass(filesToExclude, (filesToExclude.value.trim() || '') !== (savedPatternState.filesToExclude || ''));
+  }
+
+  // Check toggle buttons
+  const isRegexBtn = document.getElementById('isRegexBtn');
+  const isCaseSensitiveBtn = document.getElementById('isCaseSensitiveBtn');
+  const matchWholeWordBtn = document.getElementById('matchWholeWordBtn');
+  const isRegex = document.getElementById('isRegex');
+  const isCaseSensitive = document.getElementById('isCaseSensitive');
+  const matchWholeWord = document.getElementById('matchWholeWord');
+
+  if (isRegexBtn && isRegex) {
+    toggleDirtyClass(isRegexBtn, isRegex.checked !== savedPatternState.flags.isRegex);
+  }
+  if (isCaseSensitiveBtn && isCaseSensitive) {
+    toggleDirtyClass(isCaseSensitiveBtn, isCaseSensitive.checked !== savedPatternState.flags.isCaseSensitive);
+  }
+  if (matchWholeWordBtn && matchWholeWord) {
+    toggleDirtyClass(matchWholeWordBtn, matchWholeWord.checked !== savedPatternState.flags.matchWholeWord);
+  }
+}
+
+function toggleDirtyClass(element, isDirty) {
+  if (isDirty) {
+    element.classList.add('dirty');
+  } else {
+    element.classList.remove('dirty');
+  }
+}
+
+function clearAllDirtyClasses() {
+  const elements = [
+    'labelInput', 'findInput', 'replaceInput', 'filesToInclude', 'filesToExclude',
+    'isRegexBtn', 'isCaseSensitiveBtn', 'matchWholeWordBtn'
+  ];
+
+  elements.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.classList.remove('dirty');
+    }
+  });
 }
 
 function saveDirtyState(pattern) {
@@ -48,6 +120,7 @@ function saveDirtyState(pattern) {
     filesToExclude: pattern.filesToExclude || ''
   };
   updateDirtyIndicator(false);
+  clearAllDirtyClasses();
 }
 
 function findPatternById(id, scope) {
@@ -477,6 +550,11 @@ function clearDetailsView() {
   document.querySelectorAll('.pattern-item').forEach(i => {
     i.classList.remove('selected');
   });
+
+  // Clear dirty state
+  savedPatternState = null;
+  updateDirtyIndicator(false);
+  clearAllDirtyClasses();
 }
 
 /**
@@ -503,6 +581,9 @@ function setupToggleButtons() {
       if (checkboxId === 'isRegex') {
         validateRegexPattern();
       }
+
+      // Check if field is dirty
+      checkIfDirty();
     });
 
     // Initialize button state

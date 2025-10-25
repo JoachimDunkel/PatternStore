@@ -395,6 +395,11 @@ body {
   border-color: var(--vscode-errorForeground);
 }
 
+.form-input.dirty,
+.form-textarea.dirty {
+  animation: pulseBorder 2s ease-in-out infinite;
+}
+
 .form-textarea {
   min-height: 60px;
   resize: vertical;
@@ -440,6 +445,10 @@ body {
   background: var(--vscode-button-background);
   color: var(--vscode-button-foreground);
   border-color: var(--vscode-focusBorder);
+}
+
+.toggle-btn.dirty {
+  animation: pulseBorder 2s ease-in-out infinite;
 }
 
 .toggle-btn .codicon {
@@ -493,5 +502,14 @@ button.secondary:hover {
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+@keyframes pulseBorder {
+  0%, 100% {
+    border-color: #4ec9b0;
+  }
+  50% {
+    border-color: #dcdcaa;
   }
 }
