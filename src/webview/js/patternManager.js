@@ -34,7 +34,7 @@ function checkIfDirty() {
 function updateDirtyIndicator(isDirty) {
   const indicator = document.getElementById('dirtyIndicator');
   if (indicator) {
-    indicator.style.display = isDirty ? 'inline' : 'none';
+    indicator.style.visibility = isDirty ? 'visible' : 'hidden';
   }
 }
 

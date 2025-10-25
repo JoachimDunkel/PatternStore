@@ -482,6 +482,9 @@ button.secondary:hover {
   color: var(--vscode-editorWarning-foreground);
   font-size: 8px;
   animation: pulse 2s ease-in-out infinite;
+  width: 8px;
+  display: inline-block;
+  visibility: hidden;
 }
 
 @keyframes pulse {
