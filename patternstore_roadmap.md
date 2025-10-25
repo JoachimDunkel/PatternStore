@@ -50,22 +50,29 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [x] we need to track if a detail is dirty and needs saving. (e.g. a cycle icon somewhere or be creative.)
 - [x] The load to search button should use the current details (which may be dirty) and send those instead of the item itself.
 
-- [x] Improve speed - use map for all lookups instead of array find
-
 
 
 ### 4. Resizable Panels
-- [ ] Implement horizontal resize between pattern list and details view
-- [ ] Add draggable divider/handle
-- [ ] Save panel size preference in webview state
+- [x] Implement horizontal resize between pattern list and details view
+- [x] Add draggable divider/handle
+
+### 4.5 Improve performance:
+- [x] Improve speed - use map for all lookups instead of array find
+- [x] Improve speed - DOM caching, event delegation, resizable panels
+- [ ] improve io interaction performance? possible (backend caching would be Phase 3)
+
 
 ### 5. Remove redundant features
 - [x] Remove Search view "Save" button.
-- [ ] Remove Launch button. The manage is enough.
+- [x] Remove PatternStore: Launch / the management tab is enough for an mvp
+- [x] Remove the save button from find/replace view - it does not work anyway
+- [x] The folder button in the find/replace view should open the manage tab instead of launch
+
+- [ ] If files to include or files to exclude is empty then it should still overwrite the values in the serach view. Right now it seems to ignore them if they are empty.
 
 ---
 ## 6. Fix 
-- [ ] Storing id's in the config prevents user from manually editing the config file. We need to find a way to store the patterns without interfering with manual edits.
+- [ ] Storing id's in the config prevents user from manually editing the config file. We need to find a way to store the patterns without interfering with manual edits. Postponed for now.
 
 
 ## Publish 
@@ -78,9 +85,6 @@ Complete the Manage Patterns dialog to make it fully functional for creating, ed
 - [ ] Keyboard shortcuts (e.g., `Ctrl+S` to save in details view)
 - [ ] Duplicate pattern button
 - [ ] Drag-and-drop to reorder patterns
-- [ ] Export/Import patterns
-- [ ] Pattern validation with real-time feedback
-- [ ] Undo/Redo functionality
 - [ ] The currently selected item should always stay on top independent of search and filtering
 
 ---

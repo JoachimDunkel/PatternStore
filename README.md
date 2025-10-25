@@ -86,7 +86,7 @@ Default: `Ctrl+Alt+R` for Load Pattern
 
 Customize in `keybindings.json`:
 ```json
-{ "key": "ctrl+alt+r", "command": "patternStore.load" }
+{ "key": "ctrl+alt+r", "command": "patternStore.manage" }
 ```
 
 ## 📚 Documentation

@@ -10,22 +10,12 @@ import { WebviewManager } from './webview/WebviewManager';
 export function activate(context: vscode.ExtensionContext) {
   console.log('PatternStore extension is now active!');
 
-  // Register command: Save Pattern
-  const saveCommand = vscode.commands.registerCommand('patternStore.save', async () => {
-    await savePatternCommand();
-  });
-
-  // Register command: Load Pattern
-  const loadCommand = vscode.commands.registerCommand('patternStore.load', async () => {
-    await loadPatternCommand();
-  });
-
   // Register command: Manage Patterns
   const manageCommand = vscode.commands.registerCommand('patternStore.manage', async () => {
     await managePatternsCommand(context.extensionUri);
   });
 
-  context.subscriptions.push(saveCommand, loadCommand, manageCommand);
+  context.subscriptions.push(manageCommand);
 }
 
 /**
@@ -112,47 +102,6 @@ async function savePatternCommand(): Promise<void> {
   }
 }
 
-/**
- * Command: Load a saved pattern into the search panel
- */
-async function loadPatternCommand(): Promise<void> {
-  try {
-    // Get all patterns
-    const patterns = storage.getAllPatterns();
-    
-    if (patterns.length === 0) {
-      vscode.window.showInformationMessage('No saved patterns found. Use "PatternStore: Save Pattern" to create one.');
-      return;
-    }
-    
-    // Create QuickPick items
-    const items = patterns.map(p => ({
-      label: p.label,
-      description: `[${p.scope}]`,
-      detail: `Find: ${p.find.substring(0, 50)}${p.find.length > 50 ? '...' : ''}`,
-      pattern: p
-    }));
-    
-    // Show QuickPick
-    const selected = await vscode.window.showQuickPick(items, {
-      placeHolder: 'Select a pattern to load'
-    });
-    
-    if (!selected) {
-      return; // User cancelled
-    }
-    
-    // Load the pattern into search
-    await searchCtx.loadPatternIntoSearch(selected.pattern);
-    
-  } catch (error) {
-    vscode.window.showErrorMessage(`Error loading pattern: ${error}`);
-  }
-}
-
-/**
- * Command: Manage saved patterns (will be replaced with webview)
- */
 async function managePatternsCommand(extensionUri: vscode.Uri): Promise<void> {
   console.log('Manage Patterns command pressed - opening webview');
   // For now, just open global patterns. We'll add separate commands later

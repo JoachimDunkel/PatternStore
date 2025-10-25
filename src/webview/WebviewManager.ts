@@ -205,15 +205,10 @@ export class WebviewManager {
       }
     }
 
-    // Load into search
     await searchCtx.loadPatternIntoSearch(pattern);
-
-    // Don't close the dialog - keep it open for further edits
   }
 
-  /**
-   * Get the HTML content for the webview
-   */
+
   private getHtmlContent(): string {
     // Generate nonce for CSP
     const nonce = this.getNonce();
