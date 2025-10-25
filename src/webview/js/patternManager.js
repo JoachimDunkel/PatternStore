@@ -3,10 +3,51 @@ const vscode = acquireVsCodeApi();
 // Store patterns data
 let workspacePatterns = [];
 let userPatterns = [];
+let workspacePatternsMap = new Map(); // id -> pattern
+let userPatternsMap = new Map(); // id -> pattern
 let searchQuery = '';
 
 // Dirty state tracking
 let savedPatternState = null;
+
+// Cache DOM elements for performance
+const domCache = {
+  labelInput: null,
+  findInput: null,
+  replaceInput: null,
+  filesToInclude: null,
+  filesToExclude: null,
+  isRegex: null,
+  isCaseSensitive: null,
+  matchWholeWord: null,
+  isRegexBtn: null,
+  isCaseSensitiveBtn: null,
+  matchWholeWordBtn: null,
+  dirtyIndicator: null,
+  patternList: null,
+  editForm: null,
+  editEmptyState: null,
+  findValidationError: null
+};
+
+function initDomCache() {
+  domCache.labelInput = document.getElementById('labelInput');
+  domCache.findInput = document.getElementById('findInput');
+  domCache.replaceInput = document.getElementById('replaceInput');
+  domCache.filesToInclude = document.getElementById('filesToInclude');
+  domCache.filesToExclude = document.getElementById('filesToExclude');
+  domCache.isRegex = document.getElementById('isRegex');
+  domCache.isCaseSensitive = document.getElementById('isCaseSensitive');
+  domCache.matchWholeWord = document.getElementById('matchWholeWord');
+  domCache.isRegexBtn = document.getElementById('isRegexBtn');
+  domCache.isCaseSensitiveBtn = document.getElementById('isCaseSensitiveBtn');
+  domCache.matchWholeWordBtn = document.getElementById('matchWholeWordBtn');
+  domCache.dirtyIndicator = document.getElementById('dirtyIndicator');
+  domCache.patternList = document.getElementById('patternList');
+  domCache.editForm = document.getElementById('editForm');
+  domCache.editEmptyState = document.getElementById('editEmptyState');
+  domCache.findValidationError = document.getElementById('findValidationError');
+}
 
 function checkIfDirty() {
   const state = vscode.getState() || {};
@@ -20,23 +61,22 @@ function checkIfDirty() {
 
   // Compare current form values with saved state
   const isDirty =
-    document.getElementById('labelInput').value.trim() !== savedPatternState.label ||
-    document.getElementById('findInput').value !== savedPatternState.find ||
-    document.getElementById('replaceInput').value !== savedPatternState.replace ||
-    document.getElementById('isRegex').checked !== savedPatternState.flags.isRegex ||
-    document.getElementById('isCaseSensitive').checked !== savedPatternState.flags.isCaseSensitive ||
-    document.getElementById('matchWholeWord').checked !== savedPatternState.flags.matchWholeWord ||
-    (document.getElementById('filesToInclude').value.trim() || '') !== (savedPatternState.filesToInclude || '') ||
-    (document.getElementById('filesToExclude').value.trim() || '') !== (savedPatternState.filesToExclude || '');
+    domCache.labelInput.value.trim() !== savedPatternState.label ||
+    domCache.findInput.value !== savedPatternState.find ||
+    domCache.replaceInput.value !== savedPatternState.replace ||
+    domCache.isRegex.checked !== savedPatternState.flags.isRegex ||
+    domCache.isCaseSensitive.checked !== savedPatternState.flags.isCaseSensitive ||
+    domCache.matchWholeWord.checked !== savedPatternState.flags.matchWholeWord ||
+    (domCache.filesToInclude.value.trim() || '') !== (savedPatternState.filesToInclude || '') ||
+    (domCache.filesToExclude.value.trim() || '') !== (savedPatternState.filesToExclude || '');
 
   updateDirtyIndicator(isDirty);
   updateFieldDirtyStates();
 }
 
 function updateDirtyIndicator(isDirty) {
-  const indicator = document.getElementById('dirtyIndicator');
-  if (indicator) {
-    indicator.style.visibility = isDirty ? 'visible' : 'hidden';
+  if (domCache.dirtyIndicator) {
+    domCache.dirtyIndicator.style.visibility = isDirty ? 'visible' : 'hidden';
   }
 }
 
@@ -46,45 +86,32 @@ function updateFieldDirtyStates() {
     return;
   }
 
-  // Check text inputs
-  const labelInput = document.getElementById('labelInput');
-  const findInput = document.getElementById('findInput');
-  const replaceInput = document.getElementById('replaceInput');
-  const filesToInclude = document.getElementById('filesToInclude');
-  const filesToExclude = document.getElementById('filesToExclude');
-
-  if (labelInput) {
-    toggleDirtyClass(labelInput, labelInput.value.trim() !== savedPatternState.label);
+  // Check text inputs using cached DOM references
+  if (domCache.labelInput) {
+    toggleDirtyClass(domCache.labelInput, domCache.labelInput.value.trim() !== savedPatternState.label);
   }
-  if (findInput) {
-    toggleDirtyClass(findInput, findInput.value !== savedPatternState.find);
+  if (domCache.findInput) {
+    toggleDirtyClass(domCache.findInput, domCache.findInput.value !== savedPatternState.find);
   }
-  if (replaceInput) {
-    toggleDirtyClass(replaceInput, replaceInput.value !== savedPatternState.replace);
+  if (domCache.replaceInput) {
+    toggleDirtyClass(domCache.replaceInput, domCache.replaceInput.value !== savedPatternState.replace);
   }
-  if (filesToInclude) {
-    toggleDirtyClass(filesToInclude, (filesToInclude.value.trim() || '') !== (savedPatternState.filesToInclude || ''));
+  if (domCache.filesToInclude) {
+    toggleDirtyClass(domCache.filesToInclude, (domCache.filesToInclude.value.trim() || '') !== (savedPatternState.filesToInclude || ''));
   }
-  if (filesToExclude) {
-    toggleDirtyClass(filesToExclude, (filesToExclude.value.trim() || '') !== (savedPatternState.filesToExclude || ''));
+  if (domCache.filesToExclude) {
+    toggleDirtyClass(domCache.filesToExclude, (domCache.filesToExclude.value.trim() || '') !== (savedPatternState.filesToExclude || ''));
   }
 
-  // Check toggle buttons
-  const isRegexBtn = document.getElementById('isRegexBtn');
-  const isCaseSensitiveBtn = document.getElementById('isCaseSensitiveBtn');
-  const matchWholeWordBtn = document.getElementById('matchWholeWordBtn');
-  const isRegex = document.getElementById('isRegex');
-  const isCaseSensitive = document.getElementById('isCaseSensitive');
-  const matchWholeWord = document.getElementById('matchWholeWord');
-
-  if (isRegexBtn && isRegex) {
-    toggleDirtyClass(isRegexBtn, isRegex.checked !== savedPatternState.flags.isRegex);
+  // Check toggle buttons using cached DOM references
+  if (domCache.isRegexBtn && domCache.isRegex) {
+    toggleDirtyClass(domCache.isRegexBtn, domCache.isRegex.checked !== savedPatternState.flags.isRegex);
   }
-  if (isCaseSensitiveBtn && isCaseSensitive) {
-    toggleDirtyClass(isCaseSensitiveBtn, isCaseSensitive.checked !== savedPatternState.flags.isCaseSensitive);
+  if (domCache.isCaseSensitiveBtn && domCache.isCaseSensitive) {
+    toggleDirtyClass(domCache.isCaseSensitiveBtn, domCache.isCaseSensitive.checked !== savedPatternState.flags.isCaseSensitive);
   }
-  if (matchWholeWordBtn && matchWholeWord) {
-    toggleDirtyClass(matchWholeWordBtn, matchWholeWord.checked !== savedPatternState.flags.matchWholeWord);
+  if (domCache.matchWholeWordBtn && domCache.matchWholeWord) {
+    toggleDirtyClass(domCache.matchWholeWordBtn, domCache.matchWholeWord.checked !== savedPatternState.flags.matchWholeWord);
   }
 }
 
@@ -98,12 +125,12 @@ function toggleDirtyClass(element, isDirty) {
 
 function clearAllDirtyClasses() {
   const elements = [
-    'labelInput', 'findInput', 'replaceInput', 'filesToInclude', 'filesToExclude',
-    'isRegexBtn', 'isCaseSensitiveBtn', 'matchWholeWordBtn'
+    domCache.labelInput, domCache.findInput, domCache.replaceInput,
+    domCache.filesToInclude, domCache.filesToExclude,
+    domCache.isRegexBtn, domCache.isCaseSensitiveBtn, domCache.matchWholeWordBtn
   ];
 
-  elements.forEach(id => {
-    const element = document.getElementById(id);
+  elements.forEach(element => {
     if (element) {
       element.classList.remove('dirty');
     }
@@ -124,8 +151,16 @@ function saveDirtyState(pattern) {
 }
 
 function findPatternById(id, scope) {
-  const allPatterns = scope === 'workspace' ? workspacePatterns : userPatterns;
-  return allPatterns.find(p => p.id === id);
+  const map = scope === 'workspace' ? workspacePatternsMap : userPatternsMap;
+  return map.get(id);
+}
+
+function rebuildPatternMaps() {
+  workspacePatternsMap.clear();
+  userPatternsMap.clear();
+
+  workspacePatterns.forEach(p => workspacePatternsMap.set(p.id, p));
+  userPatterns.forEach(p => userPatternsMap.set(p.id, p));
 }
 
 // Get collapse state from localStorage
@@ -151,6 +186,7 @@ window.addEventListener('message', event => {
 
     workspacePatterns = message.workspace;
     userPatterns = message.user;
+    rebuildPatternMaps(); // Rebuild Maps for O(1) lookups
     renderPatternList();
     setupSearchInput();
 
@@ -254,7 +290,7 @@ function renderPatternList() {
     header.addEventListener('click', toggleSection);
   });
 
-  attachEventListeners();
+  // Event delegation handles all pattern list interactions, no need to re-attach
 }
 
 
@@ -348,22 +384,38 @@ function renderActionButton(icon, action, title) {
   `;
 }
 
-function attachEventListeners() {
-  document.querySelectorAll('.pattern-item').forEach(item => {
-    item.addEventListener('click', handlePatternClick);
-  });
+// Event delegation for pattern list - set up once, works for all items
+function setupEventDelegation() {
+  if (!domCache.patternList) return;
 
-  document.querySelectorAll('.action-btn').forEach(btn => {
-    btn.addEventListener('click', handleActionClick);
-  });
+  // Delegate all pattern list events to the parent container
+  domCache.patternList.addEventListener('click', (event) => {
+    // Handle pattern item click
+    const patternItem = event.target.closest('.pattern-item');
+    if (patternItem && !event.target.closest('.action-btn') && !event.target.closest('.add-pattern-btn')) {
+      handlePatternClick(patternItem);
+      return;
+    }
 
-  document.querySelectorAll('.add-pattern-btn').forEach(btn => {
-    btn.addEventListener('click', handleAddPattern);
+    // Handle action button clicks (load, delete)
+    const actionBtn = event.target.closest('.action-btn');
+    if (actionBtn) {
+      event.stopPropagation();
+      handleActionClick(actionBtn);
+      return;
+    }
+
+    // Handle add pattern button clicks
+    const addBtn = event.target.closest('.add-pattern-btn');
+    if (addBtn) {
+      event.stopPropagation();
+      handleAddPattern(addBtn);
+      return;
+    }
   });
 }
 
-function handlePatternClick(event) {
-  const item = event.currentTarget;
+function handlePatternClick(item) {
   const id = item.dataset.id;
   const scope = item.dataset.scope;
 
@@ -381,27 +433,27 @@ function handlePatternClick(event) {
 }
 
 function populateDetailsView(pattern) {
-  document.getElementById('editEmptyState').style.display = 'none';
-  document.getElementById('editForm').classList.add('active');
+  domCache.editEmptyState.style.display = 'none';
+  domCache.editForm.classList.add('active');
 
-  document.getElementById('labelInput').value = pattern.label;
-  document.getElementById('findInput').value = pattern.find || '';
-  document.getElementById('replaceInput').value = pattern.replace || '';
+  domCache.labelInput.value = pattern.label;
+  domCache.findInput.value = pattern.find || '';
+  domCache.replaceInput.value = pattern.replace || '';
 
-  document.getElementById('isRegex').checked = pattern.flags.isRegex;
-  document.getElementById('isCaseSensitive').checked = pattern.flags.isCaseSensitive;
-  document.getElementById('matchWholeWord').checked = pattern.flags.matchWholeWord;
+  domCache.isRegex.checked = pattern.flags.isRegex;
+  domCache.isCaseSensitive.checked = pattern.flags.isCaseSensitive;
+  domCache.matchWholeWord.checked = pattern.flags.matchWholeWord;
 
-  updateToggleButtonState(document.getElementById('isRegexBtn'), pattern.flags.isRegex);
-  updateToggleButtonState(document.getElementById('isCaseSensitiveBtn'), pattern.flags.isCaseSensitive);
-  updateToggleButtonState(document.getElementById('matchWholeWordBtn'), pattern.flags.matchWholeWord);
+  updateToggleButtonState(domCache.isRegexBtn, pattern.flags.isRegex);
+  updateToggleButtonState(domCache.isCaseSensitiveBtn, pattern.flags.isCaseSensitive);
+  updateToggleButtonState(domCache.matchWholeWordBtn, pattern.flags.matchWholeWord);
 
-  document.getElementById('findInput').classList.remove('error');
-  document.getElementById('findValidationError').classList.remove('visible');
+  domCache.findInput.classList.remove('error');
+  domCache.findValidationError.classList.remove('visible');
   validateRegexPattern();
 
-  document.getElementById('filesToInclude').value = pattern.filesToInclude || '';
-  document.getElementById('filesToExclude').value = pattern.filesToExclude || '';
+  domCache.filesToInclude.value = pattern.filesToInclude || '';
+  domCache.filesToExclude.value = pattern.filesToExclude || '';
 
   const state = vscode.getState() || {};
   state.currentPattern = {
@@ -434,9 +486,9 @@ function handleSavePattern() {
     return;
   }
 
-  const label = document.getElementById('labelInput').value.trim();
-  const find = document.getElementById('findInput').value;
-  const replace = document.getElementById('replaceInput').value;
+  const label = domCache.labelInput.value.trim();
+  const find = domCache.findInput.value;
+  const replace = domCache.replaceInput.value;
 
   if (!label) {
     alert('Pattern name cannot be empty');
@@ -452,13 +504,13 @@ function handleSavePattern() {
     find: find,
     replace: replace,
     flags: {
-      isRegex: document.getElementById('isRegex').checked,
-      isCaseSensitive: document.getElementById('isCaseSensitive').checked,
-      matchWholeWord: document.getElementById('matchWholeWord').checked,
+      isRegex: domCache.isRegex.checked,
+      isCaseSensitive: domCache.isCaseSensitive.checked,
+      matchWholeWord: domCache.matchWholeWord.checked,
       isMultiline: false
     },
-    filesToInclude: document.getElementById('filesToInclude').value.trim() || undefined,
-    filesToExclude: document.getElementById('filesToExclude').value.trim() || undefined,
+    filesToInclude: domCache.filesToInclude.value.trim() || undefined,
+    filesToExclude: domCache.filesToExclude.value.trim() || undefined,
     scope: currentPattern.scope
   };
 
@@ -508,17 +560,17 @@ function handleLoadPatternFromDetails() {
   // Build pattern from current form values (may be dirty)
   const pattern = {
     id: currentPattern.id,
-    label: document.getElementById('labelInput').value.trim(),
-    find: document.getElementById('findInput').value,
-    replace: document.getElementById('replaceInput').value,
+    label: domCache.labelInput.value.trim(),
+    find: domCache.findInput.value,
+    replace: domCache.replaceInput.value,
     flags: {
-      isRegex: document.getElementById('isRegex').checked,
-      isCaseSensitive: document.getElementById('isCaseSensitive').checked,
-      matchWholeWord: document.getElementById('matchWholeWord').checked,
+      isRegex: domCache.isRegex.checked,
+      isCaseSensitive: domCache.isCaseSensitive.checked,
+      matchWholeWord: domCache.matchWholeWord.checked,
       isMultiline: false
     },
-    filesToInclude: document.getElementById('filesToInclude').value.trim() || undefined,
-    filesToExclude: document.getElementById('filesToExclude').value.trim() || undefined,
+    filesToInclude: domCache.filesToInclude.value.trim() || undefined,
+    filesToExclude: domCache.filesToExclude.value.trim() || undefined,
     scope: currentPattern.scope
   };
 
@@ -531,17 +583,17 @@ function handleLoadPatternFromDetails() {
 }
 
 function clearDetailsView() {
-  document.getElementById('editForm').classList.remove('active');
-  document.getElementById('editEmptyState').style.display = 'flex';
+  domCache.editForm.classList.remove('active');
+  domCache.editEmptyState.style.display = 'flex';
 
-  document.getElementById('labelInput').value = '';
-  document.getElementById('findInput').value = '';
-  document.getElementById('replaceInput').value = '';
-  document.getElementById('isRegex').checked = false;
-  document.getElementById('isCaseSensitive').checked = false;
-  document.getElementById('matchWholeWord').checked = false;
-  document.getElementById('filesToInclude').value = '';
-  document.getElementById('filesToExclude').value = '';
+  domCache.labelInput.value = '';
+  domCache.findInput.value = '';
+  domCache.replaceInput.value = '';
+  domCache.isRegex.checked = false;
+  domCache.isCaseSensitive.checked = false;
+  domCache.matchWholeWord.checked = false;
+  domCache.filesToInclude.value = '';
+  domCache.filesToExclude.value = '';
 
   const state = vscode.getState() || {};
   delete state.currentPattern;
@@ -606,48 +658,43 @@ function updateToggleButtonState(button, isActive) {
  * Validate regex pattern
  */
 function validateRegexPattern() {
-  const findInput = document.getElementById('findInput');
-  const isRegex = document.getElementById('isRegex').checked;
-  const errorDiv = document.getElementById('findValidationError');
+  const isRegex = domCache.isRegex.checked;
 
   if (!isRegex) {
     // Not using regex, clear any errors
-    findInput.classList.remove('error');
-    errorDiv.classList.remove('visible');
-    errorDiv.textContent = '';
+    domCache.findInput.classList.remove('error');
+    domCache.findValidationError.classList.remove('visible');
+    domCache.findValidationError.textContent = '';
     return true;
   }
 
-  const pattern = findInput.value;
+  const pattern = domCache.findInput.value;
 
   if (!pattern) {
     // Empty pattern is okay
-    findInput.classList.remove('error');
-    errorDiv.classList.remove('visible');
-    errorDiv.textContent = '';
+    domCache.findInput.classList.remove('error');
+    domCache.findValidationError.classList.remove('visible');
+    domCache.findValidationError.textContent = '';
     return true;
   }
 
   try {
     new RegExp(pattern);
     // Valid regex
-    findInput.classList.remove('error');
-    errorDiv.classList.remove('visible');
-    errorDiv.textContent = '';
+    domCache.findInput.classList.remove('error');
+    domCache.findValidationError.classList.remove('visible');
+    domCache.findValidationError.textContent = '';
     return true;
   } catch (e) {
     // Invalid regex
-    findInput.classList.add('error');
-    errorDiv.classList.add('visible');
-    errorDiv.textContent = `Invalid regular expression: ${e.message}`;
+    domCache.findInput.classList.add('error');
+    domCache.findValidationError.classList.add('visible');
+    domCache.findValidationError.textContent = `Invalid regular expression: ${e.message}`;
     return false;
   }
 }
 
-function handleAddPattern(event) {
-  event.stopPropagation();
-
-  const button = event.currentTarget;
+function handleAddPattern(button) {
   const scope = button.dataset.scope;
 
   // Visual feedback: disable button temporarily
@@ -668,10 +715,7 @@ function handleAddPattern(event) {
   }, 2000);
 }
 
-function handleActionClick(event) {
-  event.stopPropagation();
-
-  const button = event.currentTarget;
+function handleActionClick(button) {
   const action = button.dataset.action;
   const item = button.closest('.pattern-item');
   const id = item.dataset.id;
@@ -725,9 +769,15 @@ formInputs.forEach(id => {
   }
 });
 
-const findInput = document.getElementById('findInput');
-if (findInput) {
-  findInput.addEventListener('input', () => {
+// Initialize DOM cache for performance
+initDomCache();
+
+// Set up event delegation for pattern list (once, not per render)
+setupEventDelegation();
+
+// Add validation listener to find input
+if (domCache.findInput) {
+  domCache.findInput.addEventListener('input', () => {
     validateRegexPattern();
   });
 }

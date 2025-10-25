@@ -47,23 +47,24 @@
           <div class="form-label-with-options">
             <label class="form-label" for="findInput">Find</label>
             <div class="checkbox-group-icons">
-              <button type="button" class="toggle-btn" id="isRegexBtn" title="Use Regular Expression">
-                <i class="codicon codicon-regex"></i>
-              </button>
+
               <button type="button" class="toggle-btn" id="isCaseSensitiveBtn" title="Match Case">
                 <i class="codicon codicon-case-sensitive"></i>
               </button>
               <button type="button" class="toggle-btn" id="matchWholeWordBtn" title="Match Whole Word">
                 <i class="codicon codicon-whole-word"></i>
               </button>
+              <button type="button" class="toggle-btn" id="isRegexBtn" title="Use Regular Expression">
+                <i class="codicon codicon-regex"></i>
+              </button>
             </div>
           </div>
           <textarea class="form-textarea" id="findInput" placeholder="Search pattern or regex"></textarea>
           <div class="validation-error" id="findValidationError"></div>
           <!-- Hidden checkboxes to maintain state -->
-          <input type="checkbox" id="isRegex" hidden />
           <input type="checkbox" id="isCaseSensitive" hidden />
           <input type="checkbox" id="matchWholeWord" hidden />
+          <input type="checkbox" id="isRegex" hidden />
         </div>
 
         <div class="form-group">

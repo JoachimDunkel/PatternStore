@@ -1,6 +1,19 @@
 {
 	"patternStore.workspacePatterns": [
 		{
+			"label": "New Pattern",
+			"find": "",
+			"replace": "",
+			"flags": {
+				"isRegex": false,
+				"isCaseSensitive": false,
+				"matchWholeWord": false,
+				"isMultiline": false
+			},
+			"scope": "workspace",
+			"id": "224a6a60-011c-4933-9d86-ad4ff876590a"
+		},
+		{
 			"id": "96b356bb-8df4-44e0-bd32-12b9ca203f41",
 			"label": "New Patterndssadfsadf",
 			"find": "[sdafsdfdf",
@@ -43,18 +56,18 @@
 			"id": "1d11094a-caf8-42b5-880a-cc584622c1cd"
 		},
 		{
+			"id": "697ab1c7-3adf-467a-8a88-f7853863fbb2",
 			"label": "Refactor assignment for method 14",
 			"find": "(method_14)s*=s*(.+);",
 			"replace": "const method_14 = refactor($2);",
 			"flags": {
 				"isRegex": false,
 				"isCaseSensitive": false,
-				"matchWholeWord": true,
+				"matchWholeWord": false,
 				"isMultiline": false
 			},
 			"filesToInclude": "*.{go}",
-			"scope": "workspace",
-			"id": "697ab1c7-3adf-467a-8a88-f7853863fbb2"
+			"scope": "workspace"
 		},
 		{
 			"id": "546d8dc7-1334-42b8-84cb-6a0fe2e76045",
@@ -111,6 +124,7 @@
 			"id": "58c58eac-4b73-4394-9514-2b5c61d5dd6e"
 		},
 		{
+			"id": "32e389ba-90ff-4a50-9af6-61984de55660",
 			"label": "Add types to class 21",
 			"find": "function class21(param) {",
 			"replace": "function class21(param: any): void {",
@@ -122,8 +136,7 @@
 			},
 			"filesToInclude": "*.{php}",
 			"filesToExclude": "*.min.php",
-			"scope": "workspace",
-			"id": "32e389ba-90ff-4a50-9af6-61984de55660"
+			"scope": "workspace"
 		},
 		{
 			"label": "Convert var to const for property 22",
