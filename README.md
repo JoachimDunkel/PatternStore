@@ -2,18 +2,22 @@
 
 Save and recall reusable **regex find/replace** pairs in VS Code.
 
-## ✨ Features
-- ✅ **Load patterns** into Search panel with one keystroke
-- ✅ **Dynamic placeholders** - Use `${prompt:name}` for runtime values
-- ✅ **Global & Workspace scopes** - Share or keep local
-- ✅ **Manage patterns** - Rename and delete via UI
-- ✅ **Optional replace** - Find-only patterns supported
-- ⚠️ **Save patterns** - Currently manual (via settings.json)
+##  Features
+
+![alt text](<assets/manage-pattern-view.png> "Manage Patterns View")
+
+**Load patterns** into Search panel with one keystroke
+
+**Global & Workspace scopes** - Share or keep local
+
+**Manage patterns** - Rename and delete via UI
+
 
 ## 🚀 Quick Start
 
+
 ### Load a Pattern (Fastest!)
-1. Press `Ctrl+Alt+R`
+1. Open the Manage Pattern Press `Ctrl+Alt+R`
 2. Select a pattern
 3. ✅ Search panel opens with your pattern!
 
@@ -36,9 +40,7 @@ Save and recall reusable **regex find/replace** pairs in VS Code.
 ```
 
 ## 📋 Commands
-- `PatternStore: Load Pattern` - Load into search (`Ctrl+Alt+R`)
-- `PatternStore: Manage Patterns` - Rename/delete patterns
-- `PatternStore: Save Pattern` - ⚠️ Not yet implemented
+- `PatternStore: Manage Patterns` - Open view to load store update delete patterns (`Ctrl+Alt+R`)
 
 ## ⚙️ Settings
 - `patternStore.savedPatterns` - Global patterns (all workspaces)
@@ -82,7 +84,7 @@ See `example-settings.json` for ready-to-use patterns!
 
 ## 🎹 Keybindings
 
-Default: `Ctrl+Alt+R` for Load Pattern
+Default: `Ctrl+Alt+R` for Manage Pattern
 
 Customize in `keybindings.json`:
 ```json
@@ -91,26 +93,9 @@ Customize in `keybindings.json`:
 
 ## 📚 Documentation
 
-- `QUICK_REFERENCE.md` - Commands and usage guide
 - `ROADMAP.md` - Planned features for next version
-- `TESTING.md` - Testing instructions
 - `example-settings.json` - Example patterns to try
 
-## 🔮 Coming Soon
-
-- 🎨 **Webview dialog** for creating patterns (no more manual JSON!)
-- 📁 **File scope filters** - Include/exclude files in search
-- 🏷️ **Pattern categories** - Organize your patterns
-- 💾 **Import/Export** - Share pattern collections
-
-See `ROADMAP.md` for details!
-
-## 💡 Tips
-
-- Use `${prompt:name}` for values you enter at runtime
-- Omit `replace` field for find-only patterns
-- Create workspace patterns for project-specific searches
-- Use regex groups (`$1`, `$2`) in replacements
 
 ## 🤝 Contributing
 
