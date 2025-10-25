@@ -1,6 +1,21 @@
 {
 	"patternStore.workspacePatterns": [
 		{
+			"id": "96b356bb-8df4-44e0-bd32-12b9ca203f41",
+			"label": "New Patterndssadfsadf",
+			"find": "[sdafsdfdf",
+			"replace": "asdsafasdfsadf",
+			"flags": {
+				"isRegex": false,
+				"isCaseSensitive": true,
+				"matchWholeWord": true,
+				"isMultiline": false
+			},
+			"filesToInclude": "asdsadfsadf",
+			"filesToExclude": "asdsdf",
+			"scope": "workspace"
+		},
+		{
 			"id": "0d025081-5288-40bd-b101-fa29daa43722",
 			"label": "Invalid Regex",
 			"find": "[",
@@ -42,17 +57,19 @@
 			"id": "697ab1c7-3adf-467a-8a88-f7853863fbb2"
 		},
 		{
-			"label": "Transform property method 16",
-			"find": "this.method_16 = value;",
-			"replace": "this.method_16 = optimize(value);",
+			"id": "546d8dc7-1334-42b8-84cb-6a0fe2e76045",
+			"label": "Transform property method 16 d",
+			"find": "this.method_16 = value; dasd",
+			"replace": "this.method_16 = optimize(value); asd as",
 			"flags": {
-				"isRegex": true,
-				"isCaseSensitive": true,
-				"matchWholeWord": true,
+				"isRegex": false,
+				"isCaseSensitive": false,
+				"matchWholeWord": false,
 				"isMultiline": false
 			},
-			"scope": "workspace",
-			"id": "546d8dc7-1334-42b8-84cb-6a0fe2e76045"
+			"filesToInclude": "das das",
+			"filesToExclude": "dsaddsd",
+			"scope": "workspace"
 		},
 		{
 			"id": "a9dc35a3-f830-44ce-9b8f-554b161ad73d",

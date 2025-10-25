@@ -396,8 +396,9 @@ body {
 }
 
 .form-input.dirty,
+.form-input-inline.dirty,
 .form-textarea.dirty {
-  animation: pulseBorder 2s ease-in-out infinite;
+  box-shadow: 0 0 0 1px rgba(106, 153, 85, 0.6);
 }
 
 .form-textarea {
@@ -448,7 +449,13 @@ body {
 }
 
 .toggle-btn.dirty {
-  animation: pulseBorder 2s ease-in-out infinite;
+  border-color: #6a9955;
+}
+
+.toggle-btn.active.dirty {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border-color: #6a9955;
 }
 
 .toggle-btn .codicon {
