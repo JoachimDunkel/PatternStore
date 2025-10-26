@@ -80,7 +80,7 @@ export class WebviewManager {
     this.sendPatterns();
   }
 
-  private sendPatterns(selectId?: string, selectScope?: 'global' | 'workspace'): void {
+  private sendPatterns(selectId?: string, selectScope?: 'global' | 'workspace', clearSelection?: boolean): void {
     const allPatterns = storage.getAllPatterns();
 
     const workspacePatterns = allPatterns.filter(p => p.scope === 'workspace');
@@ -99,6 +99,10 @@ export class WebviewManager {
       };
     }
 
+    if (clearSelection) {
+      message.clearSelection = true;
+    }
+
     this.panel.webview.postMessage(message);
   }
 
@@ -112,7 +116,8 @@ export class WebviewManager {
     );
 
     // Force full reload - this clears any dirty state and rebuilds runtime IDs
-    this.sendPatterns();
+    // Pass clearSelection flag to force the webview to clear the details view
+    this.sendPatterns(undefined, undefined, true);
   }
 
   private async handleMessage(message: any): Promise<void> {

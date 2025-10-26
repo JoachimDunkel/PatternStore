@@ -190,7 +190,10 @@ window.addEventListener('message', event => {
     renderPatternList();
     setupSearchInput();
 
-    if (message.selectPattern) {
+    // Force clear selection if requested (e.g., on external config changes)
+    if (message.clearSelection) {
+      clearDetailsView();
+    } else if (message.selectPattern) {
       selectPattern(message.selectPattern.id, message.selectPattern.scope);
     } else {
       const state = vscode.getState() || {};
