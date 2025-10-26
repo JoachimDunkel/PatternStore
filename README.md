@@ -4,7 +4,7 @@ Save and recall reusable **regex find/replace** pairs in VS Code.
 
 ## Features
 
-![alt text](<assets/manage-pattern-view.png> "Manage Patterns View")
+![Manage Patterns View](assets/manage-pattern-view.png)
 
 **Load patterns** into Search panel with one keystroke
 
