@@ -3,13 +3,30 @@
   "displayName": "PatternStore",
   "description": "Save and recall reusable regex find/replace pairs in VS Code",
   "version": "0.1.0",
-  "publisher": "JoachimDunkel",
+  "publisher": "jdunkel",
   "engines": {
     "vscode": "^1.85.0"
   },
+  "icon": "assets/pattern-store-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoachimDunkel/PatternStore"
+  },
+  "keywords": [
+    "search",
+    "replace",
+    "regex",
+    "find",
+    "pattern",
+    "snippet"
+  ],
   "categories": [
     "Other"
   ],
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
