@@ -14,6 +14,7 @@ export class WebviewManager {
   private readonly scope: 'global' | 'workspace';
   private readonly extensionUri: vscode.Uri;
   private disposables: vscode.Disposable[] = [];
+  private isInternalSave: boolean = false;
 
   /**
    * Create or show the webview panel
@@ -110,7 +111,13 @@ export class WebviewManager {
    * Handle external configuration changes (e.g., manual edits to settings.json)
    */
   private handleExternalConfigChange(): void {
-    // Show warning to user
+    // Don't show notification if this was an internal save
+    if (this.isInternalSave) {
+      this.isInternalSave = false;
+      return;
+    }
+
+    // Show warning to user for actual external changes
     vscode.window.showWarningMessage(
       'Pattern settings changed externally. Webview reloaded.'
     );
@@ -173,6 +180,8 @@ export class WebviewManager {
       scope: scope
     };
 
+    // Mark as internal save to suppress external change notification
+    this.isInternalSave = true;
     await storage.savePattern(newPattern);
     // New pattern will be at index 0 (savePattern uses unshift)
     this.sendPatterns(`${scope}-0`, scope);
@@ -193,6 +202,8 @@ export class WebviewManager {
       scope: scope
     };
 
+    // Mark as internal save to suppress external change notification
+    this.isInternalSave = true;
     await storage.savePattern(pattern);
 
     this.sendPatterns(id, scope);
@@ -216,6 +227,8 @@ export class WebviewManager {
     );
 
     if (confirm === 'Delete') {
+      // Mark as internal save to suppress external change notification
+      this.isInternalSave = true;
       await storage.deletePattern(id, scope);
       // Refresh pattern list
       this.sendPatterns();

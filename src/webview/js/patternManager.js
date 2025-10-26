@@ -169,6 +169,14 @@ const getCollapseState = (section) => {
   return state[section + '_collapsed'] === true;
 };
 
+// Get collapse state with a default value if not previously set
+const getCollapseStateWithDefault = (section, defaultValue) => {
+  const state = vscode.getState() || {};
+  const key = section + '_collapsed';
+  // If user has explicitly set a preference, use it; otherwise use default
+  return state[key] !== undefined ? state[key] : defaultValue;
+};
+
 // Save collapse state to localStorage
 const setCollapseState = (section, collapsed) => {
   const state = vscode.getState() || {};
@@ -281,10 +289,11 @@ function renderPatternList() {
     return;
   }
 
-  const workspaceCollapsed = searchQuery ? false : getCollapseState('workspace');
+  // Collapse empty sections by default, but respect user's saved preference
+  const workspaceCollapsed = searchQuery ? false : getCollapseStateWithDefault('workspace', filteredWorkspace.length === 0);
   html += renderSection('workspace', 'Workspace', filteredWorkspace, workspaceCollapsed);
 
-  const userCollapsed = searchQuery ? false : getCollapseState('user');
+  const userCollapsed = searchQuery ? false : getCollapseStateWithDefault('user', filteredUser.length === 0);
   html += renderSection('user', 'User', filteredUser, userCollapsed);
 
   listContainer.innerHTML = html;

@@ -2,7 +2,7 @@
   "name": "patternstore",
   "displayName": "PatternStore",
   "description": "Save and recall reusable regex find/replace pairs in VS Code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "jdunkel",
   "engines": {
     "vscode": "^1.85.0"
@@ -33,7 +33,7 @@
       {
         "command": "patternStore.manage",
         "title": "PatternStore: Manage Patterns",
-        "icon": "$(settings-gear)"
+        "icon": "$(book)"
       }
     ],
     "configuration": {
