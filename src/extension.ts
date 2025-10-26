@@ -70,6 +70,7 @@ async function savePatternCommand(): Promise<void> {
     
     // Create pattern object
     const pattern: RegexPattern = {
+      id: 'new', // Temporary ID for new patterns
       label: label.trim(),
       find: searchState.find || '',
       replace: searchState.replace || '',

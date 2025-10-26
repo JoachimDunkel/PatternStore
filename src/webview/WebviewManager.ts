@@ -66,6 +66,17 @@ export class WebviewManager {
       this.disposables
     );
 
+    // Watch for external config changes
+    vscode.workspace.onDidChangeConfiguration(
+      e => {
+        if (e.affectsConfiguration('patternStore')) {
+          this.handleExternalConfigChange();
+        }
+      },
+      null,
+      this.disposables
+    );
+
     this.sendPatterns();
   }
 
@@ -89,6 +100,19 @@ export class WebviewManager {
     }
 
     this.panel.webview.postMessage(message);
+  }
+
+  /**
+   * Handle external configuration changes (e.g., manual edits to settings.json)
+   */
+  private handleExternalConfigChange(): void {
+    // Show warning to user
+    vscode.window.showWarningMessage(
+      'Pattern settings changed externally. Webview reloaded.'
+    );
+
+    // Force full reload - this clears any dirty state and rebuilds runtime IDs
+    this.sendPatterns();
   }
 
   private async handleMessage(message: any): Promise<void> {
@@ -131,6 +155,7 @@ export class WebviewManager {
     }
 
     const newPattern: RegexPattern = {
+      id: 'new', // Temporary ID for new patterns
       label: label,
       find: '',
       replace: '',
@@ -144,7 +169,8 @@ export class WebviewManager {
     };
 
     await storage.savePattern(newPattern);
-    this.sendPatterns(newPattern.id, newPattern.scope);
+    // New pattern will be at index 0 (savePattern uses unshift)
+    this.sendPatterns(`${scope}-0`, scope);
   }
 
 

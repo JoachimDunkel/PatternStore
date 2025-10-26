@@ -1,6 +1,8 @@
 
-export interface RegexPattern {
-  id?: string;
+/**
+ * Pattern as stored in settings.json (no runtime ID)
+ */
+export interface StoredPattern {
   label: string;
   find: string;
   replace?: string;
@@ -13,4 +15,11 @@ export interface RegexPattern {
   filesToInclude?: string;
   filesToExclude?: string;
   scope: "global" | "workspace";
+}
+
+/**
+ * Pattern with runtime ID (used in memory only)
+ */
+export interface RegexPattern extends StoredPattern {
+  id: string; // Generated at runtime: `${scope}-${index}`
 }

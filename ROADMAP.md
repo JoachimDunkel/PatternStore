@@ -6,14 +6,18 @@
 - [ ] improve/update the readme file.
 
 
-## Publish 
+## Publish
 - [ ] Final testing and bug fixes
 - [ ] Update documentation/screenshots
 - [ ] Publish updated extension to VSCode Marketplace
 ---
 
-## 6. Fix (postponed)
-- [ ] Storing id's in the config prevents user from manually editing the config file. We need to find a way to store the patterns without interfering with manual edits. Postponed for now.
+## 6. Backend Optimization (In Progress)
+- [x] Remove IDs from stored patterns in settings.json (only runtime IDs)
+- [x] Implement index-based ID generation (`${scope}-${index}`)
+- [x] Add configuration change watcher to detect external edits
+- [x] Update pattern operations (save/delete/rename) to use label+scope lookup
+- Benefits: Clean JSON for manual editing, always consistent state, handles all edge cases
 ---
 
 
