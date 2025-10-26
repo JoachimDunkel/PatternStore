@@ -2,7 +2,7 @@
 
 Save and recall reusable **regex find/replace** pairs in VS Code.
 
-##  Features
+## Features
 
 ![alt text](<assets/manage-pattern-view.png> "Manage Patterns View")
 
@@ -13,94 +13,20 @@ Save and recall reusable **regex find/replace** pairs in VS Code.
 **Manage patterns** - Rename and delete via UI
 
 
-## 🚀 Quick Start
+## Quick Start
+
+### Create Pattern
+Either create one from the PatternStore Ui, or directly in setting.json. (See) `example-settings.json` for reference.
+
+### Load a Pattern
+1. Open PatternStore - Press `Ctrl+Alt+R` (or click gear icon in search panel)
+2. Select a pattern
+3. Click **→** to load into search panel
 
 
-### Load a Pattern (Fastest!)
-1. Open the PatternStore view - via commands or click the gear icon in the search panel
-2. Select a pattern - Press -> Load to Search
-3. ✅ Search panel opens with your pattern!
+### Limitations
+**Note** that directly creating a pattern from the vs-code search and replace panel is not possible due to API limitations. They need to be manually copied for now :/
 
-### Create a Pattern Manually
-1. Open Settings: `Ctrl+Shift+P` → "Open User Settings (JSON)"
-2. Add to `patternStore.savedPatterns`:
-```json
-{
-  "label": "TODO to FIXME",
-  "find": "TODO",
-  "replace": "FIXME",
-  "flags": {
-    "isRegex": false,
-    "isCaseSensitive": true,
-    "matchWholeWord": true,
-    "isMultiline": false
-  },
-  "scope": "global"
-}
-```
-
-## 📋 Commands
-- `PatternStore: Manage Patterns` - Open view to load store update delete patterns (`Ctrl+Alt+R`)
-
-## ⚙️ Settings
-- `patternStore.savedPatterns` - Global patterns (all workspaces)
-- `patternStore.workspacePatterns` - Workspace patterns (current project)
-
-## 🎯 Example Patterns
-
-See `example-settings.json` for ready-to-use patterns!
-
-### Find-Only Pattern
-```json
-{
-  "label": "Find all TODOs",
-  "find": "TODO",
-  "flags": { "isRegex": false, "isCaseSensitive": true, "matchWholeWord": true, "isMultiline": false },
-  "scope": "global"
-}
-```
-
-### Regex Replace
-```json
-{
-  "label": "Import quotes to angles",
-  "find": "\"([^\"]+)\"",
-  "replace": "<$1>",
-  "flags": { "isRegex": true, "isCaseSensitive": false, "matchWholeWord": false, "isMultiline": false },
-  "scope": "global"
-}
-```
-
-### Dynamic Pattern
-```json
-{
-  "label": "Dynamic module import",
-  "find": "\"${prompt:module}([^\"]*)\"",
-  "replace": "<${prompt:module}$1>",
-  "flags": { "isRegex": true, "isCaseSensitive": true, "matchWholeWord": false, "isMultiline": false },
-  "scope": "global"
-}
-```
-
-## 🎹 Keybindings
-
-Default: `Ctrl+Alt+R` for Manage Pattern
-
-Customize in `keybindings.json`:
-```json
-{ "key": "ctrl+alt+r", "command": "patternStore.manage" }
-```
-
-## 📚 Documentation
-
-- `ROADMAP.md` - Planned features for next version
-- `example-settings.json` - Example patterns to try
-
-
-## 🤝 Contributing
-
-Ideas and feedback welcome! See `ROADMAP.md` for planned features.
-
-## 📄 License
+## License
 
 See LICENSE file.
